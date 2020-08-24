@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemagic2014.dao.PcrDao">
+
+
+    <insert id="addUser" parameterType="com.whitemagic2014.pojo.pcr.User">
+        insert into `pcr_user`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="uname != null">
+                uname,
+            </if>
+            <if test="gid != null">
+                gid,
+            </if>
+            <if test="role != null">
+                role,
+            </if>
+            <if test="stateTime != null">
+                stateTime,
+            </if>
+            <if test="knife != null">
+                knife,
+            </if>
+            <if test="sl != null">
+                sl,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid},
+            </if>
+            <if test="uname != null">
+                #{uname},
+            </if>
+            <if test="gid != null">
+                #{gid},
+            </if>
+            <if test="role != null">
+                #{role},
+            </if>
+            <if test="stateTime != null">
+                #{stateTime},
+            </if>
+            <if test="knife != null">
+                #{knife},
+            </if>
+            <if test="sl != null">
+                #{sl},
+            </if>
+        </trim>
+    </insert>
+
+
+    <delete id="deleteUser">
+        DELETE FROM `pcr_user` where uid = #{uid} and gid = #{gid}
+    </delete>
+
+    <delete id="deleteUserByGid">
+        DELETE FROM `pcr_user` where gid = #{gid}
+    </delete>
+
+
+    <update id="updateUser" parameterType="com.whitemagic2014.pojo.pcr.User">
+        update `pcr_user`
+        <set>
+            <if test="role != null">
+                role = #{role},
+            </if>
+            <if test="stateTime != null">
+                stateTime = #{stateTime},
+            </if>
+            <if test="knife != null">
+                knife = #{knife},
+            </if>
+            <if test="sl != null">
+                sl = #{sl},
+            </if>
+        </set>
+        where uid = #{uid} and gid = #{gid}
+    </update>
+
+    <update id="updateUserByGid">
+        update `pcr_user`
+        <set>
+            <if test="role != null">
+                role = #{role},
+            </if>
+            <if test="stateTime != null">
+                stateTime = #{stateTime},
+            </if>
+            <if test="knife != null">
+                knife = #{knife},
+            </if>
+            <if test="sl != null">
+                sl = #{sl},
+            </if>
+        </set>
+        where gid = #{gid}
+    </update>
+
+    <select id="findUserByUid" resultType="com.whitemagic2014.pojo.pcr.User">
+        select * from `pcr_user` where uid = #{uid} and gid = #{gid}
+    </select>
+
+    <select id="findUserByGid" resultType="com.whitemagic2014.pojo.pcr.User">
+        select * from `pcr_user` where gid = #{gid}
+    </select>
+
+    <insert id="addGuile" parameterType="com.whitemagic2014.pojo.pcr.Guild">
+        insert into pcr_guild(gid,gname) values (#{gid},#{gname})
+    </insert>
+
+    <delete id="deleteGuile">
+         DELETE FROM pcr_guild where gid = #{gid}
+    </delete>
+
+    <select id="findGuildByGid" resultType="com.whitemagic2014.pojo.pcr.Guild">
+         select * from pcr_guild where gid = #{gid}
+    </select>
+
+    <insert id="addBoss" parameterType="com.whitemagic2014.pojo.pcr.Boss">
+        insert into pcr_boss
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gid != null">
+                gid,
+            </if>
+            <if test="cycle != null">
+                cycle,
+            </if>
+            <if test="num != null">
+                num,
+            </if>
+            <if test="hp != null">
+                hp,
+            </if>
+            <if test="hpnow != null">
+                hpnow,
+            </if>
+            <if test="active != null">
+                active,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gid != null">
+                #{gid},
+            </if>
+            <if test="cycle != null">
+                #{cycle},
+            </if>
+            <if test="num != null">
+                #{num},
+            </if>
+            <if test="hp != null">
+                #{hp},
+            </if>
+            <if test="hpnow != null">
+                #{hpnow},
+            </if>
+            <if test="active != null">
+                #{active},
+            </if>
+        </trim>
+    </insert>
+
+
+    <delete id="deleteBossById">
+        DELETE FROM pcr_boss where id = #{id}
+    </delete>
+
+    <delete id="deleteBossByGid">
+        DELETE FROM pcr_boss where gid = #{gid}
+    </delete>
+
+    <update id="updateBoss" parameterType="com.whitemagic2014.pojo.pcr.Boss">
+        update pcr_boss
+        <set>
+            <if test="gid != null">
+                gid = #{gid},
+            </if>
+            <if test="cycle != null">
+                cycle = #{cycle},
+            </if>
+            <if test="num != null">
+                num = #{num},
+            </if>
+            <if test="hp != null">
+                hp = #{hp},
+            </if>
+            <if test="hpnow != null">
+                hpnow = #{hpnow},
+            </if>
+            <if test="active != null">
+                active = #{active},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findBossActiveByGid" resultType="com.whitemagic2014.pojo.pcr.Boss">
+        select * from pcr_boss where gid = #{gid} and active = 1
+    </select>
+
+    <select id="findBossDefineByGid"  resultType="com.whitemagic2014.pojo.pcr.Boss">
+        select * from pcr_boss where gid = #{gid} and cycle = #{cycle} and num = #{num}
+    </select>
+
+    <insert id="addBattle" parameterType="com.whitemagic2014.pojo.pcr.Battle">
+        insert into pcr_battle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bossid != null">
+                bossid,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="uname != null">
+                uname,
+            </if>
+            <if test="gid != null">
+                gid,
+            </if>
+            <if test="damage != null">
+                damage,
+            </if>
+            <if test="killboss != null">
+                killboss,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+            <if test="time != null">
+                `time`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bossid != null">
+                #{bossid},
+            </if>
+            <if test="uid != null">
+                #{uid},
+            </if>
+            <if test="uname != null">
+                #{uname},
+            </if>
+            <if test="gid != null">
+                #{gid},
+            </if>
+            <if test="damage != null">
+                #{damage},
+            </if>
+            <if test="killboss != null">
+                #{killboss},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="time != null">
+                #{time},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteBattle">
+        delete from pcr_battle where id = #{id}
+    </delete>
+
+    <delete id="deleteBattleByGid">
+        delete from pcr_battle where gid = #{gid}
+    </delete>
+
+    <select id="findLastBattle"  resultType="com.whitemagic2014.pojo.pcr.Battle">
+        SELECT * from pcr_battle where gid = #{gid} and uid = #{uid} order by id DESC limit 1
+    </select>
+
+    <select id="findBattleByConditions" parameterType="com.whitemagic2014.pojo.pcr.Battle"
+            resultType="com.whitemagic2014.pojo.pcr.Battle">
+        select * from pcr_battle
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="bossid != null">
+                and bossid = #{bossid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="uname != null and uname != ''">
+                and uname = #{uname}
+            </if>
+            <if test="gid != null">
+                and gid = #{gid}
+            </if>
+            <if test="damage != null">
+                and damage = #{damage}
+            </if>
+            <if test="killboss != null">
+                and killboss = #{killboss}
+            </if>
+            <if test="type != null">
+                and `type` = #{type}
+            </if>
+            <if test="time != null and time != ''">
+                and `time` = #{time}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addNotice" parameterType="com.whitemagic2014.pojo.pcr.Notice">
+        insert into pcr_notice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gid != null">
+                gid,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="bossNum != null">
+                bossNum,
+            </if>
+            <if test="type != null">
+                `type`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gid != null">
+                #{gid},
+            </if>
+            <if test="uid != null">
+                #{uid},
+            </if>
+            <if test="bossNum != null">
+                #{bossNum},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+        </trim>
+    </insert>
+
+
+    <delete id="deleteNotice" parameterType="com.whitemagic2014.pojo.pcr.Notice">
+        delete from pcr_notice
+        <where>
+            <if test="gid != null">
+                and gid = #{gid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="bossNum != null">
+                and bossNum = #{bossNum}
+            </if>
+            <if test="type != null">
+                and `type` = #{type}
+            </if>
+        </where>
+    </delete>
+
+    <select id="findNoticeByConditions" parameterType="com.whitemagic2014.pojo.pcr.Notice"
+            resultType="com.whitemagic2014.pojo.pcr.Notice">
+        select * from pcr_notice
+        <where>
+            <if test="bossNum != null">
+                and bossNum = #{bossNum}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="gid != null">
+                and gid = #{gid}
+            </if>
+            <if test="type != null">
+                and `type` = #{type}
+            </if>
+        </where>
+    </select>
+
+</mapper>

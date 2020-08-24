@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemagic2014.dao.BotDBDao">
+
+    <select id="DBVersion" resultType="com.whitemagic2014.pojo.BotDB">
+        select * from DBInfo where id = 1;
+    </select>
+
+    <update id="updateDBVersion" parameterType="com.whitemagic2014.pojo.BotDB">
+        UPDATE DBInfo SET version = #{version} ,updateDate = #{updateDate} WHERE id = 1
+    </update>
+
+    <select id="checkTableExist" resultType="java.lang.Boolean">
+        select count(1) from Sqlite_master where type = 'table' and name = #{tableName}
+    </select>
+
+    <select id="tables" resultType="java.lang.String">
+        select name from Sqlite_master where type = 'table'
+    </select>
+
+    <update id="runDDLSql">
+        ${sql}
+    </update>
+
+</mapper>

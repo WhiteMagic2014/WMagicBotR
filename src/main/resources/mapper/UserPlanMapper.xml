@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemagic2014.dao.UserPlanDao">
+
+    <select id="findPlans" resultType="com.whitemagic2014.pojo.UserPlan">
+        select * from user_plan
+        <where>
+            <if test="uid != null and uid != ''">
+                and uid = #{uid}
+            </if>
+            <if test="itemName != null and itemName != ''">
+                and itemName = #{itemName}
+            </if>
+        </where>
+    </select>
+
+    <insert id="instertPlan" parameterType="com.whitemagic2014.pojo.UserPlan" useGeneratedKeys="true" keyProperty="id">
+        insert into user_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="itemId != null">
+                itemId,
+            </if>
+            <if test="itemName != null">
+                itemName,
+            </if>
+            <if test="nowNum != null">
+                nowNum,
+            </if>
+            <if test="planNum != null">
+                planNum,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid},
+            </if>
+            <if test="itemId != null">
+                #{itemId},
+            </if>
+            <if test="itemName != null">
+                #{itemName},
+            </if>
+            <if test="nowNum != null">
+                #{nowNum},
+            </if>
+            <if test="planNum != null">
+                #{planNum},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updatePlan" parameterType="com.whitemagic2014.pojo.UserPlan">
+        update user_plan
+        <set>
+            <if test="uid != null">
+                uid = #{uid},
+            </if>
+            <if test="itemId != null">
+                itemId = #{itemId},
+            </if>
+            <if test="itemName != null">
+                itemName = #{itemName},
+            </if>
+            <if test="nowNum != null">
+                nowNum = #{nowNum},
+            </if>
+            <if test="planNum != null">
+                planNum = #{planNum},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePlan">
+		DELETE FROM user_plan WHERE id = #{id}
+	</delete>
+
+</mapper>
