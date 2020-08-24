@@ -3,43 +3,41 @@ package com.whitemagic2014.command.impl.group.pcr.operation;
 import com.whitemagic2014.command.impl.group.pcr.PcrNoAuthCommand;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.pojo.pcr.Battle;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
-import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * @Description: 取消预约boss
+ * @Description: 查刀
  * @author: magic chen
- * @date: 2020/8/24 22:29
+ * @date: 2020/8/24 23:30
  **/
 @Component
-public class CancelOrder extends PcrNoAuthCommand {
-
-    String txt = "取消预约/取消预定/取消 [1-5]";
-
+public class CheckKnife extends PcrNoAuthCommand {
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
 
-        try {
-            Integer num = Integer.valueOf(args.get(0));
-            if (num < 1 || num > 5) {
-                return new At(sender).plus("指令错误: " + txt);
-            }
-            PrivateModel<String> result = pcrBotService.cancelOrder(subject.getId(), sender.getId(), num);
-            return simpleMsg(sender, result);
-        } catch (Exception e) {
-            return new At(sender).plus("指令错误:" + txt);
+        PrivateModel<List<Battle>> result = pcrBotService.checkKnife(subject.getId(), false);
+        if (!result.isSuccess()) {
+            return simpleErrMsg(sender, result);
         }
 
+        List<Battle> data = result.getReturnObject();
+
+        String str = data.stream().map(Battle::toString).map(s -> s.concat("\n")).reduce("", String::concat);
+
+        return new PlainText(str);
     }
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("取消预约", "取消", "取消预定");
+        return new CommandProperties("查刀");
     }
 }

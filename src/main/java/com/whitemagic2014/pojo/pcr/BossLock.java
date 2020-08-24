@@ -14,9 +14,10 @@ public class BossLock {
     //锁定类型为 申请出刀
     public static final String request = "request";
 
-    public BossLock(Long uid, String desc) {
+    public BossLock(Long uid, String uname, String desc) {
         this.uid = uid;
         this.desc = desc;
+        this.uname = uname;
     }
 
     public BossLock() {
@@ -27,6 +28,9 @@ public class BossLock {
 
     // 锁定类型 申请出刀会在出刀后自动解锁
     String desc;
+
+    // 锁定用户名
+    String uname;
 
     public void setUid(Long uid) {
         this.uid = uid;
@@ -42,5 +46,13 @@ public class BossLock {
 
     public String getDesc() {
         return desc;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
+    }
+
+    public String getUname() {
+        return uname;
     }
 }

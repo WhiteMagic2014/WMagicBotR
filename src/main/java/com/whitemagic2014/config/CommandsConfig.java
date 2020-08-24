@@ -78,6 +78,9 @@ public class CommandsConfig {
     CheckBoss checkBoss;
 
     @Autowired
+    CheckKnife checkKnife;
+
+    @Autowired
     OnTree onTree;
 
     @Autowired
@@ -92,6 +95,15 @@ public class CommandsConfig {
     @Autowired
     CheckOrder checkOrder;
 
+    @Autowired
+    RequestAttack requestAttack;
+
+    @Autowired
+    LockBoss lockBoss;
+
+    @Autowired
+    RemoveLock removeLock;
+
 
     @Bean(name = "initCommandHeads")
     public String[] initCommandHeads() {
@@ -104,14 +116,16 @@ public class CommandsConfig {
     @Bean(name = "initCommands")
     public Command[] initCommands() {
         Command[] commands = new Command[]{
-                hello, luck, roll, plan, checkdb, decode, encode, caneat,
+                hello,
+                checkdb,
+                luck, roll, plan, decode, encode, caneat,
                 createGuild, initGuildData, delGuild,
                 addMember, addMemberAll,
-                attackKnife, endKnife, cancelKnife, checkBoss,
+                attackKnife, endKnife, cancelKnife, checkBoss, checkKnife,
                 sl, sLcheck,
                 onTree, checkTree,
-                orderBoss, cancelOrder, checkOrder
-
+                orderBoss, cancelOrder, checkOrder,
+                requestAttack, lockBoss, removeLock
         };
         return commands;
     }

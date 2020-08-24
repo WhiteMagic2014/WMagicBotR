@@ -20,7 +20,7 @@ import java.util.ArrayList;
 @Component
 public class OrderBoss extends PcrNoAuthCommand {
 
-    String txt = "[预约/预定] [1-5]";
+    String txt = "预约/预定 [1-5]";
 
     @Override
     public CommandProperties properties() {

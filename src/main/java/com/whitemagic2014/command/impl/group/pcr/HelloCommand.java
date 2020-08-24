@@ -8,11 +8,11 @@ import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-
 
 
 /**
@@ -29,17 +29,13 @@ public class HelloCommand extends PcrNoAuthCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("test");
+        return new CommandProperties("hello");
     }
 
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
 
-        At at = messageChain.first(At.Key);
-
-        At at2 = new At(sender);
-
-        return at.plus(at2).plus(at2);
+        return new PlainText("hello" + sender.getNameCard());
 
     }
 

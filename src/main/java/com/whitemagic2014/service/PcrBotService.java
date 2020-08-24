@@ -1,11 +1,9 @@
 package com.whitemagic2014.service;
 
 import com.whitemagic2014.pojo.PrivateModel;
-import com.whitemagic2014.pojo.pcr.Guild;
+import com.whitemagic2014.pojo.pcr.Battle;
 import com.whitemagic2014.pojo.pcr.Notice;
-import com.whitemagic2014.pojo.pcr.User;
 import net.mamoe.mirai.contact.Group;
-import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.contact.MemberPermission;
 
 import java.util.List;
@@ -114,6 +112,17 @@ public interface PcrBotService {
      **/
     PrivateModel<Map<String, String>> endKnife(Long gid, Long uid, Boolean yesterday);
 
+
+    /**
+     * @Name: checkKnife
+     * @Description: 查刀
+     * @Param: gid
+     * @Param: findall  true查询所有刀,false查询当天到
+     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Author: magic chen
+     * @Date: 2020/8/24 23:25
+     **/
+    PrivateModel<List<Battle>> checkKnife(Long gid, Boolean findall);
 
     /**
      * @Name: checkBossState
@@ -235,12 +244,13 @@ public interface PcrBotService {
      * @Description: 群内锁定boss 锁定3分钟,超时自动解锁
      * @Param: gid qq群号
      * @Param: uid 锁定用户的人
+     * @Param: uname 用户名
      * @Param: desc 是申请出刀还是其他留言什么的
      * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 10:04
      **/
-    PrivateModel<String> bossLock(Long gid, Long uid, String desc);
+    PrivateModel<String> bossLock(Long gid, Long uid, String uname, String desc);
 
 
     /**

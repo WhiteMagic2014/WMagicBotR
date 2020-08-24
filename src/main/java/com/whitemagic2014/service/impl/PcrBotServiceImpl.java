@@ -410,6 +410,24 @@ public class PcrBotServiceImpl implements PcrBotService {
 
 
     @Override
+    public PrivateModel<List<Battle>> checkKnife(Long gid,Boolean findall) {
+
+        PrivateModel<Guild> gexist = checkGuildExist(gid);
+        if (!gexist.isSuccess()) {
+            return new PrivateModel<List<Battle>>().wrapper(gexist);
+        }
+
+        Battle cond = new Battle();
+        if (!findall){
+            cond.setTime(MagicHelper.pcrToday());
+        }
+        cond.setGid(gid);
+        List<Battle> datas = pcrDao.findBattleByConditions(cond);
+        return new PrivateModel<>(ReturnCode.SUCCESS, "success", datas);
+    }
+
+
+    @Override
     public PrivateModel<String> checkBossState(Long gid) {
 
         // 查工会在不在
@@ -563,7 +581,7 @@ public class PcrBotServiceImpl implements PcrBotService {
     }
 
     @Override
-    public PrivateModel<String> cancelOrder(Long gid, Long uid,Integer num) {
+    public PrivateModel<String> cancelOrder(Long gid, Long uid, Integer num) {
 
         // 查工会在不在
         PrivateModel<Guild> gexist = checkGuildExist(gid);
@@ -673,7 +691,7 @@ public class PcrBotServiceImpl implements PcrBotService {
     }
 
     @Override
-    public PrivateModel<String> bossLock(Long gid, Long uid, String desc) {
+    public PrivateModel<String> bossLock(Long gid, Long uid, String uname, String desc) {
 
         // 查工会在不在
         PrivateModel<Guild> gexist = checkGuildExist(gid);
@@ -692,7 +710,7 @@ public class PcrBotServiceImpl implements PcrBotService {
         }
 
 
-        MagicMaps.putWithExpire(BossLock.getLockname(gid), new BossLock(uid, desc), 3L, TimeUnit.MINUTES);
+        MagicMaps.putWithExpire(BossLock.getLockname(gid), new BossLock(uid, uname, desc), 3L, TimeUnit.MINUTES);
         return new PrivateModel<>(ReturnCode.SUCCESS,
                 "success",
                 "已经锁定boss,锁定时间3分钟,超时自动解锁");
@@ -727,7 +745,7 @@ public class PcrBotServiceImpl implements PcrBotService {
         if (lock != null) {
             // 有锁定
             return new PrivateModel<>(ReturnCode.FAIL,
-                    "当前boss被锁定,用户[" + lock.getUid() + "]" + (lock.getDesc().equals(BossLock.request) ? " 申请出刀中" : "留言: " + lock.getDesc()));
+                    "当前boss被锁定,用户[" + lock.getUname() + "]" + (lock.getDesc().equals(BossLock.request) ? " 申请出刀中" : "留言: " + lock.getDesc()));
         } else {
             // 当前无锁定
             return new PrivateModel<>(ReturnCode.SUCCESS,

@@ -108,4 +108,19 @@ public class Battle {
     public Boolean getKillboss() {
         return killboss;
     }
+
+    @Override
+    public String toString() {
+        return "Battle{" +
+                "id=" + id +
+                ", bossid=" + bossid +
+                ", uid=" + uid +
+                ", uname='" + uname + '\'' +
+                ", gid=" + gid +
+                ", damage=" + damage +
+                ", killboss=" + killboss +
+                ", type=" + type +
+                ", time='" + time + '\'' +
+                '}';
+    }
 }
