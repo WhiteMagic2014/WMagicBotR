@@ -5,7 +5,6 @@ import com.whitemagic2014.dic.*;
 import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcr.*;
 import com.whitemagic2014.service.PcrBotService;
-import com.whitemagic2014.util.DateFormatUtil;
 import com.whitemagic2014.util.MagicHelper;
 import com.whitemagic2014.util.MagicMaps;
 import net.mamoe.mirai.contact.Group;
@@ -16,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -121,9 +123,7 @@ public class PcrBotServiceImpl implements PcrBotService {
         pcrDao.addBoss(boss);
 
         User reset = new User();
-        reset.setKnife(3);
         reset.setSl(false);
-        reset.setStateTime(DateFormatUtil.sdf.format(new Date()));
         reset.setGid(gid);
         pcrDao.updateUserByGid(reset);
         return new PrivateModel<>(ReturnCode.SUCCESS,
@@ -208,14 +208,28 @@ public class PcrBotServiceImpl implements PcrBotService {
             return new PrivateModel<String>().wrapper(uexist);
         }
 
+        if (damage <= 0L) {
+            return new PrivateModel<>(ReturnCode.FAIL, "指令错误,报刀伤害需要大于等于0,不然你报啥呢？");
+        }
 
         User user = pcrDao.findUserByUid(gid, uid);
-        //不是报昨日刀 需要刷新最新状态
-        if (!yesterday) {
-            user.refresh();
+        String pcrDay;
+        String daystr;
+        if (yesterday) {
+            pcrDay = MagicHelper.pcrYesterday();
+            daystr = "昨日";
+        } else {
+            pcrDay = MagicHelper.pcrToday();
+            daystr = "今日";
         }
-        if (user.getKnife() == 0) {
-            return new PrivateModel<>(ReturnCode.FAIL, "[" + user.getUname() + "] 今日三刀已经出完,请不要重复报刀");
+        // 今日非补偿刀数量
+        int knifeNum = pcrDao.checkKnifeNum(gid, uid, pcrDay);
+        // 用户上一刀
+        Battle lastKnife = pcrDao.findLastBattleSelf(gid, uid);
+
+        if (knifeNum >= 3 && lastKnife.getType().isNotEnd()) {
+            return new PrivateModel<>(ReturnCode.FAIL, "[" + user.getUname() + "] " +
+                    daystr + "三刀已经出完,请不要重复报刀");
         }
         Boss bossActive = pcrDao.findBossActiveByGid(gid);
         // 检查血量是否应该报尾刀
@@ -229,19 +243,6 @@ public class PcrBotServiceImpl implements PcrBotService {
         // 更新boss血量
         bossUpdate.setHpnow(remainHp);
         pcrDao.updateBoss(bossUpdate);
-        // 更新用户出刀状态
-        User userUpdate = new User();
-        userUpdate.setUid(uid);
-        userUpdate.setGid(gid);
-        userUpdate.setKnife(user.getKnife() - 1);
-        pcrDao.updateUser(userUpdate);
-        // 该用户出刀后删除申请出刀的锁定
-        if (MagicMaps.check(BossLock.getLockname(gid))) {
-            BossLock lock = MagicMaps.get(BossLock.getLockname(gid), BossLock.class);
-            if (lock != null && lock.getUid().equals(uid) && lock.getDesc().equals(BossLock.request)) {
-                MagicMaps.remove(BossLock.getLockname(gid));
-            }
-        }
 
 
         // 记录出刀记录
@@ -251,23 +252,32 @@ public class PcrBotServiceImpl implements PcrBotService {
         battle.setUname(user.getUname());
         battle.setGid(gid);
         battle.setDamage(damage);
-        battle.setTime(user.getStateTime().split(" ")[0]);
+        battle.setTime(pcrDay);
         battle.setKillboss(false);
+
         String knife;
-
-        Battle lastKnife = pcrDao.findLastBattle(gid, uid);
-
+        int knifeNumNotice;
         if (lastKnife != null && lastKnife.getType().isEnd()) {
             knife = "补偿刀";
             battle.setType(BattleType.extra);
+            knifeNumNotice = knifeNum;
         } else {
             knife = "完整刀";
             battle.setType(BattleType.nomal);
+            knifeNumNotice = knifeNum + 1;
         }
         pcrDao.addBattle(battle);
 
+        // 该用户出刀后删除申请出刀的锁定
+        if (MagicMaps.check(BossLock.getLockname(gid))) {
+            BossLock lock = MagicMaps.get(BossLock.getLockname(gid), BossLock.class);
+            if (lock != null && lock.getUid().equals(uid) && lock.getDesc().equals(BossLock.request)) {
+                MagicMaps.remove(BossLock.getLockname(gid));
+            }
+        }
+
         String result = "[" + user.getUname() + "]对boss造成了" + MagicHelper.longAddComma(damage) + "点伤害\n" +
-                "（今日第" + (4 - user.getKnife()) + "刀," + knife + "）\n" +
+                "（" + daystr + "第" + knifeNumNotice + "刀," + knife + "）\n" +
                 "现在" + bossActive.getCycle() + "周目," + bossActive.getNum() + "号boss\n" +
                 "生命值" + MagicHelper.longAddComma(remainHp);
         return new PrivateModel<>(ReturnCode.SUCCESS,
@@ -290,12 +300,26 @@ public class PcrBotServiceImpl implements PcrBotService {
         }
 
         User user = pcrDao.findUserByUid(gid, uid);
-        //不是报昨日刀 需要刷新最新状态
-        if (!yesterday) {
-            user.refresh();
+        String pcrDay;
+        String daystr;
+        if (yesterday) {
+            pcrDay = MagicHelper.pcrYesterday();
+            daystr = "昨日";
+        } else {
+            pcrDay = MagicHelper.pcrToday();
+            daystr = "今日";
         }
-        if (user.getKnife() == 0) {
-            return new PrivateModel<>(ReturnCode.FAIL, "[" + user.getUname() + "] 今日三刀已经出完,请不要重复报刀");
+        // 今日非补偿刀数量
+        int knifeNum = pcrDao.checkKnifeNum(gid, uid, pcrDay);
+        System.out.println("knifeNum：" + knifeNum);
+        System.out.println("pcrDay：" + pcrDay);
+
+        // 用户上一刀
+        Battle lastKnife = pcrDao.findLastBattleSelf(gid, uid);
+
+        if (knifeNum >= 3 && lastKnife.getType().isNotEnd()) {
+            return new PrivateModel<>(ReturnCode.FAIL, "[" + user.getUname() + "] " +
+                    daystr + "三刀已经出完,请不要重复报刀");
         }
 
         Boss bossActive = pcrDao.findBossActiveByGid(gid);
@@ -320,8 +344,25 @@ public class PcrBotServiceImpl implements PcrBotService {
         battle.setUname(user.getUname());
         battle.setGid(gid);
         battle.setDamage(damage);
-        battle.setTime(user.getStateTime().split(" ")[0]);
+        battle.setTime(pcrDay);
         battle.setKillboss(true);
+
+        String knife;
+        int knifeNumNotice;
+        if (lastKnife != null && lastKnife.getType().isEnd()) {
+            // 上一刀是尾刀 这一刀是补偿刀收尾 下一刀不是补偿刀
+            battle.setType(BattleType.extra);
+            knife = "补偿刀收尾,下一刀无补偿";
+            knifeNumNotice = knifeNum;
+        } else {
+            // 上一刀不是尾刀 这刀不是补偿刀,是尾刀
+            battle.setType(BattleType.end);
+            knife = "收尾刀,下一刀补偿刀";
+            knifeNumNotice = knifeNum + 1;
+        }
+
+        pcrDao.addBattle(battle);
+
         // 该用户出刀后删除申请出刀的锁定
         if (MagicMaps.check(BossLock.getLockname(gid))) {
             BossLock lock = MagicMaps.get(BossLock.getLockname(gid), BossLock.class);
@@ -330,27 +371,6 @@ public class PcrBotServiceImpl implements PcrBotService {
             }
         }
 
-
-        String knife;
-        Battle lastKnife = pcrDao.findLastBattle(gid, uid);
-        if (lastKnife != null && lastKnife.getType().isEnd()) {
-            // 上一刀是尾刀 这一刀是补偿刀收尾刀 还是会扣次数
-            // 修改用户出刀状态
-            User userUpdate = new User();
-            userUpdate.setUid(uid);
-            userUpdate.setKnife(user.getKnife() - 1);
-            userUpdate.setGid(gid);
-            pcrDao.updateUser(userUpdate);
-
-            battle.setType(BattleType.extra);
-            knife = "补偿刀收尾,下一刀无补偿";
-        } else {
-            // 上一刀不是尾刀 这刀不是补偿刀,是尾刀
-            battle.setType(BattleType.end);
-            knife = "收尾刀,下一刀补偿刀";
-        }
-
-        pcrDao.addBattle(battle);
 
         //挂树和预约通知 需要@的人
         Notice tree = new Notice();
@@ -379,7 +399,7 @@ public class PcrBotServiceImpl implements PcrBotService {
 
         Map<String, String> resultMap = new HashMap<>();
         resultMap.put("nomal", "[" + user.getUname() + "]对boss造成了" + MagicHelper.longAddComma(damage) + "点伤害,击败了boss\n" +
-                "（今日第" + (4 - user.getKnife()) + "刀," + knife + "）\n" +
+                "（" + daystr + "第" + knifeNumNotice + "刀," + knife + "）\n" +
                 "现在" + bossNew.getCycle() + "周目," + bossNew.getNum() + "号boss\n" +
                 "生命值" + MagicHelper.longAddComma(bossNew.getHpnow()));
         resultMap.put(PcrNoticeType.tree.name(), "当前boss已被击败,您已下树");
@@ -410,7 +430,7 @@ public class PcrBotServiceImpl implements PcrBotService {
     }
 
     @Override
-    public PrivateModel<String> cancelKnfie(Long gid, Long uid) {
+    public PrivateModel<String> cancelKnfie(Long gid, Long sender) {
 
         // 查工会在不在
         PrivateModel<Guild> gexist = checkGuildExist(gid);
@@ -418,19 +438,23 @@ public class PcrBotServiceImpl implements PcrBotService {
             return new PrivateModel<String>().wrapper(gexist);
         }
         // 查目标人员在不在
-        PrivateModel<User> uexist = checkUserExist(gid, uid);
+        PrivateModel<User> uexist = checkUserExist(gid, sender);
         if (!uexist.isSuccess()) {
             return new PrivateModel<String>().wrapper(uexist);
         }
+        User userSender = uexist.getReturnObject();
 
-        Battle lastKnife = pcrDao.findLastBattle(gid, uid);
-
+        // 整个工会 上一刀
+        Battle lastKnife = pcrDao.findLastBattleGuild(gid);
         if (lastKnife == null) {
             return new PrivateModel<>(ReturnCode.FAIL, "已经没有可以撤回的刀了");
         }
-
+        // 仅本人可以撤回 或者管理员撤回
+        if (lastKnife.getUid() != sender && !userSender.getRole().isAdmin()) {
+            return new PrivateModel<>(ReturnCode.FAIL,
+                    "非管理员只能撤销自己的刀,上一刀用户" + lastKnife.getUname() + "[" + lastKnife.getUid() + "]");
+        }
         Boss active = pcrDao.findBossActiveByGid(gid);
-
         int cycle, num;
         Long hpnow;
         if (lastKnife.getKillboss()) {
@@ -458,22 +482,12 @@ public class PcrBotServiceImpl implements PcrBotService {
             pcrDao.updateBoss(activeUpdate);
         }
 
-        // 要撤销的这刀不是尾刀(尾刀不消耗次数),恢复刀数量
-        if (!lastKnife.getType().isEnd()) {
-            User user = pcrDao.findUserByUid(gid, uid);
-            User userUpdate = new User();
-            userUpdate.setUid(uid);
-            userUpdate.setKnife(user.getKnife() + 1);
-            userUpdate.setGid(gid);
-            pcrDao.updateUser(userUpdate);
-        }
-
         // 删除出刀记录
         pcrDao.deleteBattle(lastKnife.getId());
 
         return new PrivateModel<>(ReturnCode.SUCCESS,
                 "success",
-                "已经撤销,现在" + cycle + "周目," + num + "号boss\n" +
+                "\n已经撤销" + lastKnife.getUname() + "[" + lastKnife.getUid() + "]的出刀,现在" + cycle + "周目," + num + "号boss\n" +
                         "生命值" + MagicHelper.longAddComma(hpnow));
     }
 
@@ -834,8 +848,6 @@ public class PcrBotServiceImpl implements PcrBotService {
         } else {
             temp.setRole(UserRole.MEMBER);
         }
-        temp.setStateTime(DateFormatUtil.sdf.format(new Date()));
-        temp.setKnife(3);
         temp.setSl(false);
         return temp;
     }

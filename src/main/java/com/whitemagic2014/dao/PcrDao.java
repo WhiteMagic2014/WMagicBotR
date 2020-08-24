@@ -34,7 +34,7 @@ public interface PcrDao {
      * @Author: magic chen
      * @Date: 2020/8/22 15:34
      **/
-    int deleteUser(@Param("gid") Long gid,@Param("uid") Long uid);
+    int deleteUser(@Param("gid") Long gid, @Param("uid") Long uid);
 
     /**
      * @Name: deleteUserByGid
@@ -226,7 +226,18 @@ public interface PcrDao {
      * @Author: magic chen
      * @Date: 2020/8/22 18:50
      **/
-    Battle findLastBattle(@Param("gid") Long gid,@Param("uid") Long uid);
+    Battle findLastBattleSelf(@Param("gid") Long gid, @Param("uid") Long uid);
+
+
+    /**
+     * @Name: findLastBattleGuild
+     * @Description: 找到全公会最后一刀
+     * @Param: gid
+     * @Return: com.whitemagic2014.pojo.pcr.Battle
+     * @Author: magic chen
+     * @Date: 2020/8/24 17:01
+     **/
+    Battle findLastBattleGuild(@Param("gid") Long gid);
 
     /**
      * @Name: findBattleByConditions
@@ -238,6 +249,17 @@ public interface PcrDao {
      **/
     List<Battle> findBattleByConditions(Battle battle);
 
+    /**
+     * @Name: checkKnifeNum
+     * @Description: 注意要查询的刀 type != BattleType.extra 补偿刀不计数
+     * @Param: gid
+     * @Param: uid
+     * @Param: time
+     * @Return: int
+     * @Author: magic chen
+     * @Date: 2020/8/24 16:47
+     **/
+    int checkKnifeNum(@Param("gid") Long gid, @Param("uid") Long uid, @Param("time") String time);
 
     /**
      * @Name: addNotice

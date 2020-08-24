@@ -76,7 +76,7 @@ public interface PcrBotService {
      * @Author: magic chen
      * @Date: 2020/8/23 11:42
      **/
-    PrivateModel<String> removeMemer(Long gid,Long uid);
+    PrivateModel<String> removeMemer(Long gid, Long uid);
 
     /**
      * @Name: addAllMemer
@@ -129,12 +129,12 @@ public interface PcrBotService {
      * @Name: cancelKnfie
      * @Description: 撤销最后一次报刀
      * @Param: gid
-     * @Param: uid
+     * @Param: sender 注意这个不是要撤销这个人，而是这个发送人，要看有无权限撤销(自己可以撤销自己,管理员可以撤销所有)
      * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 18:54
      **/
-    PrivateModel<String> cancelKnfie(Long gid, Long uid);
+    PrivateModel<String> cancelKnfie(Long gid, Long sender);
 
     /**
      * @Name: sl

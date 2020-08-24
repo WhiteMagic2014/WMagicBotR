@@ -20,4 +20,8 @@ public enum BattleType {
         return this.equals(end);
     }
 
+    public boolean isNotEnd() {
+        return !this.equals(end);
+    }
+
 }

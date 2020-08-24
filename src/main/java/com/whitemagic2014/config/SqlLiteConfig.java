@@ -99,8 +99,6 @@ public class SqlLiteConfig {
                 " \"uname\" TEXT(64),\n" +
                 " \"role\" TEXT(8),\n" +
                 " \"gid\" INTEGER,\n" +
-                " \"stateTime\" TEXT(32),\n" +
-                " \"knife\" INTEGER,\n"+
                 " \"sl\" INTEGER\n"+
                 ");");
         sql_0_0_4.add("DROP TABLE IF EXISTS pcr_boss");

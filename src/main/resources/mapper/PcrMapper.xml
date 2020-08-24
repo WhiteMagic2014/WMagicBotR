@@ -18,12 +18,6 @@
             <if test="role != null">
                 role,
             </if>
-            <if test="stateTime != null">
-                stateTime,
-            </if>
-            <if test="knife != null">
-                knife,
-            </if>
             <if test="sl != null">
                 sl,
             </if>
@@ -40,12 +34,6 @@
             </if>
             <if test="role != null">
                 #{role},
-            </if>
-            <if test="stateTime != null">
-                #{stateTime},
-            </if>
-            <if test="knife != null">
-                #{knife},
             </if>
             <if test="sl != null">
                 #{sl},
@@ -66,14 +54,11 @@
     <update id="updateUser" parameterType="com.whitemagic2014.pojo.pcr.User">
         update `pcr_user`
         <set>
+            <if test="uname != null">
+                uname = #{uname},
+            </if>
             <if test="role != null">
                 role = #{role},
-            </if>
-            <if test="stateTime != null">
-                stateTime = #{stateTime},
-            </if>
-            <if test="knife != null">
-                knife = #{knife},
             </if>
             <if test="sl != null">
                 sl = #{sl},
@@ -85,14 +70,11 @@
     <update id="updateUserByGid">
         update `pcr_user`
         <set>
+            <if test="uname != null">
+                uname = #{uname},
+            </if>
             <if test="role != null">
                 role = #{role},
-            </if>
-            <if test="stateTime != null">
-                stateTime = #{stateTime},
-            </if>
-            <if test="knife != null">
-                knife = #{knife},
             </if>
             <if test="sl != null">
                 sl = #{sl},
@@ -271,9 +253,14 @@
         delete from pcr_battle where gid = #{gid}
     </delete>
 
-    <select id="findLastBattle"  resultType="com.whitemagic2014.pojo.pcr.Battle">
+    <select id="findLastBattleSelf" resultType="com.whitemagic2014.pojo.pcr.Battle">
         SELECT * from pcr_battle where gid = #{gid} and uid = #{uid} order by id DESC limit 1
     </select>
+
+    <select id="findLastBattleGuild" resultType="com.whitemagic2014.pojo.pcr.Battle">
+        SELECT * from pcr_battle where gid = #{gid} order by id DESC limit 1
+    </select>
+
 
     <select id="findBattleByConditions" parameterType="com.whitemagic2014.pojo.pcr.Battle"
             resultType="com.whitemagic2014.pojo.pcr.Battle">
@@ -308,6 +295,16 @@
             </if>
         </where>
     </select>
+
+
+    <select id="checkKnifeNum" resultType="java.lang.Integer">
+        select count(1) from pcr_battle
+            where gid = #{gid}
+            and uid = #{uid}
+            and `time` = #{time}
+            and `type` != 'extra'
+    </select>
+
 
     <insert id="addNotice" parameterType="com.whitemagic2014.pojo.pcr.Notice">
         insert into pcr_notice
