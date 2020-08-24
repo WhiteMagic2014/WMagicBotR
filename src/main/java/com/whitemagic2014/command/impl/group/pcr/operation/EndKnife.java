@@ -23,9 +23,9 @@ import java.util.Map;
 @Component
 public class EndKnife extends PcrNoAuthCommand {
 
-//    String txt = "尾刀 [@其他人代报 可选] [昨日 可选]";
+    String txt = "尾刀 [@其他人代报 可选] [昨日 可选]";
 
-    String txt = "尾刀 [@其他人代报 可选]";
+//    String txt = "尾刀 [@其他人代报 可选]";
 
 
     @Override
@@ -53,26 +53,24 @@ public class EndKnife extends PcrNoAuthCommand {
                 } else {
                     //报自己昨日刀
                     System.out.println("尾刀 自己 昨日");
-//                    result = pcrBotService.endKnife(subject.getId(),sender.getId(),true);
+                    result = pcrBotService.endKnife(subject.getId(), sender.getId(), true);
                     return new At(sender).plus("指令错误," + txt);
                 }
             } else if (size == 2) {
                 // 代报昨日
                 System.out.println("尾刀 代报 昨日");
-//                At at = messageChain.first(At.Key);
-//                result = pcrBotService.endKnife(subject.getId(),at.getTarget(),true);
+                At at = messageChain.first(At.Key);
+                result = pcrBotService.endKnife(subject.getId(), at.getTarget(), true);
                 return new At(sender).plus("指令错误," + txt);
-
             } else {
                 return new At(sender).plus("指令错误," + txt);
             }
 
             //需要自定义回复
-            System.out.println(result);
-
             if (!result.isSuccess()) {
                 return simpleErrMsg(sender, result);
             }
+
             Message nomal = new At(sender).plus(result.getReturnObject().get("nomal"));
             subject.sendMessage(nomal);
 
@@ -94,17 +92,5 @@ public class EndKnife extends PcrNoAuthCommand {
         }
     }
 
-
-    private Message makeAts(List<Long> uids, Group subject) {
-        Long first = uids.get(0);
-        uids.remove(0);
-        At firstAt = new At(subject.get(first));
-        if (!uids.isEmpty()) {
-            uids.forEach(uid -> {
-                firstAt.plus(new At(subject.get(uid)));
-            });
-        }
-        return firstAt;
-    }
 
 }

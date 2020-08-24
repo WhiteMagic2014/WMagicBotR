@@ -208,7 +208,7 @@ public class PcrBotServiceImpl implements PcrBotService {
             return new PrivateModel<String>().wrapper(uexist);
         }
 
-        if (damage <= 0L) {
+        if (damage < 0L) {
             return new PrivateModel<>(ReturnCode.FAIL, "指令错误,报刀伤害需要大于等于0,不然你报啥呢？");
         }
 
@@ -371,7 +371,6 @@ public class PcrBotServiceImpl implements PcrBotService {
             }
         }
 
-
         //挂树和预约通知 需要@的人
         Notice tree = new Notice();
         tree.setGid(gid);
@@ -379,9 +378,9 @@ public class PcrBotServiceImpl implements PcrBotService {
         List<Notice> ontree = pcrDao.findNoticeByConditions(tree);
 
         Notice order = new Notice();
-        tree.setGid(gid);
-        tree.setType(PcrNoticeType.order);
-        tree.setBossNum(bossNew.getNum());
+        order.setGid(gid);
+        order.setType(PcrNoticeType.order);
+        order.setBossNum(bossNew.getNum());
         List<Notice> onOrder = pcrDao.findNoticeByConditions(order);
 
         // 当通知触发后需要删除通知
@@ -564,7 +563,7 @@ public class PcrBotServiceImpl implements PcrBotService {
     }
 
     @Override
-    public PrivateModel<String> cancelOrder(Long gid, Long uid) {
+    public PrivateModel<String> cancelOrder(Long gid, Long uid,Integer num) {
 
         // 查工会在不在
         PrivateModel<Guild> gexist = checkGuildExist(gid);
@@ -580,6 +579,7 @@ public class PcrBotServiceImpl implements PcrBotService {
         Notice del = new Notice();
         del.setGid(gid);
         del.setUid(uid);
+        del.setBossNum(num);
         pcrDao.deleteNotice(del);
         return new PrivateModel<>(ReturnCode.SUCCESS,
                 "success",

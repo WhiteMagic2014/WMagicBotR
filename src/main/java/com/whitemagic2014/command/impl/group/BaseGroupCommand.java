@@ -8,9 +8,11 @@ import net.mamoe.mirai.contact.MemberPermission;
 import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description: base group command
@@ -91,6 +93,25 @@ public abstract class BaseGroupCommand implements GroupCommand {
         } else {
             return false;
         }
+    }
+
+
+    /**
+     * @Name: makeAts
+     * @Description: 组成at消息链
+     * @Param: uids  用户qq号
+     * @Param: subject
+     * @Return: net.mamoe.mirai.message.data.MessageChain
+     * @Author: magic chen
+     * @Date: 2020/8/24 21:32
+     **/
+    protected MessageChain makeAts(List<Long> uids, Group subject) {
+        MessageChain chain = new PlainText("").plus(new PlainText(""));
+        for (Long uid : uids) {
+            At temp = new At(subject.get(uid));
+            chain = chain.plus(temp);
+        }
+        return chain;
     }
 
 }

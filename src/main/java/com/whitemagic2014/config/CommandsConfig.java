@@ -77,6 +77,21 @@ public class CommandsConfig {
     @Autowired
     CheckBoss checkBoss;
 
+    @Autowired
+    OnTree onTree;
+
+    @Autowired
+    CheckTree checkTree;
+
+    @Autowired
+    OrderBoss orderBoss;
+
+    @Autowired
+    CancelOrder cancelOrder;
+
+    @Autowired
+    CheckOrder checkOrder;
+
 
     @Bean(name = "initCommandHeads")
     public String[] initCommandHeads() {
@@ -93,7 +108,9 @@ public class CommandsConfig {
                 createGuild, initGuildData, delGuild,
                 addMember, addMemberAll,
                 attackKnife, endKnife, cancelKnife, checkBoss,
-                sl, sLcheck
+                sl, sLcheck,
+                onTree, checkTree,
+                orderBoss, cancelOrder, checkOrder
 
         };
         return commands;

@@ -1,46 +1,34 @@
-package com.whitemagic2014.command.impl.group.pcr;
+package com.whitemagic2014.command.impl.group.pcr.operation;
 
 import com.whitemagic2014.command.impl.group.pcr.PcrNoAuthCommand;
-import com.whitemagic2014.dao.PcrDao;
 import com.whitemagic2014.pojo.CommandProperties;
+import com.whitemagic2014.pojo.PrivateModel;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
-import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
-
-
 /**
- * @Description: 测试command
+ * @Description: 挂树
  * @author: magic chen
- * @date: 2020/8/20 23:12
+ * @date: 2020/8/24 20:32
  **/
 @Component
-public class HelloCommand extends PcrNoAuthCommand {
-
-    @Autowired
-    PcrDao pcrDao;
+public class OnTree extends PcrNoAuthCommand {
 
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("test");
+        return new CommandProperties("挂树");
     }
 
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
-
-        At at = messageChain.first(At.Key);
-
-        At at2 = new At(sender);
-
-        return at.plus(at2).plus(at2);
-
+        PrivateModel<String> result = pcrBotService.hangOnTree(subject.getId(),sender.getId());
+        return simpleMsg(sender,result);
     }
 
 

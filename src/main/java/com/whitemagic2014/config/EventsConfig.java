@@ -21,8 +21,8 @@ import java.util.List;
 public class EventsConfig {
 
 
-    @Autowired
-    RecallEvent recallEvent;
+//    @Autowired
+//    RecallEvent recallEvent;
 
     @Autowired
     MessageEvents messageEvents;
@@ -48,7 +48,7 @@ public class EventsConfig {
     @Bean(name = "botEvents")
     public List<ListenerHost> getBotevents() {
         List<ListenerHost> events = new ArrayList<ListenerHost>();
-        events.add(recallEvent);
+//        events.add(recallEvent);
         events.add(messageEvents);
         return events;
     }

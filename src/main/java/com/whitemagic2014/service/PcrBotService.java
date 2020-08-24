@@ -164,14 +164,15 @@ public interface PcrBotService {
 
     /**
      * @Name: cancelOrder
-     * @Description: 取消预约
+     * @Description: 取消预约boss
      * @Param: gid
      * @Param: uid
+     * @Param: num
      * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 12:06
      **/
-    PrivateModel<String> cancelOrder(Long gid, Long uid);
+    PrivateModel<String> cancelOrder(Long gid, Long uid, Integer num);
 
     /**
      * @Name: hangOnTree
