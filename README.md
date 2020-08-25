@@ -9,12 +9,17 @@
 - 不用额外配置购买数据库 数据迁移方便(复制数据库文件)
 - 部署方便 jar包 直接运行, 只要有java环境就可以 
 
+## 无关的话
+本人pcr玩家,原本工会战管理使用yobot,但是由于cq的突然离开,原来的yobot突然不可用(现在yobot应该也有基于Mirai的实现),有些不知所措。
+所幸遇到了Mirai,于是就想干脆自己写一个。所以本项目pcr相关功能参考了yobot。
+
 ## 更多文档
 - 先鸽了 有空继续补充
 - 本项目不稳定更新中(有空的时候会更新)
 
 ## 感谢
 - [Mirai](https://github.com/mamoe/mirai) 开发组所有成员
+- [yobot](https://github.com/pcrbot/yobot) 开发组所有成员
 
 ## 注意
 ### 本项目基于 Mirai
