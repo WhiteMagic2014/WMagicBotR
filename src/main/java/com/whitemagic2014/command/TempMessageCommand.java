@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author: magic chen
  * @date: 2020/8/20 23:06
  **/
-public interface TempMessageCommand {
+public interface TempMessageCommand extends Command {
 
     /**
      * @Name: execute

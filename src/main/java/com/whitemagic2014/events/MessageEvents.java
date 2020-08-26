@@ -141,10 +141,18 @@ public class MessageEvents extends SimpleListenerHost {
         // 带头指令
         String headcommand = temp[0];
         // 获得去除指令头的 指令str
-        String commandStr = commandHeads.stream()
-                .filter(head -> headcommand.startsWith(head))
+        List<String> temps = commandHeads.stream()
+                .filter(head -> headcommand.startsWith(head) && StringUtils.isNotBlank(head))
                 .map(head -> headcommand.replaceFirst(head, ""))
-                .collect(Collectors.toList()).get(0);
+                .collect(Collectors.toList());
+
+        String commandStr;
+        if (temps.isEmpty()) {
+            commandStr = headcommand;
+        } else {
+            commandStr = temps.get(0);
+        }
+
         if (commandMap.containsKey(commandStr.toLowerCase())) {
             return commandMap.get(commandStr.toLowerCase());
         } else {
