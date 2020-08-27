@@ -17,11 +17,12 @@ import java.util.List;
 
 /**
  * @Description: 能不能吃啥
+ * @ps: 作者本人有结石, 很多东西忌口不能吃, 但是又记不住 私人定制
  * @author: magic chen
  * @date: 2020/8/21 18:27
  **/
 @Component
-public class CanEatCommand implements EverywhereCommand {
+public class CanEatCommand extends BaseEveryWhereCommand {
 
     @Autowired
     CanEatDao ced;
@@ -34,31 +35,31 @@ public class CanEatCommand implements EverywhereCommand {
     @Override
     public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) {
         if (sender.getId() != 418379149L) {
-            return new PlainText("这个功能不对所有人开放");
+            return simpleMsgStr(sender, "这个功能不对所有人开放");
         }
-        if (args.get(0).equals("记录") || args.get(0).equals("创建") ) {
+        if (args.get(0).equals("记录") || args.get(0).equals("创建")) {
             List<CanEat> ceList = ced.findByName(args.get(1).trim());
             if (!ceList.isEmpty()) {
-                return new PlainText("已经记录");
+                return simpleMsgStr(sender, "已经记录");
             }
             CanEat ce = new CanEat();
             ce.setItemName(args.get(1).trim());
             if (args.get(2).contains("不")) {
                 ce.setCan(false);
-            }else {
+            } else {
                 ce.setCan(true);
             }
             ced.insert(ce);
-            return new PlainText("已经记录");
-        }else {
-            List<CanEat>  ceList = ced.findByName(args.get(0).trim());
+            return simpleMsgStr(sender, "已经记录");
+        } else {
+            List<CanEat> ceList = ced.findByName(args.get(0).trim());
             if (ceList.isEmpty()) {
-                return new PlainText("还没记录 " + args.get(0).trim() +" 能不能吃 百度之后记得记录一下");
+                return simpleMsgStr(sender, "还没记录 " + args.get(0).trim() + " 能不能吃 百度之后记得记录一下");
             }
             if (ceList.get(0).getCan()) {
-                return new PlainText("能吃");
-            }else {
-                return new PlainText("不能吃");
+                return simpleMsgStr(sender, "能吃");
+            } else {
+                return simpleMsgStr(sender, "不能吃");
             }
         }
     }

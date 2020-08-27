@@ -160,9 +160,9 @@ public class PcrjjcImpl implements Pcrjjc {
         JSONObject result = response.getBody();
         // 测试数据
 //        result = JSONObject.parseObject("{\"code\":0,\"message\":\"0\",\"data\":{\"result\":[{\"id\":\"5ef44ae98d2019c3adf709a2\",\"atk\":[{\"equip\":false,\"id\":103801,\"star\":4},{\"equip\":false,\"id\":105301,\"star\":3},{\"equip\":false,\"id\":104301,\"star\":3},{\"equip\":false,\"id\":101701,\"star\":4},{\"equip\":false,\"id\":100701,\"star\":4}],\"def\":[{\"equip\":false,\"id\":105901,\"star\":4},{\"equip\":false,\"id\":104601,\"star\":4},{\"equip\":false,\"id\":102901,\"star\":5},{\"equip\":false,\"id\":104701,\"star\":4},{\"equip\":false,\"id\":104501,\"star\":5}],\"iseditor\":false,\"private\":false,\"group\":false,\"updated\":\"2020-07-05T02:20:39.346Z\",\"up\":5,\"down\":0,\"comment\":null,\"liked\":false,\"disliked\":false}],\"page\":{\"page\":1,\"hasMore\":false}},\"version\":\"20200818\"}");
-
         Integer code = result.getIntValue("code");
-        if (code == 0) {
+        PrivateModel<String> checkCode = checkPcrdfansCode(code);
+        if (checkCode.isSuccess()) {
             JSONObject data = result.getJSONObject("data");
             List<Answer> answers = JSON.parseArray(data.getJSONArray("result").toJSONString(), Answer.class);
             for (Answer answer : answers) {
@@ -175,7 +175,7 @@ public class PcrjjcImpl implements Pcrjjc {
             }
             return new PrivateModel<List<Answer>>(ReturnCode.SUCCESS, "success", answers);
         } else {
-            return new PrivateModel<List<Answer>>(ReturnCode.FAIL, "pcrdfans 错误码:" + code);
+            return new PrivateModel<List<Answer>>(ReturnCode.FAIL, "pcrdfans 错误码:" + code + "," + checkCode.getReturnMessage());
         }
     }
 
@@ -255,6 +255,111 @@ public class PcrjjcImpl implements Pcrjjc {
         if (ids.size() < 5) return new PrivateModel<>(ReturnCode.FAIL, "请输入五个不同的角色");
 
         return new PrivateModel<>(ReturnCode.SUCCESS, "success", ids);
+    }
+
+
+    /**
+     * @Name: checkPcrdfansCode
+     * @Description: 解析pcrdfans api code
+     * @Param: code
+     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Author: magic chen
+     * @Date: 2020/8/27 15:30
+     **/
+    private PrivateModel<String> checkPcrdfansCode(Integer code) {
+        String msg = "";
+        switch (code) {
+            case 0:
+                return new PrivateModel<>(ReturnCode.SUCCESS, "success");
+            case 1:
+                msg = "User is not login";
+                break;
+            case 2:
+                msg = "Success but find nothing";
+                break;
+            case 3:
+                msg = "Duplicated Battle";
+                break;
+            case 4:
+                msg = "Duplicated Battle but updated info";
+                break;
+            case 5:
+                msg = "Not enough elements";
+                break;
+
+            case 100:
+                msg = "System Error";
+                break;
+            case 101:
+                msg = "Database find data error";
+                break;
+            case 102:
+                msg = "Unknow Parameters";
+                break;
+            case 103:
+                msg = "Signature not valid";
+                break;
+            case 104:
+                msg = "CORS not valid";
+                break;
+            case 105:
+                msg = "Server Error";
+                break;
+            case 106:
+                msg = "User exist";
+                break;
+            case 107:
+                msg = "User not exist";
+                break;
+            case 108:
+                msg = "Password not match";
+                break;
+            case 109:
+                msg = "Duplicated data";
+                break;
+            case 110:
+                msg = "Game unit not found";
+                break;
+            case 111:
+                msg = "No Permission";
+                break;
+            case 112:
+                msg = "Third party request error";
+                break;
+            case 113:
+                msg = "Data is processing";
+                break;
+            case 114:
+                msg = "Skill not found";
+                break;
+            case 115:
+                msg = "Expired request";
+                break;
+            case 116:
+                msg = "Contains sensitive word";
+                break;
+            case 117:
+                msg = "Over limit";
+                break;
+            case 118:
+                msg = "Pending request";
+                break;
+            case 129:
+                msg = "Router not found";
+                break;
+            case 600:
+                msg = "Unsupported region";
+                break;
+            case 601:
+                msg = "IP blocked";
+                break;
+            case -429:
+                msg = "Too many requests";
+                break;
+
+        }
+        logger.error("pcrdfans返回" + code + ":" + msg);
+        return new PrivateModel<>(ReturnCode.FAIL, msg);
     }
 
 
