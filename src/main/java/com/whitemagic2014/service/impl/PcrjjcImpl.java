@@ -1,14 +1,11 @@
 package com.whitemagic2014.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.dic.ReturnCode;
 import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
-import com.whitemagic2014.pojo.pcrjjc.Team;
-import com.whitemagic2014.pojo.pcrjjc.TeamMember;
 import com.whitemagic2014.service.Pcrjjc;
 import com.whitemagic2014.util.MagicHelper;
 import com.whitemagic2014.util.MagicMaps;
