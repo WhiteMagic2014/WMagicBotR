@@ -9,5 +9,7 @@ public interface Dic {
 
     public static final Long[] BossHp = new Long[]{6000000L, 8000000L, 10000000L, 12000000L, 20000000L};
 
+    // 在更新jjc文件的时候锁定
+    public static final String JJC_NICK_LOCK = "JJC_NICK_LOCK";
 
 }

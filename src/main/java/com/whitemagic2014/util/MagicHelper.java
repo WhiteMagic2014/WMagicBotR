@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class MagicHelper {
 
     private static DecimalFormat df1 = new DecimalFormat("#,###");
+
+    private static Random random = new Random();
 
     /**
      * @Name: longAddComma
@@ -79,6 +82,22 @@ public class MagicHelper {
     public static String pcrYesterday() {
         Date yes = DateFormatUtil.dateMinus(pcrTodayInternal(), 1L, TimeUnit.DAYS);
         return DateFormatUtil.sdfv2.format(yes);
+    }
+
+    /**
+     * @Name: randomInt
+     * @Description: 获得一个随机数
+     * @Param: max  随机数最大值
+     * @Return: [0, max)
+     * @Author: magic chen
+     * @Date: 2020/8/27 10:42
+     **/
+    public static Integer randomInt(Integer max) {
+        if (max == null) {
+            return random.nextInt();
+        } else {
+            return random.nextInt(max);
+        }
     }
 
 

@@ -1,7 +1,5 @@
 package com.whitemagic2014.util;
 
-import com.whitemagic2014.db.DBInitHelper;
-
 /**
  * @Description: 路径工具
  * @author: magic chen
@@ -19,7 +17,7 @@ public class Path {
      * @Date: 2020/8/20 15:09
      **/
     public static String getPath() {
-        String path = DBInitHelper.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        String path = Path.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         if (System.getProperty("os.name").contains("dows")) {
             path = path.substring(1, path.length());
         }

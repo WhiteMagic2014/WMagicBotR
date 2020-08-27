@@ -51,36 +51,6 @@ public abstract class PcrBaseCommand extends BaseGroupCommand {
 
 
     /**
-     * @Name: simpleMsg
-     * @Description: 简单的包装 特殊业务的话额外处理
-     * @Param: sender
-     * @Param: result
-     * @Return: net.mamoe.mirai.message.data.Message
-     * @Author: magic chen
-     * @Date: 2020/8/23 17:48
-     **/
-    protected Message simpleMsg(Member sender, PrivateModel<String> result) {
-        if (result.isSuccess()) {
-            return new At(sender).plus(result.getReturnObject());
-        } else {
-            return new At(sender).plus(result.getReturnMessage());
-        }
-    }
-
-    /**
-     * @Name: simpleErrMsg
-     * @Description: 简单错误包装 一般在确定业务失败后调用
-     * @Param: sender
-     * @Param: result
-     * @Return: net.mamoe.mirai.message.data.Message
-     * @Author: magic chen
-     * @Date: 2020/8/23 18:25
-     **/
-    protected <S> Message simpleErrMsg(Member sender, PrivateModel<S> result) {
-        return new At(sender).plus(result.getReturnMessage());
-    }
-
-    /**
      * @Name: isOwner
      * @Description: 是否是bot主人
      * @Param: gid

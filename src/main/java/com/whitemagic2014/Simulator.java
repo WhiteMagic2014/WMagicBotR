@@ -3,6 +3,7 @@ package com.whitemagic2014;
 import com.whitemagic2014.bot.MagicBotR;
 import com.whitemagic2014.db.DBInitHelper;
 import com.whitemagic2014.db.DBVersion;
+import com.whitemagic2014.service.Pcrjjc;
 import net.mamoe.mirai.event.ListenerHost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,8 @@ public class Simulator implements ApplicationRunner {
     @Autowired
     DBVersion dbVersion;
 
+    @Autowired
+    Pcrjjc pcrjjc;
 
     @Value("${bot.account}")
     Long account;
@@ -48,6 +51,9 @@ public class Simulator implements ApplicationRunner {
         DBInitHelper.getInstance().initDBIfNotExist();
         // 数据库版本检查更新
         dbVersion.checkUpdateDB();
+        // jjc查询功能启动
+        pcrjjc.initNameFile();
+
         // 启动bot
         MagicBotR bot = new MagicBotR(account, pwd, "deviceInfo.json", events);
         logger.info("启动成功！");

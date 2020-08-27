@@ -2,6 +2,7 @@ package com.whitemagic2014.config;
 
 import com.whitemagic2014.command.Command;
 import com.whitemagic2014.command.impl.everywhere.CanEatCommand;
+import com.whitemagic2014.command.impl.everywhere.pcr.PcrAskJJC;
 import com.whitemagic2014.command.impl.group.pcr.HelloCommand;
 import com.whitemagic2014.command.impl.friend.CheckDBCommand;
 import com.whitemagic2014.command.impl.group.funny.*;
@@ -105,6 +106,10 @@ public class CommandsConfig {
     RemoveLock removeLock;
 
 
+    @Autowired
+    PcrAskJJC pcrAskJJC;
+
+
     @Bean(name = "initCommandHeads")
     public String[] initCommandHeads() {
         String[] heads = new String[]{
@@ -125,7 +130,8 @@ public class CommandsConfig {
                 sl, sLcheck,
                 onTree, checkTree,
                 orderBoss, cancelOrder, checkOrder,
-                requestAttack, lockBoss, removeLock
+                requestAttack, lockBoss, removeLock,
+                pcrAskJJC
         };
         return commands;
     }
