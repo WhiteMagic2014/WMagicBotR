@@ -10,6 +10,7 @@ import net.mamoe.mirai.message.data.PlainText;
 
 /**
  * @Description: base everywhere command
+ * @tips: 暂时没有写权限判断模块, 后期如果需要加上权限判断 请参考 group 和 friend的base实现
  * @author: magic chen
  * @date: 2020/8/27 16:37
  **/

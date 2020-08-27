@@ -3,8 +3,10 @@ package com.whitemagic2014.config;
 import com.whitemagic2014.command.Command;
 import com.whitemagic2014.command.impl.everywhere.CanEatCommand;
 import com.whitemagic2014.command.impl.everywhere.pcr.PcrAskJJC;
+import com.whitemagic2014.command.impl.friend.admin.RefreshPcrNick;
+import com.whitemagic2014.command.impl.friend.admin.SwithCommand;
 import com.whitemagic2014.command.impl.group.pcr.HelloCommand;
-import com.whitemagic2014.command.impl.friend.CheckDBCommand;
+import com.whitemagic2014.command.impl.friend.admin.CheckDBCommand;
 import com.whitemagic2014.command.impl.group.funny.*;
 import com.whitemagic2014.command.impl.group.pcr.operation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ import org.springframework.context.annotation.Configuration;
  **/
 @Configuration
 public class CommandsConfig {
+
+    @Autowired
+    SwithCommand swithCommand;
 
     @Autowired
     HelloCommand hello;
@@ -109,6 +114,9 @@ public class CommandsConfig {
     @Autowired
     PcrAskJJC pcrAskJJC;
 
+    @Autowired
+    RefreshPcrNick refreshPcrNick;
+
 
     @Bean(name = "initCommandHeads")
     public String[] initCommandHeads() {
@@ -121,6 +129,7 @@ public class CommandsConfig {
     @Bean(name = "initCommands")
     public Command[] initCommands() {
         Command[] commands = new Command[]{
+                swithCommand,
                 hello,
                 checkdb,
                 luck, roll, plan, decode, encode, caneat,
@@ -131,7 +140,7 @@ public class CommandsConfig {
                 onTree, checkTree,
                 orderBoss, cancelOrder, checkOrder,
                 requestAttack, lockBoss, removeLock,
-                pcrAskJJC
+                pcrAskJJC, refreshPcrNick
         };
         return commands;
     }

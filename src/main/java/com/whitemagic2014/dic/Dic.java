@@ -9,7 +9,10 @@ public interface Dic {
 
     public static final Long[] BossHp = new Long[]{6000000L, 8000000L, 10000000L, 12000000L, 20000000L};
 
-    // 在更新jjc文件的时候锁定
+    // 在更新jjc文件的时候锁定 key
     public static final String JJC_NICK_LOCK = "JJC_NICK_LOCK";
+
+    //pcr 工会战组件
+    public static final String Pcr_Guild_Component = "Pcr_Guild_Component";
 
 }
