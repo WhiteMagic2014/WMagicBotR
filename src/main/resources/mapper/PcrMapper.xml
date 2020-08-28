@@ -156,6 +156,13 @@
         DELETE FROM pcr_boss where gid = #{gid}
     </delete>
 
+    <delete id="deleteBossAfterNow" parameterType="com.whitemagic2014.pojo.pcr.Boss">
+        DELETE FROM pcr_boss
+        where gid = #{gid}
+            and (cycle > #{cycle} or (cycle = #{cycle} and num >= #{num}))
+    </delete>
+
+
     <update id="updateBoss" parameterType="com.whitemagic2014.pojo.pcr.Boss">
         update pcr_boss
         <set>
@@ -185,7 +192,7 @@
         select * from pcr_boss where gid = #{gid} and active = 1
     </select>
 
-    <select id="findBossDefineByGid"  resultType="com.whitemagic2014.pojo.pcr.Boss">
+    <select id="findBossDefineByGid" resultType="com.whitemagic2014.pojo.pcr.Boss">
         select * from pcr_boss where gid = #{gid} and cycle = #{cycle} and num = #{num}
     </select>
 

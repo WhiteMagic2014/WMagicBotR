@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.group.pcr.operation;
 
+import com.alibaba.fastjson.JSON;
 import com.whitemagic2014.command.impl.group.pcr.PcrNoAuthCommand;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.pojo.PrivateModel;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description: 查刀
+ * @Description: 查刀 未完成
  * @author: magic chen
  * @date: 2020/8/24 23:30
  **/
@@ -31,9 +32,7 @@ public class CheckKnife extends PcrNoAuthCommand {
 
         List<Battle> data = result.getReturnObject();
 
-        String str = data.stream().map(Battle::toString).map(s -> s.concat("\n")).reduce("", String::concat);
-
-        return new PlainText(str);
+        return new PlainText(JSON.toJSONString(data));
     }
 
     @Override

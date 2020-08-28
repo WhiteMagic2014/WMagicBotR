@@ -84,6 +84,9 @@ public class CommandsConfig {
     CheckBoss checkBoss;
 
     @Autowired
+    UpdateBoss updateBoss;
+
+    @Autowired
     CheckKnife checkKnife;
 
     @Autowired
@@ -111,6 +114,7 @@ public class CommandsConfig {
     RemoveLock removeLock;
 
 
+    // pcr jjc
     @Autowired
     PcrAskJJC pcrAskJJC;
 
@@ -135,7 +139,7 @@ public class CommandsConfig {
                 luck, roll, plan, decode, encode, caneat,
                 createGuild, initGuildData, delGuild,
                 addMember, addMemberAll,
-                attackKnife, endKnife, cancelKnife, checkBoss, checkKnife,
+                attackKnife, endKnife, cancelKnife, checkBoss, updateBoss, checkKnife,
                 sl, sLcheck,
                 onTree, checkTree,
                 orderBoss, cancelOrder, checkOrder,

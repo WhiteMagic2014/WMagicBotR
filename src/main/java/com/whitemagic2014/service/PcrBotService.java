@@ -117,7 +117,7 @@ public interface PcrBotService {
      * @Name: checkKnife
      * @Description: 查刀
      * @Param: gid
-     * @Param: findall  true查询所有刀,false查询当天到
+     * @Param: findall  true查询所有刀,false查询当天刀
      * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/24 23:25
@@ -133,6 +133,20 @@ public interface PcrBotService {
      * @Date: 2020/8/23 12:47
      **/
     PrivateModel<String> checkBossState(Long gid);
+
+    /**
+     * @Name: updateBossState
+     * @Description: 直接修改boss状态
+     * @Param: gid
+     * @Param: uid
+     * @Param: cycle  几周目
+     * @Param: num  几王
+     * @Param: hpnow 现在血量 null则为满血
+     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Author: magic chen
+     * @Date: 2020/8/28 16:45
+     **/
+    PrivateModel<String> updateBossState(Long gid, Long uid, Integer cycle, Integer num, Long hpnow);
 
     /**
      * @Name: cancelKnfie
