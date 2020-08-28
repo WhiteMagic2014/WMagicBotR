@@ -35,7 +35,7 @@ public class CanEatCommand extends BaseEveryWhereCommand {
     @Override
     public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) {
         if (sender.getId() != 418379149L) {
-            return simpleMsgStr(sender, "这个功能不对所有人开放");
+            return null;
         }
         if (args.get(0).equals("记录") || args.get(0).equals("创建")) {
             List<CanEat> ceList = ced.findByName(args.get(1).trim());
