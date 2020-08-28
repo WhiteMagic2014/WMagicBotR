@@ -12,6 +12,9 @@ public interface Dic {
     // 在更新jjc文件的时候锁定 key
     public static final String JJC_NICK_LOCK = "JJC_NICK_LOCK";
 
+    // jjc 查询的缓存
+    public static final String JJC_CACHE = "JJC_CACHE";
+
     //pcr 工会战组件
     public static final String Pcr_Guild_Component = "Pcr_Guild_Component";
 

@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -128,6 +129,12 @@ public class PcrjjcImpl implements Pcrjjc {
         if (!idModel.isSuccess()) {
             return new PrivateModel<List<Answer>>().wrapper(idModel);
         }
+        List<Integer> ids = idModel.getReturnObject();
+        // 去读缓存 有缓存就不请求了
+        String memKey = Dic.JJC_CACHE + ids.stream().sorted().map(String::valueOf).reduce("", String::concat);
+        if (MagicMaps.check(memKey)) {
+            return new PrivateModel<>(ReturnCode.SUCCESS, "success", (List<Answer>) MagicMaps.getObject(memKey));
+        }
 
         HttpHeaders headers = new HttpHeaders();
         MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
@@ -139,7 +146,7 @@ public class PcrjjcImpl implements Pcrjjc {
 
         JSONObject json = new JSONObject();
         json.put("_sign", "WMagicBotR" + uuid);
-        json.put("def", idModel.getReturnObject());
+        json.put("def", ids);
         json.put("nonce", uuid);
         json.put("page", 1);
         json.put("sort", 1);
@@ -173,9 +180,11 @@ public class PcrjjcImpl implements Pcrjjc {
                     m.setName(id2Name(m.getId()));
                 });
             }
-            return new PrivateModel<List<Answer>>(ReturnCode.SUCCESS, "success", answers);
+            // 减少请求数量 这边做一个缓存 5分钟吧
+            MagicMaps.putWithExpire(memKey, answers, 5L, TimeUnit.MINUTES);
+            return new PrivateModel<>(ReturnCode.SUCCESS, "success", answers);
         } else {
-            return new PrivateModel<List<Answer>>(ReturnCode.FAIL, "pcrdfans 错误码:" + code + "," + checkCode.getReturnMessage());
+            return new PrivateModel<>(ReturnCode.FAIL, "pcrdfans 错误码:" + code + "," + checkCode.getReturnMessage());
         }
     }
 
@@ -184,10 +193,15 @@ public class PcrjjcImpl implements Pcrjjc {
     public String id2Name(Integer id) {
         if (!idNames.containsKey(id)) return "unkonw" + id;
         List<String> names = idNames.get(id);
-        int index = MagicHelper.randomInt(names.size());
-        // 如果为0 那就给他改成1 ,因为0是日文名
-        if (index == 0) index = 1;
-        return names.get(index);
+
+        // 随机返回该角色的一个昵称
+//        int index = MagicHelper.randomInt(names.size());
+//        // 如果为0 那就给他改成1 ,因为0是日文名
+//        if (index == 0) index = 1;
+//        return names.get(index);
+
+        // 默认返回官方译名
+        return names.get(1);
     }
 
     /**
