@@ -151,6 +151,17 @@ public interface PcrDao {
      **/
     int deleteBossByGid(@Param("gid") Long gid);
 
+    /**
+     * @Name: deleteBossAfterNow
+     * @Description: 删除指定的boss，以及之后所有的boss
+     * 用于直接修改boss状态的时候，如果不删除后面的boss，会在撤销之后的尾刀时出错
+     * @Param: active
+     * @Return: int
+     * @Author: magic chen
+     * @Date: 2020/8/28 17:05
+     **/
+    int deleteBossAfterNow(Boss define);
+
 
     /**
      * @Name: updateBoss

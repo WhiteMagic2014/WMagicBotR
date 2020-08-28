@@ -410,7 +410,7 @@ public class PcrBotServiceImpl implements PcrBotService {
 
 
     @Override
-    public PrivateModel<List<Battle>> checkKnife(Long gid,Boolean findall) {
+    public PrivateModel<List<Battle>> checkKnife(Long gid, Boolean findall) {
 
         PrivateModel<Guild> gexist = checkGuildExist(gid);
         if (!gexist.isSuccess()) {
@@ -418,7 +418,7 @@ public class PcrBotServiceImpl implements PcrBotService {
         }
 
         Battle cond = new Battle();
-        if (!findall){
+        if (!findall) {
             cond.setTime(MagicHelper.pcrToday());
         }
         cond.setGid(gid);
@@ -441,6 +441,44 @@ public class PcrBotServiceImpl implements PcrBotService {
         String result = "\n现在" + active.getCycle() + "周目," + active.getNum() + "号boss\n" +
                 "生命值" + MagicHelper.longAddComma(active.getHpnow());
 
+        return new PrivateModel<>(ReturnCode.SUCCESS,
+                "success",
+                result);
+    }
+
+    @Override
+    public PrivateModel<String> updateBossState(Long gid, Long uid, Integer cycle, Integer num, Long hpnow) {
+
+        // 查工会在不在
+        PrivateModel<Guild> gexist = checkGuildExist(gid);
+        if (!gexist.isSuccess()) {
+            return new PrivateModel<String>().wrapper(gexist);
+        }
+
+        PrivateModel<User> uexist = checkUserExist(gid, uid);
+        if (!uexist.isSuccess()) {
+            return new PrivateModel<String>().wrapper(uexist);
+        }
+
+        if (num > 5 || num < 1) return new PrivateModel<>(ReturnCode.FAIL, "指令错误,请输入正确的1~5王");
+        Long hpmax = Dic.BossHp[num - 1];
+        if (hpnow == null) hpnow = hpmax;
+        if (hpmax < hpnow)
+            return new PrivateModel<>(ReturnCode.FAIL, "指令错误,请输入正确的血量," + num + "王最多" + MagicHelper.longAddComma(hpmax) + "hp");
+
+        Boss newboss = new Boss();
+        newboss.setGid(gid);
+        newboss.setCycle(cycle);
+        newboss.setNum(num);
+        newboss.setHp(hpmax);
+        newboss.setHpnow(hpnow);
+        newboss.setActive(true);
+        // 需要删除 这个boss 以及所有这个boss 后面的boss 否则在撤销尾刀的时候会出问题
+        pcrDao.deleteBossAfterNow(newboss);
+        // 加入新修改的boss
+        pcrDao.addBoss(newboss);
+        String result = "修改成功\n现在" + newboss.getCycle() + "周目," + newboss.getNum() + "号boss\n" +
+                "生命值" + MagicHelper.longAddComma(newboss.getHpnow());
         return new PrivateModel<>(ReturnCode.SUCCESS,
                 "success",
                 result);
