@@ -8,6 +8,7 @@ import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.MessageUtils;
 import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,7 @@ public class CheckOrder extends PcrNoAuthCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("查预约","查预定");
+        return new CommandProperties("查预约", "查预定");
     }
 
     @Override
@@ -38,11 +39,11 @@ public class CheckOrder extends PcrNoAuthCommand {
         }
 
         Map<Integer, List<Notice>> dataMap = result.getReturnObject();
-        MessageChain msg = new PlainText("预约情况\n").plus(new PlainText(""));
-        for (Integer num : dataMap.keySet()){
-            msg =msg.plus(num+"号boss:\n");
+        MessageChain msg = MessageUtils.newChain("预约情况\n");
+        for (Integer num : dataMap.keySet()) {
+            msg = msg.plus(num + "号boss:\n");
             List<Long> uids = dataMap.get(num).stream().map(Notice::getUid).collect(Collectors.toList());
-            msg = msg.plus(makeAts(uids,subject)).plus("\n");
+            msg = msg.plus(makeAts(uids, subject)).plus("\n");
         }
         return msg;
     }

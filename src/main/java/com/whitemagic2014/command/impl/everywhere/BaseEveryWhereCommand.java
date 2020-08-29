@@ -19,18 +19,18 @@ public abstract class BaseEveryWhereCommand implements EverywhereCommand {
 
     /**
      * @Name: simpleMsgStr
-     * @Description: 直接返回文本，需要判断是不是在群环境下，如果是 需要@sender
+     * @Description: 直接返回msg，需要判断是不是在群环境下，如果是 需要@sender
      * @Param: sender
      * @Param: msg
      * @Return: net.mamoe.mirai.message.data.Message
      * @Author: magic chen
      * @Date: 2020/8/27 16:53
      **/
-    protected Message simpleMsgStr(User sender, String msg) {
+    protected Message simpleMsg(User sender, Message msg) {
         if (sender instanceof Member) {
             return new At((Member) sender).plus(msg);
         } else {
-            return new PlainText(msg);
+            return msg;
         }
     }
 
@@ -46,9 +46,9 @@ public abstract class BaseEveryWhereCommand implements EverywhereCommand {
      **/
     protected Message simpleMsg(User sender, PrivateModel<String> result) {
         if (result.isSuccess()) {
-            return simpleMsgStr(sender, result.getReturnObject());
+            return simpleMsg(sender, new PlainText(result.getReturnObject()));
         } else {
-            return simpleMsgStr(sender, result.getReturnMessage());
+            return simpleMsg(sender, new PlainText(result.getReturnMessage()));
         }
     }
 
@@ -63,7 +63,7 @@ public abstract class BaseEveryWhereCommand implements EverywhereCommand {
      * @Date: 2020/8/27 16:52
      **/
     protected <S> Message simpleErrMsg(User sender, PrivateModel<S> result) {
-        return simpleMsgStr(sender, result.getReturnMessage());
+        return simpleMsg(sender, new PlainText(result.getReturnMessage()));
     }
 
 }

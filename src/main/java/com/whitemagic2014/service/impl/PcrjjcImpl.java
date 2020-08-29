@@ -7,7 +7,6 @@ import com.whitemagic2014.dic.ReturnCode;
 import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
 import com.whitemagic2014.service.Pcrjjc;
-import com.whitemagic2014.util.MagicHelper;
 import com.whitemagic2014.util.MagicMaps;
 import com.whitemagic2014.util.Path;
 import org.apache.commons.lang3.StringUtils;
@@ -45,10 +44,10 @@ public class PcrjjcImpl implements Pcrjjc {
     @Value("${pcrdfans.open}")
     Boolean pcrdfansOpen;
 
-    @Value("${default.nicknamefile}")
+    @Value("${pcr.default.nicknamefile}")
     String defaultNicknameFileUrl;
 
-    @Value("${default.nickname}")
+    @Value("${pcr.default.nickname}")
     String defaultNicknameUrl;
 
     @Autowired
@@ -136,14 +135,13 @@ public class PcrjjcImpl implements Pcrjjc {
             return new PrivateModel<>(ReturnCode.SUCCESS, "success", (List<Answer>) MagicMaps.getObject(memKey));
         }
 
+        // 调用pcrdfans
         HttpHeaders headers = new HttpHeaders();
         MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
         headers.setContentType(type);
         headers.set("authorization", pcrdfansKey);
         headers.set("user-agent", "WMagicBotR");
-
         String uuid = UUID.randomUUID().toString();
-
         JSONObject json = new JSONObject();
         json.put("_sign", "WMagicBotR" + uuid);
         json.put("def", ids);
@@ -165,8 +163,9 @@ public class PcrjjcImpl implements Pcrjjc {
             return new PrivateModel<>(ReturnCode.FAIL, "查询失败。请求错误,状态码:" + response.getStatusCodeValue());
         }
         JSONObject result = response.getBody();
+
         // 测试数据
-//        result = JSONObject.parseObject("{\"code\":0,\"message\":\"0\",\"data\":{\"result\":[{\"id\":\"5ef44ae98d2019c3adf709a2\",\"atk\":[{\"equip\":false,\"id\":103801,\"star\":4},{\"equip\":false,\"id\":105301,\"star\":3},{\"equip\":false,\"id\":104301,\"star\":3},{\"equip\":false,\"id\":101701,\"star\":4},{\"equip\":false,\"id\":100701,\"star\":4}],\"def\":[{\"equip\":false,\"id\":105901,\"star\":4},{\"equip\":false,\"id\":104601,\"star\":4},{\"equip\":false,\"id\":102901,\"star\":5},{\"equip\":false,\"id\":104701,\"star\":4},{\"equip\":false,\"id\":104501,\"star\":5}],\"iseditor\":false,\"private\":false,\"group\":false,\"updated\":\"2020-07-05T02:20:39.346Z\",\"up\":5,\"down\":0,\"comment\":null,\"liked\":false,\"disliked\":false}],\"page\":{\"page\":1,\"hasMore\":false}},\"version\":\"20200818\"}");
+//        JSONObject  result = JSONObject.parseObject("{\"code\":0,\"message\":\"0\",\"data\":{\"result\":[{\"id\":\"5ef44ae98d2019c3adf709a2\",\"atk\":[{\"equip\":false,\"id\":103801,\"star\":4},{\"equip\":false,\"id\":105301,\"star\":3},{\"equip\":false,\"id\":104301,\"star\":3},{\"equip\":false,\"id\":101701,\"star\":4},{\"equip\":false,\"id\":100701,\"star\":4}],\"def\":[{\"equip\":false,\"id\":105901,\"star\":4},{\"equip\":false,\"id\":104601,\"star\":4},{\"equip\":false,\"id\":102901,\"star\":5},{\"equip\":false,\"id\":104701,\"star\":4},{\"equip\":false,\"id\":104501,\"star\":5}],\"iseditor\":false,\"private\":false,\"group\":false,\"updated\":\"2020-07-05T02:20:39.346Z\",\"up\":5,\"down\":0,\"comment\":null,\"liked\":false,\"disliked\":false}],\"page\":{\"page\":1,\"hasMore\":false}},\"version\":\"20200818\"}");
         Integer code = result.getIntValue("code");
         PrivateModel<String> checkCode = checkPcrdfansCode(code);
         if (checkCode.isSuccess()) {

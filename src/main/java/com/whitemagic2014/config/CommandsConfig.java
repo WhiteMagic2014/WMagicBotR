@@ -5,8 +5,9 @@ import com.whitemagic2014.command.impl.everywhere.CanEatCommand;
 import com.whitemagic2014.command.impl.everywhere.pcr.PcrAskJJC;
 import com.whitemagic2014.command.impl.friend.admin.RefreshPcrNick;
 import com.whitemagic2014.command.impl.friend.admin.SwithCommand;
-import com.whitemagic2014.command.impl.group.pcr.HelloCommand;
+import com.whitemagic2014.command.impl.everywhere.HelloCommand;
 import com.whitemagic2014.command.impl.friend.admin.CheckDBCommand;
+import com.whitemagic2014.command.impl.group.pcrjjc.PcrAskJJCImage;
 import com.whitemagic2014.command.impl.group.funny.*;
 import com.whitemagic2014.command.impl.group.pcr.operation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,6 +120,9 @@ public class CommandsConfig {
     PcrAskJJC pcrAskJJC;
 
     @Autowired
+    PcrAskJJCImage pcrAskJJCImage;
+
+    @Autowired
     RefreshPcrNick refreshPcrNick;
 
 
@@ -144,7 +148,7 @@ public class CommandsConfig {
                 onTree, checkTree,
                 orderBoss, cancelOrder, checkOrder,
                 requestAttack, lockBoss, removeLock,
-                pcrAskJJC, refreshPcrNick
+                pcrAskJJC, refreshPcrNick, pcrAskJJCImage
         };
         return commands;
     }
