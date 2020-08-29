@@ -10,6 +10,7 @@ import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,7 @@ public class PcrAskJJC extends BaseEveryWhereCommand {
     @Autowired
     Pcrjjc pcrjjc;
 
+
     @Override
     public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) {
         PrivateModel<List<Answer>> model = pcrjjc.checkjjc(args, 2);
@@ -35,12 +37,13 @@ public class PcrAskJJC extends BaseEveryWhereCommand {
             return simpleErrMsg(sender, model);
         }
         List<Answer> answers = model.getReturnObject();
+
         String result = "查询结果:\n";
         int i = 1;
         for (Answer answer : answers) {
             String at = i + "";
             for (TeamMember member : answer.getAtk()) {
-                String mt = member.getName() + member.getStar() + "星";
+                String mt = member.getName() + member.getStar() + "";
                 if (member.getEquip()) mt += "带专";
                 at += "[" + mt + "] ";
             }
@@ -48,12 +51,14 @@ public class PcrAskJJC extends BaseEveryWhereCommand {
             i++;
         }
         result = result.substring(0, result.length() - 1);
-
-        return simpleMsgStr(sender, result);
+        return simpleMsg(sender, new PlainText(result));
     }
+
 
     @Override
     public CommandProperties properties() {
         return new CommandProperties("jjc查询");
     }
+
+
 }

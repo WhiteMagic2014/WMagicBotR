@@ -1,11 +1,11 @@
 package com.whitemagic2014.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @date: 2020/8/22 12:29
  **/
 public class MagicHelper {
+
 
     private static DecimalFormat df1 = new DecimalFormat("#,###");
 
@@ -98,6 +99,45 @@ public class MagicHelper {
         } else {
             return random.nextInt(max);
         }
+    }
+
+
+    /**
+     * @Name: resizeBufferedImage
+     * @Description: 缩放 BufferedImage
+     * @Param: source
+     * @Param: targetW
+     * @Param: targetH
+     * @Param: flag 是否等比缩放
+     * @Return: java.awt.image.BufferedImage
+     * @Author: magic chen
+     * @Date: 2020/8/29 13:14
+     **/
+    public static BufferedImage resizeBufferedImage(BufferedImage source, int targetW, int targetH, boolean flag) {
+        int type = source.getType();
+        BufferedImage target = null;
+        double sx = (double) targetW / source.getWidth();
+        double sy = (double) targetH / source.getHeight();
+        if (flag && sx > sy) {
+            sx = sy;
+            targetW = (int) (sx * source.getWidth());
+        } else if (flag && sx <= sy) {
+            sy = sx;
+            targetH = (int) (sy * source.getHeight());
+        }
+        if (type == BufferedImage.TYPE_CUSTOM) { // handmade
+            ColorModel cm = source.getColorModel();
+            WritableRaster raster = cm.createCompatibleWritableRaster(targetW, targetH);
+            boolean alphaPremultiplied = cm.isAlphaPremultiplied();
+            target = new BufferedImage(cm, raster, alphaPremultiplied, null);
+        } else {
+            target = new BufferedImage(targetW, targetH, type);
+        }
+        Graphics2D g = target.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.drawRenderedImage(source, AffineTransform.getScaleInstance(sx, sy));
+        g.dispose();
+        return target;
     }
 
 

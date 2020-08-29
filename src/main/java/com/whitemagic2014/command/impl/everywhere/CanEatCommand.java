@@ -40,7 +40,7 @@ public class CanEatCommand extends BaseEveryWhereCommand {
         if (args.get(0).equals("记录") || args.get(0).equals("创建")) {
             List<CanEat> ceList = ced.findByName(args.get(1).trim());
             if (!ceList.isEmpty()) {
-                return simpleMsgStr(sender, "已经记录");
+                return simpleMsg(sender, new PlainText("已经记录"));
             }
             CanEat ce = new CanEat();
             ce.setItemName(args.get(1).trim());
@@ -50,16 +50,16 @@ public class CanEatCommand extends BaseEveryWhereCommand {
                 ce.setCan(true);
             }
             ced.insert(ce);
-            return simpleMsgStr(sender, "已经记录");
+            return simpleMsg(sender, new PlainText("已经记录"));
         } else {
             List<CanEat> ceList = ced.findByName(args.get(0).trim());
             if (ceList.isEmpty()) {
-                return simpleMsgStr(sender, "还没记录 " + args.get(0).trim() + " 能不能吃 百度之后记得记录一下");
+                return simpleMsg(sender, new PlainText("还没记录 " + args.get(0).trim() + " 能不能吃 百度之后记得记录一下"));
             }
             if (ceList.get(0).getCan()) {
-                return simpleMsgStr(sender, "能吃");
+                return simpleMsg(sender, new PlainText("能吃"));
             } else {
-                return simpleMsgStr(sender, "不能吃");
+                return simpleMsg(sender, new PlainText("不能吃"));
             }
         }
     }
