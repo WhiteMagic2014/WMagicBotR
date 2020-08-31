@@ -23,6 +23,7 @@ public class RecallEvent extends SimpleListenerHost {
 
     @Override
     public void handleException(@NotNull CoroutineContext context, @NotNull Throwable exception) {
+        // 貌似无法捕获异常
         logger.error("RecallEvent Error:", exception.getMessage());
     }
 

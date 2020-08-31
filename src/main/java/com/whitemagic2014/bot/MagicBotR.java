@@ -46,8 +46,8 @@ public class MagicBotR {
     private Bot startBot(Long account, String pwd, String deviceInfo, List<ListenerHost> events) {
         BotConfiguration config = new BotConfiguration();
         config.fileBasedDeviceInfo(deviceInfo);
-        config.redirectBotLogToDirectory(new File(Path.getPath()+"logs/bot/"));
-        config.redirectNetworkLogToDirectory(new File(Path.getPath()+"logs/net/"));
+        config.redirectBotLogToDirectory(new File(Path.getPath() + "logs", "bot"));
+        config.redirectNetworkLogToDirectory(new File(Path.getPath() + "logs" ,"net") );
 
         Bot bot = BotFactoryJvm.newBot(account, pwd, config);
         bot.login();

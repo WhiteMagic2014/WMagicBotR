@@ -52,7 +52,7 @@ public abstract class PcrBaseCommand extends BaseGroupCommand {
                 msg = executeHandle(sender, args, messageChain, subject);
             } catch (Exception e) {
                 // pcr 层异常自己处理掉,不继续上抛
-                logger.error("pcr command error:", e.getMessage());
+                logger.error("pcr command error:", e);
                 throw new RuntimeException();//保证事务触发
             } finally {
                 MagicLock.removePrivateLock(lockKey, lock);
