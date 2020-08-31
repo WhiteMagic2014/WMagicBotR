@@ -25,6 +25,6 @@ public interface EverywhereCommand extends Command {
      * @Author: magic chen
      * @Date: 2020/8/20 22:49
      **/
-    Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject);
+    Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception;
 
 }

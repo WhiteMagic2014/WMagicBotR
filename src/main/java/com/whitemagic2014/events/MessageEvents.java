@@ -163,7 +163,7 @@ public class MessageEvents extends SimpleListenerHost {
 
     @Override
     public void handleException(@NotNull CoroutineContext context, @NotNull Throwable exception) {
-        logger.error("RecallEvent Error:", exception.getMessage());
+        logger.error("MessageEvents Error:", exception.getMessage());
     }
 
 

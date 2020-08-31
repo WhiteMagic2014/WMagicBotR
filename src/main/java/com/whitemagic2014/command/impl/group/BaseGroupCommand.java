@@ -26,7 +26,7 @@ public abstract class BaseGroupCommand implements GroupCommand {
 
 
     @Override
-    public Message execute(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
+    public Message execute(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
         // 总体判别权限,有些指令只能管理员 或者 群主执行
         PrivateModel checkResult = checkRole(sender, subject);
         if (!checkResult.isSuccess()) {
@@ -47,7 +47,7 @@ public abstract class BaseGroupCommand implements GroupCommand {
      * @Author: magic chen
      * @Date: 2020/8/23 18:30
      **/
-    protected abstract Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject);
+    protected abstract Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception;
 
 
     /**

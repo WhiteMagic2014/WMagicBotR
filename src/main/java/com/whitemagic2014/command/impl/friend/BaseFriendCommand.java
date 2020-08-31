@@ -19,7 +19,7 @@ import java.util.ArrayList;
  **/
 public abstract class BaseFriendCommand implements FriendCommand {
     @Override
-    public Message execute(Friend sender, ArrayList<String> args, MessageChain messageChain, Friend subject) {
+    public Message execute(Friend sender, ArrayList<String> args, MessageChain messageChain, Friend subject) throws Exception {
         // 总体判别权限,有些指令只能 超管 执行
         PrivateModel checkResult = checkRole(sender, subject);
         if (!checkResult.isSuccess()) {
@@ -56,7 +56,7 @@ public abstract class BaseFriendCommand implements FriendCommand {
      * @Author: magic chen
      * @Date: 2020/8/27 17:14
      **/
-    protected abstract Message executeHandle(Friend sender, ArrayList<String> args, MessageChain messageChain, Friend subject);
+    protected abstract Message executeHandle(Friend sender, ArrayList<String> args, MessageChain messageChain, Friend subject) throws Exception;
 
 
     /**

@@ -11,6 +11,8 @@ import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import java.util.ArrayList;
  * @date: 2020/8/23 11:45
  **/
 public abstract class PcrBaseCommand extends BaseGroupCommand {
+
+    private static Logger logger = LoggerFactory.getLogger(PcrBaseCommand.class);
 
     @Autowired
     protected PcrBotService pcrBotService;
@@ -47,8 +51,9 @@ public abstract class PcrBaseCommand extends BaseGroupCommand {
             try {
                 msg = executeHandle(sender, args, messageChain, subject);
             } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException();
+                // pcr 层异常自己处理掉,不继续上抛
+                logger.error("pcr command error:", e.getMessage());
+                throw new RuntimeException();//保证事务触发
             } finally {
                 MagicLock.removePrivateLock(lockKey, lock);
             }

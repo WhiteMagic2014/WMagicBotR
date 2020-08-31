@@ -24,6 +24,6 @@ public interface FriendCommand extends Command {
      * @Author: magic chen
      * @Date: 2020/8/20 22:59
      **/
-    Message execute(Friend sender, ArrayList<String> args, MessageChain messageChain, Friend subject);
+    Message execute(Friend sender, ArrayList<String> args, MessageChain messageChain, Friend subject) throws Exception;
 
 }
