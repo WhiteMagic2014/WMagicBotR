@@ -6,7 +6,10 @@ import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
+import net.mamoe.mirai.utils.MiraiLogger;
+import net.mamoe.mirai.utils.Utils;
 import org.springframework.stereotype.Component;
+
 
 import java.util.ArrayList;
 
@@ -19,13 +22,16 @@ import java.util.ArrayList;
 @Component
 public class HelloCommand extends BaseEveryWhereCommand {
 
+    MiraiLogger logger = Utils.getDefaultLogger().invoke("hello");
+
     @Override
     public CommandProperties properties() {
         return new CommandProperties("hello");
     }
 
     @Override
-    public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) {
+    public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception {
+        logger.info("hello");
         return new PlainText("hello");
     }
 }

@@ -25,6 +25,6 @@ public interface GroupCommand extends Command {
      * @Author: magic chen
      * @Date: 2020/8/20 23:03
      **/
-    Message execute(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject);
+    Message execute(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception;
 
 }

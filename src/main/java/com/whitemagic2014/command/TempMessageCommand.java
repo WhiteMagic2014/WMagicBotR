@@ -24,5 +24,5 @@ public interface TempMessageCommand extends Command {
      * @Author: magic chen
      * @Date: 2020/8/20 23:08
      **/
-    Message execute(Member sender, ArrayList<String> args, MessageChain messageChain, Member subject);
+    Message execute(Member sender, ArrayList<String> args, MessageChain messageChain, Member subject) throws Exception;
 }
