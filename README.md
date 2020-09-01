@@ -79,6 +79,8 @@
 - 自定义实现了mirai的log,将其重定向至spring 的 slf4j
 - 将net log输出至logs文件夹
 - 增加web全局异常捕获(bot层的异常mirai会捕获记录)
+- mirai 版本升级至1.2.2
+
 
 - 本项目不稳定更新中(有空的时候会更新)
 
