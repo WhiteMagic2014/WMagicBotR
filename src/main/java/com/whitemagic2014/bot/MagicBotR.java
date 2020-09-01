@@ -34,10 +34,11 @@ public class MagicBotR {
     /**
      * @Name: startBot
      * @Description: 创建bot
-     * @Param: account
-     * @Param: pwd
-     * @Param: deviceInfo
-     * @Param: events
+     * @Param: account bot账号
+     * @Param: pwd  bot密码
+     * @Param: deviceInfo 存储设备信息文件
+     * @Param: events 注册监听事件
+     * @Param: netlog net日志重定向到文件夹路径
      * @Return: net.mamoe.mirai.Bot
      * @Author: magic chen
      * @Date: 2020/8/20 15:54
