@@ -21,7 +21,7 @@ public class MagicMaps {
     //        ACCESSED: 在CREATED策略基础上增加, 在还没过期时get方法清零过期时间。
     //        清零过期时间也就是重置过期时间，重新计算过期时间.
     //    ExpiringMap<String, String> map = ExpiringMap.build
-    private static ExpiringMap<String, Object> map = ExpiringMap.builder()
+    private static final ExpiringMap<String, Object> map = ExpiringMap.builder()
 //                   .maxSize(10)
 //                   .expiration(10, TimeUnit.SECONDS)
             .variableExpiration().expirationPolicy(ExpirationPolicy.CREATED)

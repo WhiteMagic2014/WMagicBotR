@@ -20,7 +20,6 @@
         <maven-jar-plugin.version>3.1.0</maven-jar-plugin.version>
     </properties>
 
-
     <repositories>
         <repository>
             <id>jcenter</id>
@@ -28,10 +27,7 @@
         </repository>
     </repositories>
 
-
     <dependencies>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -105,19 +101,42 @@
         </dependency>
 
 
+        <!--    mirai start    -->
+        <!-- https://mvnrepository.com/artifact/net.mamoe/mirai-core-qqandroid -->
         <dependency>
             <groupId>net.mamoe</groupId>
             <artifactId>mirai-core-qqandroid</artifactId>
-            <version>1.0.2</version> <!-- 替换版本为最新版本 -->
+            <version>1.2.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-stdlib</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/net.mamoe/mirai-core -->
         <dependency>
             <groupId>net.mamoe</groupId>
             <artifactId>mirai-core</artifactId>
-            <version>1.1.3</version>
+            <version>1.2.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-stdlib</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
+        <!-- 1.2.2 版本 mirai,我这边环境 会报kotlin-stdlib 包错误,排查了一下：
+        上面2个 mirai 里面也做了依赖冲突的解决,但是本项目跑起来还是会报错,无奈只能排除mirai下的默认引入,自己引入下包 -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>1.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--    mirai end    -->
 
     </dependencies>
 

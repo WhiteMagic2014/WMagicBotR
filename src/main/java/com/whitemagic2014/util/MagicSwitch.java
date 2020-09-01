@@ -13,7 +13,7 @@ import java.util.Map;
  **/
 public class MagicSwitch {
 
-    private Map<String, Boolean> sw = new HashMap();
+    private static final Map<String, Boolean> sw = new HashMap<>();
 
     public void init(String name, Boolean open) {
         sw.put(name, open);
