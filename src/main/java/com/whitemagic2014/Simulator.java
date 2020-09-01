@@ -44,6 +44,8 @@ public class Simulator implements ApplicationRunner {
     @Value("${bot.pwd}")
     String pwd;
 
+    @Value("${log.net.path}")
+    String lognet;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -51,12 +53,10 @@ public class Simulator implements ApplicationRunner {
         DBInitHelper.getInstance().initDBIfNotExist();
         // 数据库版本检查更新
         dbVersion.checkUpdateDB();
-        // jjc查询功能启动
+        // jjc查询 check nickname文件 是否存在
         pcrjjc.initNameFile();
-
         // 启动bot
-        MagicBotR bot = new MagicBotR(account, pwd, "deviceInfo.json", events);
+        MagicBotR bot = new MagicBotR(account, pwd, "deviceInfo.json", events, lognet);
         logger.info("启动成功！");
-
     }
 }

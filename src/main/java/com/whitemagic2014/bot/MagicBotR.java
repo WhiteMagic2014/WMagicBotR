@@ -1,6 +1,6 @@
 package com.whitemagic2014.bot;
 
-import com.whitemagic2014.util.Path;
+import com.whitemagic2014.util.MagicLogger;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactoryJvm;
 import net.mamoe.mirai.event.Events;
@@ -19,8 +19,8 @@ public class MagicBotR {
 
     private Bot bot;
 
-    public MagicBotR(Long account, String pwd, String deviceInfo, List<ListenerHost> events) {
-        bot = startBot(account, pwd, deviceInfo, events);
+    public MagicBotR(Long account, String pwd, String deviceInfo, List<ListenerHost> events, String netlog) {
+        bot = startBot(account, pwd, deviceInfo, events, netlog);
     }
 
     public Bot getBot() {
@@ -30,7 +30,6 @@ public class MagicBotR {
     public void setBot(Bot bot) {
         this.bot = bot;
     }
-
 
     /**
      * @Name: startBot
@@ -43,12 +42,13 @@ public class MagicBotR {
      * @Author: magic chen
      * @Date: 2020/8/20 15:54
      **/
-    private Bot startBot(Long account, String pwd, String deviceInfo, List<ListenerHost> events) {
+    private Bot startBot(Long account, String pwd, String deviceInfo, List<ListenerHost> events, String netlog) {
         BotConfiguration config = new BotConfiguration();
         config.fileBasedDeviceInfo(deviceInfo);
-        config.redirectBotLogToDirectory(new File(Path.getPath() + "logs", "bot"));
-        config.redirectNetworkLogToDirectory(new File(Path.getPath() + "logs" ,"net") );
-
+        // 使用自定义的log
+        config.setBotLoggerSupplier(bot -> new MagicLogger());
+        // 将net层输出写入文件
+        config.redirectNetworkLogToDirectory(new File(netlog));
         Bot bot = BotFactoryJvm.newBot(account, pwd, config);
         bot.login();
         // 注册事件

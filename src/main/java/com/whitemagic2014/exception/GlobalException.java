@@ -19,9 +19,9 @@ public class GlobalException {
     @ExceptionHandler(Exception.class)
     public void defaultErrorHandler(Exception e) {
         try {
-            logger.error("全局异常处理：" + e.getMessage());
+            logger.error("全局异常处理：", e);
         } catch (Exception ex) {
-            logger.error("全局异常处理异常：" + ex.getMessage());
+            logger.error("全局异常处理异常：", ex);
         }
     }
 

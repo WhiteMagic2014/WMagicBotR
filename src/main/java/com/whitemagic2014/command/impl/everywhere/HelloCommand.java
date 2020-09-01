@@ -22,8 +22,6 @@ import java.util.ArrayList;
 @Component
 public class HelloCommand extends BaseEveryWhereCommand {
 
-    MiraiLogger logger = Utils.getDefaultLogger().invoke("hello");
-
     @Override
     public CommandProperties properties() {
         return new CommandProperties("hello");
@@ -31,7 +29,6 @@ public class HelloCommand extends BaseEveryWhereCommand {
 
     @Override
     public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception {
-        logger.info("hello");
         return new PlainText("hello");
     }
 }

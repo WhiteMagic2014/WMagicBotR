@@ -75,6 +75,11 @@
 - 新增测试版jjc查询 [测试查] 直接返回角色头像,但是由于没有用cdn(没钱+懒),后台id2image,再发送qq消息,一个字 慢！后期在考虑怎么优化把
 - 启用这个功能需要 角色id-头像 对照表,直接clone[这个项目](https://github.com/WhiteMagic2014/PcrRoleImage) 到jar包目录下即可,具体对应规则看源码
 
+### 2020年09月01日
+- 自定义实现了mirai的log,将其重定向至spring 的 slf4j
+- 将net log输出至logs文件夹
+- 增加web全局异常捕获(bot层的异常mirai会捕获记录)
+
 - 本项目不稳定更新中(有空的时候会更新)
 
 
