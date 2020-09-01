@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
 	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
-	<springProperty scope="context" name="LOG_HOME" source="scfire.log.path"/>
-	<springProperty scope="context" name="APP_NAME" source="scfire.log.name"/>
+	<springProperty scope="context" name="LOG_HOME" source="log.spring.path"/>
+	<springProperty scope="context" name="APP_NAME" source="log.spring.name"/>
 	<property name="MaxHistory" value="365" />
 
 	<!-- 控制台输出 -->
