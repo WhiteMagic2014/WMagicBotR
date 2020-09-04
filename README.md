@@ -60,6 +60,7 @@
 5. WMagicBotR.properties ： 项目配置文件
 6. logs文件夹 ： 日志文件
 
+## [指令book](CommandBook.md)
 
 ## 更新记录
 ### 2020年08月25日
@@ -81,6 +82,9 @@
 - 增加web全局异常捕获(bot层的异常mirai会捕获记录)
 - mirai 版本升级至1.2.2
 
+### 2020年09月04日
+- 优化某些指令
+- 新增[指令book](CommandBook.md)
 
 - 本项目不稳定更新中(有空的时候会更新)
 

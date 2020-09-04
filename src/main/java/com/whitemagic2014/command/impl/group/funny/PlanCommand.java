@@ -42,19 +42,19 @@ public class PlanCommand extends NoAuthCommand {
         if (args.size() == 0) {
             return at.plus(find(uid, ""));
         }
-        String com = args.get(0).toString();
+        String com = args.get(0);
 
         try {
             if (com.equals("delete") || com.equals("删除") || com.equals("del")) {
-                return at.plus(deleteByName(uid, (args.get(1)).toString()));
+                return at.plus(deleteByName(uid, (args.get(1))));
             } else if (com.equals("new") || com.equals("新建") || com.equals("创建")) {
-                return at.plus(addNewPlan(uid, args.get(1).toString(), Integer.valueOf(args.get(2))));
-            } else if (com.equals("add") || com.equals("新增")) {
-                return at.plus(execPlan(uid, args.get(1).toString(), Integer.valueOf(args.get(2))));
+                return at.plus(addNewPlan(uid, args.get(1), Integer.valueOf(args.get(2))));
+            } else if (com.equals("add") || com.equals("增加")) {
+                return at.plus(execPlan(uid, args.get(1), Integer.valueOf(args.get(2))));
             } else if (com.equals("check") || com.equals("查询") || com.equals("look")) {
-                return at.plus(find(uid, ""));
+                return at.plus(find(uid, args.get(1)));
             } else if (com.equals("update") || com.equals("更新")) {
-                return at.plus(updatePlan(uid, args.get(1).toString(), Integer.valueOf(args.get(2))));
+                return at.plus(updatePlan(uid, args.get(1), Integer.valueOf(args.get(2))));
             }
         } catch (Exception e) {
             return new PlainText(help());
@@ -62,15 +62,7 @@ public class PlanCommand extends NoAuthCommand {
         return new PlainText(help());
     }
 
-    /**
-     * @param uid
-     * @param itemName
-     * @param planNum
-     * @return
-     * @Description: 新增计划
-     * @author: chenhaoyu
-     * @time:Jul 28, 2020 5:30:43 PM
-     */
+
     private String addNewPlan(String uid, String itemName, int planNum) {
         try {
             UserPlan plan = new UserPlan();
@@ -165,11 +157,11 @@ public class PlanCommand extends NoAuthCommand {
 
     private String help() {
         String result = "计划表功能:\n"
-                + "创建: [指令前缀][plan/计划] [new/新建/创建] [道具名] [目标数量]\n"
-                + "新增: [指令前缀][plan/计划] [add/新增] [道具名] [新获得数量]\n"
-                + "更新: [指令前缀][plan/计划] [update/更新] [道具名] [目前数量]\n"
-                + "删除: [指令前缀][plan/计划] [delete/del/删除] [道具名]\n"
-                + "查询: [指令前缀][plan/计划] [check/look/查询]";
+                + "创建: [指令前缀][plan/计划] [new/新建/创建] [目标名] [目标数量]\n"
+                + "增加: [指令前缀][plan/计划] [add/增加] [目标名] [新获得数量]\n"
+                + "更新: [指令前缀][plan/计划] [update/更新] [目标名] [目前数量]\n"
+                + "删除: [指令前缀][plan/计划] [delete/del/删除] [目标名]\n"
+                + "查询: [指令前缀][plan/计划] [check/look/查询] [目标名]";
         return result;
     }
 

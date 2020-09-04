@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description: 查刀 未完成
+ * @Description: 查刀 格式化未完成,现在只返回json,后期有空优化
  * @author: magic chen
  * @date: 2020/8/24 23:30
  **/

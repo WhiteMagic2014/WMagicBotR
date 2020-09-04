@@ -20,9 +20,7 @@ import java.util.ArrayList;
 @Component
 public class AttackKnife extends PcrNoAuthCommand {
 
-    String txt = "报刀 伤害 [@其他人代报 可选] [昨日 可选]";
-
-//    String txt = "报刀 伤害 [@其他人代报 可选]";
+    String txt = "报刀 伤害 [@某人 可选] [昨日 可选]";
 
     @Override
     public CommandProperties properties() {
@@ -48,17 +46,15 @@ public class AttackKnife extends PcrNoAuthCommand {
                     At at = messageChain.first(At.Key);
                     result = pcrBotService.attackKnife(subject.getId(), at.getTarget(), damage, false);
                 } else {
-                    //报自己昨日刀 暂时不支持昨日刀 昨日刀应该检查 battle数量
+                    //报自己昨日刀
                     System.out.println("报刀 自己 昨日");
                     result = pcrBotService.attackKnife(subject.getId(), sender.getId(), damage, true);
-                    return new At(sender).plus("指令错误," + txt);
                 }
             } else if (size == 3) {
-                // 代报昨日 暂时不支持昨日刀 昨日刀应该检查 battle数量
+                // 代报昨日
                 System.out.println("报刀 代报 昨日");
                 At at = messageChain.first(At.Key);
                 result = pcrBotService.attackKnife(subject.getId(), at.getTarget(), damage, true);
-                return new At(sender).plus("指令错误," + txt);
             } else {
                 return new At(sender).plus("指令错误," + txt);
             }

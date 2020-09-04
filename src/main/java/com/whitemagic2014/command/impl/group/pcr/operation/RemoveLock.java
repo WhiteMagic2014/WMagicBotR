@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 /**
- * @Description: 接触锁定
+ * @Description: 解除锁定
  * @author: magic chen
  * @date: 2020/8/24 23:19
  **/
