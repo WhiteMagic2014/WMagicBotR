@@ -25,6 +25,6 @@ public class CancelKnife extends PcrNoAuthCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("撤销出刀", "撤回出刀");
+        return new CommandProperties("撤销", "撤回");
     }
 }

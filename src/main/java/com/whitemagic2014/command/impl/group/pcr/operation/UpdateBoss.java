@@ -19,7 +19,7 @@ import java.util.ArrayList;
 @Component
 public class UpdateBoss extends PcrAdminCommand {
 
-    String txt = "修改boss状态 周目 几王 血量";
+    String txt = "修改状态 周目 几王 血量";
 
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
@@ -40,6 +40,6 @@ public class UpdateBoss extends PcrAdminCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("修改boss状态");
+        return new CommandProperties("修改状态");
     }
 }

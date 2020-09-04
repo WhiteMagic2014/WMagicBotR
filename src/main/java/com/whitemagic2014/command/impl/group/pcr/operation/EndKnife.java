@@ -23,10 +23,7 @@ import java.util.Map;
 @Component
 public class EndKnife extends PcrNoAuthCommand {
 
-    String txt = "尾刀 [@其他人代报 可选] [昨日 可选]";
-
-//    String txt = "尾刀 [@其他人代报 可选]";
-
+    String txt = "尾刀 [@某人 可选] [昨日 可选]";
 
     @Override
     public CommandProperties properties() {

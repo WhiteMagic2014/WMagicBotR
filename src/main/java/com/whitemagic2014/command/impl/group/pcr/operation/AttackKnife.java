@@ -20,9 +20,7 @@ import java.util.ArrayList;
 @Component
 public class AttackKnife extends PcrNoAuthCommand {
 
-    String txt = "报刀 伤害 [@其他人代报 可选] [昨日 可选]";
-
-//    String txt = "报刀 伤害 [@其他人代报 可选]";
+    String txt = "报刀 伤害 [@某人 可选] [昨日 可选]";
 
     @Override
     public CommandProperties properties() {
