@@ -3,10 +3,7 @@ package com.whitemagic2014.pojo.pcr;
 import com.whitemagic2014.dic.UserRole;
 
 /**
- * @Description: 工会成员 && 用户当天出刀状态 用于出刀时的逻辑判断
- * 报刀时 knife - 1 ，为0之后无法出刀
- * 报尾刀成功时 knife不减
- * @Waring: 每次获得状态前请务必 调用 refresh 检查是否隔日刷新
+ * @Description: 工会成员
  * @author: magic chen
  * @date: 2020/8/22 12:50
  **/

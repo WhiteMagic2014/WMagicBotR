@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Description: 返回图形的jjc查询
  * 效率不高 用于私聊 单条消息图片过多会出错 不继承pcrNoAuthCommand 那个需要开关开启
+ * 后期没有解决效率问题 这个功能可能会直接砍掉
  * @author: magic chen
  * @date: 2020/8/29 15:28
  **/
@@ -114,6 +115,7 @@ public class PcrAskJJCImage extends NoAuthCommand {
         } else {
             realid = id + 60;
         }
+        // 暂时没有把星级 和 专武 图标合成到头像上。
 
         BufferedImage result = getPcrImageInternal(realid);
         // 这里的缓存需要有过期,因为是比较定制化的图片 不需要缓存太久 1小时

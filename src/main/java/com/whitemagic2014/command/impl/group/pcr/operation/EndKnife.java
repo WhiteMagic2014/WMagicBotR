@@ -54,14 +54,12 @@ public class EndKnife extends PcrNoAuthCommand {
                     //报自己昨日刀
                     System.out.println("尾刀 自己 昨日");
                     result = pcrBotService.endKnife(subject.getId(), sender.getId(), true);
-                    return new At(sender).plus("指令错误," + txt);
                 }
             } else if (size == 2) {
                 // 代报昨日
                 System.out.println("尾刀 代报 昨日");
                 At at = messageChain.first(At.Key);
                 result = pcrBotService.endKnife(subject.getId(), at.getTarget(), true);
-                return new At(sender).plus("指令错误," + txt);
             } else {
                 return new At(sender).plus("指令错误," + txt);
             }
