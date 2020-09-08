@@ -1,8 +1,8 @@
 package com.whitemagic2014.config;
 
 import com.whitemagic2014.command.Command;
+import com.whitemagic2014.events.CommandEvents;
 import com.whitemagic2014.events.MessageEvents;
-import com.whitemagic2014.events.RecallEvent;
 import net.mamoe.mirai.event.ListenerHost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +25,9 @@ public class EventsConfig {
 //    RecallEvent recallEvent;
 
     @Autowired
+    CommandEvents commandEvents;
+
+    @Autowired
     MessageEvents messageEvents;
 
     /**
@@ -37,11 +40,11 @@ public class EventsConfig {
      * @Date: 2020/8/21 00:17
      **/
     @Bean
-    public MessageEvents initMessageEvents(@Qualifier("initCommandHeads") String[] heads, @Qualifier("initCommands") Command[] commands) {
-        MessageEvents messageEvents = new MessageEvents();
-        messageEvents.registerCommandHeads(heads);
-        messageEvents.registerCommands(commands);
-        return messageEvents;
+    public CommandEvents initMessageEvents(@Qualifier("initCommandHeads") String[] heads, @Qualifier("initCommands") Command[] commands) {
+        CommandEvents commandEvents = new CommandEvents();
+        commandEvents.registerCommandHeads(heads);
+        commandEvents.registerCommands(commands);
+        return commandEvents;
     }
 
 
@@ -49,6 +52,7 @@ public class EventsConfig {
     public List<ListenerHost> getBotevents() {
         List<ListenerHost> events = new ArrayList<ListenerHost>();
 //        events.add(recallEvent);
+        events.add(commandEvents);
         events.add(messageEvents);
         return events;
     }
