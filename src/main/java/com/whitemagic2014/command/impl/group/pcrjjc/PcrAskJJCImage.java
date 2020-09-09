@@ -6,7 +6,6 @@ import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
 import com.whitemagic2014.pojo.pcrjjc.TeamMember;
 import com.whitemagic2014.service.Pcrjjc;
-import com.whitemagic2014.service.impl.PcrBotServiceImpl;
 import com.whitemagic2014.util.MagicHelper;
 import com.whitemagic2014.util.MagicMaps;
 import com.whitemagic2014.util.Path;
@@ -46,7 +45,7 @@ public class PcrAskJJCImage extends NoAuthCommand {
 
     private Map<Integer, BufferedImage> pcrimage = new HashMap();
 
-    private static final Logger logger = LoggerFactory.getLogger(PcrBotServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(PcrAskJJCImage.class);
 
 
     @Override
