@@ -2,6 +2,7 @@ package com.whitemagic2014.config;
 
 import com.whitemagic2014.command.Command;
 import com.whitemagic2014.events.CommandEvents;
+import com.whitemagic2014.events.GroupEvents;
 import com.whitemagic2014.events.MessageEvents;
 import net.mamoe.mirai.event.ListenerHost;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class EventsConfig {
     @Autowired
     MessageEvents messageEvents;
 
+    @Autowired
+    GroupEvents groupEvents;
+
     /**
      * @Name: initMessageEvents
      * @Description: 消息事件处理, 不同于其他事件, 消息事件中进一步封装了指令
@@ -54,6 +58,7 @@ public class EventsConfig {
 //        events.add(recallEvent);
         events.add(commandEvents);
         events.add(messageEvents);
+        events.add(groupEvents);
         return events;
     }
 

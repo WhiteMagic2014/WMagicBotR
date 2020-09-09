@@ -41,7 +41,7 @@ public class PcrAskJJC extends BaseEveryWhereCommand {
         String result = "查询结果:\n";
         int i = 1;
         for (Answer answer : answers) {
-            String at = i + "";
+            String at = i + ".";
             for (TeamMember member : answer.getAtk()) {
                 String mt = member.getName() + member.getStar() + "";
                 if (member.getEquip()) mt += "带专";
