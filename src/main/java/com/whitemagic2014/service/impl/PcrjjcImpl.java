@@ -116,6 +116,7 @@ public class PcrjjcImpl implements Pcrjjc {
 
 
     // region  国服 2; 台服 3; 日服 4
+    // 缓存1小时
     @Override
     public PrivateModel<List<Answer>> checkjjc(List<String> names, Integer region) {
         if (!pcrdfansOpen) return new PrivateModel<>(ReturnCode.FAIL, "未启用jjc查询功能,请联系管理员修改配置后重启");
@@ -179,9 +180,9 @@ public class PcrjjcImpl implements Pcrjjc {
                     m.setName(id2Name(m.getId()));
                 });
             }
-            // 减少请求数量 这边做一个缓存 5分钟吧
-            MagicMaps.putWithExpire(memKey, answers, 5L, TimeUnit.MINUTES);
-            return new PrivateModel<>(ReturnCode.SUCCESS, "success", answers);
+            // 减少请求数量 这边做一个缓存 1小时
+            MagicMaps.putWithExpire(memKey, answers, 1L, TimeUnit.HOURS);
+            return new PrivateModel<>(ReturnCode.SUCCESS, memKey, answers);
         } else {
             return new PrivateModel<>(ReturnCode.FAIL, "pcrdfans 错误码:" + code + "," + checkCode.getReturnMessage());
         }
