@@ -8,7 +8,7 @@ import com.whitemagic2014.command.impl.friend.admin.RefreshPcrNick;
 import com.whitemagic2014.command.impl.friend.admin.SwithCommand;
 import com.whitemagic2014.command.impl.everywhere.HelloCommand;
 import com.whitemagic2014.command.impl.friend.admin.CheckDBCommand;
-import com.whitemagic2014.command.impl.group.pcrjjc.PcrAskJJCImage;
+import com.whitemagic2014.command.impl.everywhere.pcr.PcrAskJJCImage;
 import com.whitemagic2014.command.impl.group.funny.*;
 import com.whitemagic2014.command.impl.group.pcr.operation.*;
 import org.springframework.beans.factory.annotation.Autowired;
