@@ -26,21 +26,21 @@ import java.util.stream.Collectors;
  **/
 public class CommandEvents extends SimpleListenerHost {
 
-    private static Logger logger = LoggerFactory.getLogger(CommandEvents.class);
+    private static final Logger logger = LoggerFactory.getLogger(CommandEvents.class);
 
 
     /**
      * 指令头 区分正常消息 和 指令消息
      */
-    private Set<String> commandHeads = new HashSet<>();
+    private final Set<String> commandHeads = new HashSet<>();
 
     /**
      * 已注册的指令, [指令名, 指令对象]
      */
-    private Map<String, Command> everywhereCommands = new HashMap<>();
-    private Map<String, Command> friendCommands = new HashMap<>();
-    private Map<String, Command> groupCommands = new HashMap<>();
-    private Map<String, Command> tempMsgCommands = new HashMap<>();
+    private final Map<String, Command> everywhereCommands = new HashMap<>();
+    private final Map<String, Command> friendCommands = new HashMap<>();
+    private final Map<String, Command> groupCommands = new HashMap<>();
+    private final Map<String, Command> tempMsgCommands = new HashMap<>();
 
 
     /**
@@ -52,9 +52,7 @@ public class CommandEvents extends SimpleListenerHost {
      * @Date: 2020/8/21 10:56
      **/
     public void registerCommandHeads(String... heads) {
-        for (String head : heads) {
-            commandHeads.add(head);
-        }
+        commandHeads.addAll(Arrays.asList(heads));
     }
 
     /**
@@ -124,7 +122,7 @@ public class CommandEvents extends SimpleListenerHost {
      * @Date: 2020/8/21 11:10
      **/
     private boolean isCommand(String msg) {
-        return commandHeads.stream().anyMatch(head -> msg.startsWith(head));
+        return commandHeads.stream().anyMatch(msg::startsWith);
     }
 
     /**
@@ -137,7 +135,7 @@ public class CommandEvents extends SimpleListenerHost {
      * @Date: 2020/8/21 11:56
      **/
     private Command getCommand(String msg, Map<String, Command> commandMap) {
-        String temp[] = msg.split(" ");
+        String[] temp = msg.split(" ");
         // 带头指令
         String headcommand = temp[0];
         // 获得去除指令头的 指令str
@@ -153,18 +151,14 @@ public class CommandEvents extends SimpleListenerHost {
             commandStr = temps.get(0);
         }
 
-        if (commandMap.containsKey(commandStr.toLowerCase())) {
-            return commandMap.get(commandStr.toLowerCase());
-        } else {
-            return null;
-        }
+        return commandMap.getOrDefault(commandStr.toLowerCase(), null);
     }
 
 
     @Override
     public void handleException(@NotNull CoroutineContext context, @NotNull Throwable exception) {
         // 貌似无法捕获异常
-        logger.error("MessageEvents Error:", exception.getMessage());
+        logger.error("MessageEvents Error:",exception);
     }
 
 

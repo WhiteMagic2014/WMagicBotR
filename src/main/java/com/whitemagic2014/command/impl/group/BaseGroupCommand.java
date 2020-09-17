@@ -71,11 +71,7 @@ public abstract class BaseGroupCommand implements GroupCommand {
      **/
     protected boolean isGroupOwner(Member member) {
         MemberPermission permission = member.getPermission();
-        if (permission == MemberPermission.OWNER) {
-            return true;
-        } else {
-            return false;
-        }
+        return permission == MemberPermission.OWNER;
     }
 
     /**
@@ -88,11 +84,7 @@ public abstract class BaseGroupCommand implements GroupCommand {
      **/
     protected boolean isGroupAdmin(Member member) {
         MemberPermission permission = member.getPermission();
-        if (permission == MemberPermission.ADMINISTRATOR || permission == MemberPermission.OWNER) {
-            return true;
-        } else {
-            return false;
-        }
+        return permission == MemberPermission.ADMINISTRATOR || permission == MemberPermission.OWNER;
     }
 
     /**
