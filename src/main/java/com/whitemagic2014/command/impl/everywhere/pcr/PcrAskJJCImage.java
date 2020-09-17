@@ -1,7 +1,6 @@
 package com.whitemagic2014.command.impl.everywhere.pcr;
 
 import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
-import com.whitemagic2014.command.impl.group.NoAuthCommand;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
@@ -11,10 +10,7 @@ import com.whitemagic2014.util.MagicImage;
 import com.whitemagic2014.util.MagicMaps;
 import com.whitemagic2014.util.Path;
 import net.mamoe.mirai.contact.Contact;
-import net.mamoe.mirai.contact.Group;
-import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.contact.User;
-import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
@@ -26,6 +22,7 @@ import org.springframework.stereotype.Component;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -294,6 +291,13 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
     private static BufferedImage getPcrImageInternal(Integer id) throws Exception {
         if (pcrimage.containsKey(id)) return pcrimage.get(id);
         String path = Path.getPath() + "PcrRoleImage/" + id + ".jpeg";
+
+        File file = new File(path);
+        // 6星头像不存在 向下兼容取3星
+        if (!file.exists() && (id % 100 == 61)) {
+            path = Path.getPath() + "PcrRoleImage/" + (id - 30) + ".jpeg";
+            logger.warn(id + ",6星头像不存在 向下兼容取3星");
+        }
         BufferedImage image = ImageIO.read(new FileInputStream(path));
         BufferedImage small = MagicImage.resizeBufferedImage(image, 64, 64, true);
         pcrimage.put(id, small);
