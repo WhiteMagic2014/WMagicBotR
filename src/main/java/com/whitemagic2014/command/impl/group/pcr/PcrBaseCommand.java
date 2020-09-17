@@ -24,7 +24,7 @@ import java.util.ArrayList;
  **/
 public abstract class PcrBaseCommand extends BaseGroupCommand {
 
-    private static Logger logger = LoggerFactory.getLogger(PcrBaseCommand.class);
+    private static final Logger logger = LoggerFactory.getLogger(PcrBaseCommand.class);
 
     @Autowired
     protected PcrBotService pcrBotService;

@@ -19,12 +19,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecallEvent extends SimpleListenerHost {
 
-    private static Logger logger = LoggerFactory.getLogger(RecallEvent.class);
+    private static final Logger logger = LoggerFactory.getLogger(RecallEvent.class);
 
     @Override
     public void handleException(@NotNull CoroutineContext context, @NotNull Throwable exception) {
         // 貌似无法捕获异常
-        logger.error("RecallEvent Error:", exception.getMessage());
+        logger.error("RecallEvent Error:", exception);
     }
 
 

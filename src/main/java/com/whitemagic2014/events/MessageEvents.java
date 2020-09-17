@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class MessageEvents extends SimpleListenerHost {
 
-    private static Logger logger = LoggerFactory.getLogger(MessageEvents.class);
+    private static final Logger logger = LoggerFactory.getLogger(MessageEvents.class);
 
     /**
      * @Name: catchXikali
