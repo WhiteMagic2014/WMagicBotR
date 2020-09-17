@@ -294,11 +294,13 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
 
         File file = new File(path);
         // 6星头像不存在 向下兼容取3星
-        if (!file.exists() && (id % 100 == 61)) {
-            path = Path.getPath() + "PcrRoleImage/" + (id - 30) + ".jpeg";
-            logger.warn(id + ",6星头像不存在 向下兼容取3星");
-        }else {
-            logger.warn(id + ",头像不存在,请添加头像资源");
+        if (!file.exists()) {
+            if (id % 100 == 61) {
+                path = Path.getPath() + "PcrRoleImage/" + (id - 30) + ".jpeg";
+                logger.warn(id + ",6星头像不存在 向下兼容取3星");
+            } else {
+                logger.warn(id + ",头像不存在,请添加头像资源");
+            }
         }
         BufferedImage image = ImageIO.read(new FileInputStream(path));
         BufferedImage small = MagicImage.resizeBufferedImage(image, 64, 64, true);
