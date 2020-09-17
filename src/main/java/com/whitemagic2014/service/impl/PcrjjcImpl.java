@@ -131,7 +131,7 @@ public class PcrjjcImpl implements Pcrjjc {
         }
         List<Integer> ids = idModel.getReturnObject();
         // 去读缓存 有缓存就不请求了
-        String memKey = Dic.JJC_CACHE + ids.stream().sorted().map(String::valueOf).reduce("", String::concat);
+        String memKey = Dic.JJC_CACHE + ids.stream().sorted().map(String::valueOf).reduce("", String::concat) + "region" + region;;
         if (MagicMaps.check(memKey)) {
             return new PrivateModel<>(ReturnCode.SUCCESS, "success", (List<Answer>) MagicMaps.getObject(memKey));
         }
