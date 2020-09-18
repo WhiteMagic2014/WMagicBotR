@@ -118,7 +118,7 @@ public class PlanCommand extends NoAuthCommand {
         if ((now + addNum) < total) {
             UserPlan update = new UserPlan();
             update.setId(plan.getId());
-            update.setNowNum(total - now - addNum);
+            update.setNowNum(now + addNum);
             upd.updatePlan(update);
             return "任务更新: " + plan.getItemName() + " 当前 " + (now + addNum) + " 个,剩余 " + (total - now - addNum) + " 个 "
                     + plan.getItemName();
