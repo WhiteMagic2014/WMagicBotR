@@ -7,23 +7,24 @@ package com.whitemagic2014.pojo;
  **/
 public class UserPlan {
 
-    int id;
+    Integer id;
 
     String uid;
 
-    int itemId;
+    Integer itemId;
 
     String itemName;
 
-    int nowNum;
+    Integer nowNum;
 
-    int planNum;
+    Integer planNum;
 
-    public int getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,11 +36,11 @@ public class UserPlan {
         this.uid = uid;
     }
 
-    public int getItemId() {
+    public Integer getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(Integer itemId) {
         this.itemId = itemId;
     }
 
@@ -51,19 +52,19 @@ public class UserPlan {
         this.itemName = itemName;
     }
 
-    public int getNowNum() {
+    public Integer getNowNum() {
         return nowNum;
     }
 
-    public void setNowNum(int nowNum) {
+    public void setNowNum(Integer nowNum) {
         this.nowNum = nowNum;
     }
 
-    public int getPlanNum() {
+    public Integer getPlanNum() {
         return planNum;
     }
 
-    public void setPlanNum(int planNum) {
+    public void setPlanNum(Integer planNum) {
         this.planNum = planNum;
     }
 }
