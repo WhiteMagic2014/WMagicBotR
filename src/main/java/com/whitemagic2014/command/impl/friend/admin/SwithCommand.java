@@ -21,22 +21,20 @@ import java.util.ArrayList;
 @Component
 public class SwithCommand extends AdminFriendCommand {
 
-    @Autowired
-    MagicSwitch ms;
 
     @Override
     protected Message executeHandle(Friend sender, ArrayList<String> args, MessageChain messageChain, Friend subject) {
-        if (args.size() != 2) return new PlainText("指令错误: 开关 [开启/关闭] [组件名]");
+        if (args.size() != 2) return new PlainText("指令错误: 开关 [开启/关闭] [组件名]\n当前组件有:\n"+MagicSwitch.list());
         String opt = args.get(0);
         String componentName = args.get(1);
 
         PrivateModel<String> openResult;
         if (opt.equals("开启")) {
-            openResult = ms.open(componentName);
+            openResult = MagicSwitch.open(componentName);
         } else if (opt.equals("关闭")) {
-            openResult = ms.close(componentName);
+            openResult = MagicSwitch.close(componentName);
         } else {
-            return new PlainText("指令错误: 开关 [开启/关闭] [组件名]");
+            return new PlainText("指令错误: 开关 [开启/关闭] [组件名]\n当前组件有:\n"+MagicSwitch.list());
         }
         return simpleMsg(openResult);
     }

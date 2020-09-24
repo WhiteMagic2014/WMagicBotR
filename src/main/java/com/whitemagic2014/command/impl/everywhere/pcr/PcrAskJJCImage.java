@@ -1,11 +1,13 @@
 package com.whitemagic2014.command.impl.everywhere.pcr;
 
 import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
+import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
 import com.whitemagic2014.pojo.pcrjjc.TeamMember;
 import com.whitemagic2014.service.Pcrjjc;
+import com.whitemagic2014.config.sw.Switch;
 import com.whitemagic2014.util.MagicImage;
 import com.whitemagic2014.util.MagicMaps;
 import com.whitemagic2014.util.Path;
@@ -38,8 +40,8 @@ import java.util.concurrent.TimeUnit;
  * @date: 2020/8/29 15:28
  **/
 @Component
+@Switch(name = Dic.Component_Pcr_JJC_Image, defaultOn = false)
 public class PcrAskJJCImage extends BaseEveryWhereCommand {
-
 
     private static HashMap<String, BufferedImage> icon = new HashMap<>();
 

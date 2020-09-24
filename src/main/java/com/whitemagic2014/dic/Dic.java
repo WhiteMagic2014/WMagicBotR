@@ -16,6 +16,12 @@ public interface Dic {
     public static final String JJC_CACHE = "JJC_CACHE";
 
     //pcr 工会战组件
-    public static final String Pcr_Guild_Component = "Pcr_Guild_Component";
+    public static final String Component_Pcr_Guild = "component.pcr.guild";
+
+    // pcr jjc组件
+    public static final String Component_Pcr_JJC = "component.pcr.jjc";
+
+    // pcr jjc图形组件
+    public static final String Component_Pcr_JJC_Image = "component.pcr.jjc.image";
 
 }
