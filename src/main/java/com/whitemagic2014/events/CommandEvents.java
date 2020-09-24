@@ -1,6 +1,8 @@
 package com.whitemagic2014.events;
 
 import com.whitemagic2014.command.*;
+import com.whitemagic2014.config.sw.Switch;
+import com.whitemagic2014.util.MagicSwitch;
 import kotlin.coroutines.CoroutineContext;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.Listener;
@@ -158,7 +160,7 @@ public class CommandEvents extends SimpleListenerHost {
     @Override
     public void handleException(@NotNull CoroutineContext context, @NotNull Throwable exception) {
         // 貌似无法捕获异常
-        logger.error("MessageEvents Error:",exception);
+        logger.error("MessageEvents Error:", exception);
     }
 
 
@@ -177,6 +179,10 @@ public class CommandEvents extends SimpleListenerHost {
         if (isCommand(oriMsg)) {
             EverywhereCommand command = (EverywhereCommand) getCommand(oriMsg, everywhereCommands);
             if (command != null) {
+                Switch sw = command.getClass().getAnnotation(Switch.class);
+                if (sw != null && !MagicSwitch.check(sw.name())) {
+                    return ListeningStatus.LISTENING;
+                }
                 Message result = command.execute(event.getSender(), getArgs(oriMsg), event.getMessage(), event.getSubject());
                 if (result != null) {
                     event.getSubject().sendMessage(result);
@@ -206,6 +212,10 @@ public class CommandEvents extends SimpleListenerHost {
         if (isCommand(oriMsg)) {
             FriendCommand command = (FriendCommand) getCommand(oriMsg, friendCommands);
             if (command != null) {
+                Switch sw = command.getClass().getAnnotation(Switch.class);
+                if (sw != null && !MagicSwitch.check(sw.name())) {
+                    return ListeningStatus.LISTENING;
+                }
                 Message result = command.execute(event.getSender(), getArgs(oriMsg), event.getMessage(), event.getSubject());
                 if (result != null) {
                     event.getSubject().sendMessage(result);
@@ -237,6 +247,10 @@ public class CommandEvents extends SimpleListenerHost {
         if (isCommand(oriMsg)) {
             GroupCommand command = (GroupCommand) getCommand(oriMsg, groupCommands);
             if (command != null) {
+                Switch sw = command.getClass().getAnnotation(Switch.class);
+                if (sw != null && !MagicSwitch.check(sw.name())) {
+                    return ListeningStatus.LISTENING;
+                }
                 Message result = command.execute(event.getSender(), getArgs(oriMsg), event.getMessage(), event.getSubject());
                 if (result != null) {
                     event.getSubject().sendMessage(result);
@@ -268,6 +282,10 @@ public class CommandEvents extends SimpleListenerHost {
         if (isCommand(oriMsg)) {
             TempMessageCommand command = (TempMessageCommand) getCommand(oriMsg, tempMsgCommands);
             if (command != null) {
+                Switch sw = command.getClass().getAnnotation(Switch.class);
+                if (sw != null && !MagicSwitch.check(sw.name())) {
+                    return ListeningStatus.LISTENING;
+                }
                 Message result = command.execute(event.getSender(), getArgs(oriMsg), event.getMessage(), event.getSubject());
                 if (result != null) {
                     event.getSubject().sendMessage(result);

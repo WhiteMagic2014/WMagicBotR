@@ -1,11 +1,13 @@
 package com.whitemagic2014.command.impl.everywhere.pcr;
 
 import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
+import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
 import com.whitemagic2014.pojo.pcrjjc.TeamMember;
 import com.whitemagic2014.service.Pcrjjc;
+import com.whitemagic2014.config.sw.Switch;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
@@ -23,11 +25,11 @@ import java.util.List;
  * @date: 2020/8/26 17:24
  **/
 @Component
+@Switch(name = Dic.Component_Pcr_JJC,defaultOn = false)
 public class PcrAskJJC extends BaseEveryWhereCommand {
 
     @Autowired
     Pcrjjc pcrjjc;
-
 
     @Override
     public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) {

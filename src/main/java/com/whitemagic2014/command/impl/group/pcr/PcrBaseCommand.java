@@ -4,8 +4,8 @@ import com.whitemagic2014.command.impl.group.BaseGroupCommand;
 import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.service.PcrBotService;
+import com.whitemagic2014.config.sw.Switch;
 import com.whitemagic2014.util.MagicLock;
-import com.whitemagic2014.util.MagicSwitch;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.At;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
  * @author: magic chen
  * @date: 2020/8/23 11:45
  **/
+@Switch(name = Dic.Component_Pcr_Guild, defaultOn = false)
 public abstract class PcrBaseCommand extends BaseGroupCommand {
 
     private static final Logger logger = LoggerFactory.getLogger(PcrBaseCommand.class);
@@ -29,13 +30,8 @@ public abstract class PcrBaseCommand extends BaseGroupCommand {
     @Autowired
     protected PcrBotService pcrBotService;
 
-    @Autowired
-    MagicSwitch magicSwitch;
-
     @Override
     public Message execute(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
-        // 公会战模块开关
-        if (!magicSwitch.check(Dic.Pcr_Guild_Component)) return null;
 
         // 总体判别权限,有些指令只能管理员 或者 群主执行
         PrivateModel checkResult = checkRole(sender, subject);

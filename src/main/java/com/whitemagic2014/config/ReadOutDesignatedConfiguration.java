@@ -21,7 +21,7 @@ import java.util.Properties;
 public class ReadOutDesignatedConfiguration implements EnvironmentPostProcessor {
 
     // 注意:只能读 .propertie .yml可能会有问题
-    private  String OUT_LOCATION = Path.getPath()+"WMagicBotR.properties";
+    public static final String OUT_LOCATION = Path.getPath() + "WMagicBotR.properties";
 
 
     @Override

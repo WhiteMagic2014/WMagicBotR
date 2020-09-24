@@ -15,7 +15,7 @@ public class MagicSwitch {
 
     private static final Map<String, Boolean> sw = new HashMap<>();
 
-    public void init(String name, Boolean open) {
+    public static void init(String name, Boolean open) {
         sw.put(name, open);
     }
 
@@ -27,7 +27,7 @@ public class MagicSwitch {
      * @Author: magic chen
      * @Date: 2020/8/27 17:43
      **/
-    public PrivateModel<String> open(String name) {
+    public static PrivateModel<String> open(String name) {
         if (sw.containsKey(name)) {
             sw.put(name, true);
             return new PrivateModel<>(ReturnCode.SUCCESS, "success", "[" + name + "]已开启");
@@ -44,13 +44,30 @@ public class MagicSwitch {
      * @Author: magic chen
      * @Date: 2020/8/27 17:43
      **/
-    public PrivateModel<String> close(String name) {
+    public static PrivateModel<String> close(String name) {
         if (sw.containsKey(name)) {
             sw.put(name, false);
             return new PrivateModel<>(ReturnCode.SUCCESS, "success", "[" + name + "]已关闭");
         } else {
             return new PrivateModel<>(ReturnCode.FAIL, "[" + name + "]功能不存在");
         }
+    }
+
+    /**
+     * @Name: list
+     * @Description: 列出所有注册的动态组件
+     * @Param:
+     * @Return: java.lang.String
+     * @Author: magic chen
+     * @Date:   2020/9/24 11:33
+     **/
+    public static String list() {
+        String msg = "";
+        for (String k : sw.keySet()) {
+            msg += k + " " + (check(k) ? "开启中" : "未开启") + "\n";
+        }
+        msg = msg.substring(0,msg.length()-1);
+        return msg;
     }
 
     /**
@@ -61,7 +78,7 @@ public class MagicSwitch {
      * @Author: magic chen
      * @Date: 2020/8/27 17:44
      **/
-    public boolean check(String name) {
+    public static boolean check(String name) {
         return sw.getOrDefault(name, false);
     }
 

@@ -1,6 +1,7 @@
 package com.whitemagic2014;
 
 import com.whitemagic2014.bot.MagicBotR;
+import com.whitemagic2014.config.properties.SwitchProperties;
 import com.whitemagic2014.db.DBInitHelper;
 import com.whitemagic2014.db.DBVersion;
 import com.whitemagic2014.service.Pcrjjc;
@@ -53,6 +54,8 @@ public class Simulator implements ApplicationRunner {
         DBInitHelper.getInstance().initDBIfNotExist();
         // 数据库版本检查更新
         dbVersion.checkUpdateDB();
+        // 开始读取 component switch 配置
+        SwitchProperties.updateSwitchByProperty();
         // jjc查询 check nickname文件 是否存在
         pcrjjc.initNameFile();
         // 启动bot
