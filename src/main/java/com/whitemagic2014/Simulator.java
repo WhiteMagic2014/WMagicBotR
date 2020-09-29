@@ -25,9 +25,7 @@ import java.util.List;
 @Component
 public class Simulator implements ApplicationRunner {
 
-
     private static final Logger logger = LoggerFactory.getLogger(Simulator.class);
-
 
     @Autowired
     @Qualifier("botEvents")
@@ -59,7 +57,7 @@ public class Simulator implements ApplicationRunner {
         // jjc查询 check nickname文件 是否存在
         pcrjjc.initNameFile();
         // 启动bot
-        MagicBotR bot = new MagicBotR(account, pwd, "deviceInfo.json", events, lognet);
+        MagicBotR.startBot(account, pwd, "deviceInfo.json", events, lognet);
         logger.info("启动成功！");
     }
 }

@@ -17,18 +17,10 @@ import java.util.List;
  **/
 public class MagicBotR {
 
-    private Bot bot;
+    private static Bot miraiBot;
 
-    public MagicBotR(Long account, String pwd, String deviceInfo, List<ListenerHost> events, String netlog) {
-        bot = startBot(account, pwd, deviceInfo, events, netlog);
-    }
-
-    public Bot getBot() {
-        return bot;
-    }
-
-    public void setBot(Bot bot) {
-        this.bot = bot;
+    public static Bot getBot() {
+        return miraiBot;
     }
 
     /**
@@ -43,25 +35,25 @@ public class MagicBotR {
      * @Author: magic chen
      * @Date: 2020/8/20 15:54
      **/
-    private Bot startBot(Long account, String pwd, String deviceInfo, List<ListenerHost> events, String netlog) {
+    public static void startBot(Long account, String pwd, String deviceInfo, List<ListenerHost> events, String netlog) {
         BotConfiguration config = new BotConfiguration();
         config.fileBasedDeviceInfo(deviceInfo);
         // 使用自定义的log
         config.setBotLoggerSupplier(bot -> new MagicLogger());
         // 将net层输出写入文件
         config.redirectNetworkLogToDirectory(new File(netlog));
-        Bot bot = BotFactoryJvm.newBot(account, pwd, config);
-        bot.login();
+        miraiBot = BotFactoryJvm.newBot(account, pwd, config);
+        miraiBot.login();
         // 注册事件
         for (ListenerHost event : events) {
-            Events.registerEvents(bot, event);
+            Events.registerEvents(miraiBot, event);
         }
         // 这个和picbotx 还是不太一样 那个不会占用主线程
         // 这里必须要启新线程去跑bot 不然会占用主线程
         new Thread(() -> {
-            bot.join();
+            miraiBot.join();
         }).start();
-        return bot;
+
     }
 
 }
