@@ -12,27 +12,27 @@ public class MagicMd5 {
 
 
     /**
-     * @Name: getLuckyString
+     * @Name: getMd5String
      * @Description: 根据输入的字符获得其hash 暂时没想到用来干啥
      * @Param: str
      * @Return: java.lang.String
      * @Author: magic chen
      * @Date: 2020/8/20 15:06
      **/
-    public static String getLuckyString(String str) {
+    public static String getMd5String(String str) {
         return byteToString(getMD5Byte(str));
     }
 
 
     /**
-     * @Name: getLuckyInt
+     * @Name: getMd5Int
      * @Description: 根据输入的字符获得其hash的数值 可以用来做种子随机
      * @Param: str
      * @Return: int
      * @Author: magic chen
      * @Date: 2020/8/20 15:06
      **/
-    public static int getLuckyInt(String str) {
+    public static int getMd5Int(String str) {
         return bytes2Int(getMD5Byte(str));
     }
 
