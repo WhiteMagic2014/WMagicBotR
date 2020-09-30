@@ -1,13 +1,12 @@
 package com.whitemagic2014.util;
 
 import com.whitemagic2014.bot.MagicBotR;
+import com.whitemagic2014.util.time.MagicOnceTask;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.data.Message;
 
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * @Description: 用来发送消息的工具类
@@ -32,26 +31,24 @@ public class MagicMsgSender {
         bot.getGroup(groupId).sendMessage(msg);
     }
 
-
     /**
      * @Name: sendGroupMsgDelay
      * @Description: 发送延时群消息
      * @Param: groupId
      * @Param: msg
      * @Param: delay
-     * @Return: java.util.Timer
+     * @Return: void
      * @Author: magic chen
-     * @Date: 2020/9/29 17:49
+     * @Date: 2020/9/30 17:07
      **/
-    public static Timer sendGroupMsgDelay(Long groupId, Message msg, Long delay) {
-        Timer t = new Timer();
-        t.schedule(new TimerTask() {
+    public static void sendGroupMsgDelay(Long groupId, Message msg, Long delay) {
+        String key = MagicMd5.getMd5String("g" + groupId + msg.toString() + System.currentTimeMillis());
+        new MagicOnceTask(key) {
             @Override
-            public void run() {
+            public void handle() {
                 bot.getGroup(groupId).sendMessage(msg);
             }
-        }, delay);
-        return t;
+        }.schedule(delay);
     }
 
     /**
@@ -60,19 +57,18 @@ public class MagicMsgSender {
      * @Param: groupId
      * @Param: msg
      * @Param: time
-     * @Return: java.util.Timer
+     * @Return: void
      * @Author: magic chen
-     * @Date: 2020/9/29 17:50
+     * @Date: 2020/9/30 17:07
      **/
-    public static Timer sendGroupMsgTiming(Long groupId, Message msg, Date time) {
-        Timer t = new Timer();
-        t.schedule(new TimerTask() {
+    public static void sendGroupMsgTiming(Long groupId, Message msg, Date time) {
+        String key = MagicMd5.getMd5String("g" + groupId + msg.toString()+ System.currentTimeMillis());
+        new MagicOnceTask(key) {
             @Override
-            public void run() {
+            public void handle() {
                 bot.getGroup(groupId).sendMessage(msg);
             }
-        }, time);
-        return t;
+        }.schedule(time);
     }
 
     /**
@@ -95,20 +91,18 @@ public class MagicMsgSender {
      * @Param: uid
      * @Param: msg
      * @Param: delay
-     * @Return: java.util.Timer
-     *
+     * @Return: void
      * @Author: magic chen
-     * @Date:   2020/9/29 18:05
+     * @Date: 2020/9/30 17:10
      **/
-    public static Timer sendFriendMsgDelay(Long uid, Message msg, Long delay) {
-        Timer t = new Timer();
-        t.schedule(new TimerTask() {
+    public static void sendFriendMsgDelay(Long uid, Message msg, Long delay) {
+        String key = MagicMd5.getMd5String("u" + uid + msg.toString()+ System.currentTimeMillis());
+        new MagicOnceTask(key) {
             @Override
-            public void run() {
+            public void handle() {
                 bot.getFriend(uid).sendMessage(msg);
             }
-        }, delay);
-        return t;
+        }.schedule(delay);
     }
 
 
@@ -118,20 +112,18 @@ public class MagicMsgSender {
      * @Param: uid
      * @Param: msg
      * @Param: time
-     * @Return: java.util.Timer
-     *
+     * @Return: void
      * @Author: magic chen
-     * @Date:   2020/9/29 18:06
+     * @Date: 2020/9/30 17:10
      **/
-    public static Timer sendFriendMsgTiming(Long uid, Message msg, Date time) {
-        Timer t = new Timer();
-        t.schedule(new TimerTask() {
+    public static void sendFriendMsgTiming(Long uid, Message msg, Date time) {
+        String key = MagicMd5.getMd5String("u" + uid + msg.toString()+ System.currentTimeMillis());
+        new MagicOnceTask(key) {
             @Override
-            public void run() {
+            public void handle() {
                 bot.getFriend(uid).sendMessage(msg);
             }
-        }, time);
-        return t;
+        }.schedule(time);
     }
 
 
