@@ -31,7 +31,6 @@ public class MagicBotR {
      * @Param: deviceInfo 存储设备信息文件
      * @Param: events 注册监听事件
      * @Param: netlog net日志重定向到文件夹路径
-     * @Return: net.mamoe.mirai.Bot
      * @Author: magic chen
      * @Date: 2020/8/20 15:54
      **/
@@ -50,10 +49,7 @@ public class MagicBotR {
         }
         // 这个和picbotx 还是不太一样 那个不会占用主线程
         // 这里必须要启新线程去跑bot 不然会占用主线程
-        new Thread(() -> {
-            miraiBot.join();
-        }).start();
-
+        new Thread(() -> miraiBot.join()).start();
     }
 
 }
