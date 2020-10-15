@@ -45,8 +45,6 @@ public class DBVersion {
                         for (String sql : dbver.getSqls()) {
                             dbDao.runDDLSql(sql);
                         }
-                    } else {
-                        continue;
                     }
                 }
                 db.setVersion(latestVer.toString());

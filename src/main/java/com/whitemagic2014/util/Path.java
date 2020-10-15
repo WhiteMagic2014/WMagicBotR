@@ -19,7 +19,7 @@ public class Path {
     public static String getPath() {
         String path = Path.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         if (System.getProperty("os.name").contains("dows")) {
-            path = path.substring(1, path.length());
+            path = path.substring(1);
         }
         if (path.contains("jar")) {
             path = path.substring(0, path.lastIndexOf("."));

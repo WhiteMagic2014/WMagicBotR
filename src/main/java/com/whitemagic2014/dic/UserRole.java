@@ -17,19 +17,11 @@ public enum UserRole {
     }
 
     public boolean isAdmin() {
-        if (this == OWNER || this == ADMIN) {
-            return true;
-        } else {
-            return false;
-        }
+        return this == OWNER || this == ADMIN;
     }
 
     public boolean isOwner() {
-        if (this == OWNER) {
-            return true;
-        } else {
-            return false;
-        }
+        return this == OWNER;
     }
 
 }

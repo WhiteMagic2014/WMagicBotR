@@ -129,18 +129,16 @@ public class CommandsConfig {
     @Autowired
     RefreshPcrNick refreshPcrNick;
 
-
     @Bean(name = "initCommandHeads")
     public String[] initCommandHeads() {
-        String[] heads = new String[]{
+        return new String[]{
                 "#", "$", "!", "！", ""
         };
-        return heads;
     }
 
     @Bean(name = "initCommands")
     public Command[] initCommands() {
-        Command[] commands = new Command[]{
+        return new Command[]{
                 swithCommand, helpCommand,
                 hello,
                 checkdb,
@@ -154,7 +152,6 @@ public class CommandsConfig {
                 requestAttack, lockBoss, removeLock,
                 pcrAskJJC, refreshPcrNick, pcrAskJJCImage
         };
-        return commands;
     }
 
 }

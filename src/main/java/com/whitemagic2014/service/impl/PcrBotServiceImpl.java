@@ -460,11 +460,16 @@ public class PcrBotServiceImpl implements PcrBotService {
             return new PrivateModel<String>().wrapper(uexist);
         }
 
-        if (num > 5 || num < 1) return new PrivateModel<>(ReturnCode.FAIL, "指令错误,请输入正确的1~5王");
+        if (num > 5 || num < 1) {
+            return new PrivateModel<>(ReturnCode.FAIL, "指令错误,请输入正确的1~5王");
+        }
         Long hpmax = Dic.BossHp[num - 1];
-        if (hpnow == null) hpnow = hpmax;
-        if (hpmax < hpnow)
+        if (hpnow == null) {
+            hpnow = hpmax;
+        }
+        if (hpmax < hpnow) {
             return new PrivateModel<>(ReturnCode.FAIL, "指令错误,请输入正确的血量," + num + "王最多" + MagicHelper.longAddComma(hpmax) + "hp");
+        }
 
         Boss newboss = new Boss();
         newboss.setGid(gid);
@@ -505,7 +510,7 @@ public class PcrBotServiceImpl implements PcrBotService {
             return new PrivateModel<>(ReturnCode.FAIL, "已经没有可以撤回的刀了");
         }
         // 仅本人可以撤回 或者管理员撤回
-        if (lastKnife.getUid() != sender && !userSender.getRole().isAdmin()) {
+        if (!lastKnife.getUid().equals(sender) && !userSender.getRole().isAdmin()) {
             return new PrivateModel<>(ReturnCode.FAIL,
                     "非管理员只能撤销自己的刀,上一刀用户" + lastKnife.getUname() + "[" + lastKnife.getUid() + "]");
         }

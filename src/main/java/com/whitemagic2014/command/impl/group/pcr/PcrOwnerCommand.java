@@ -19,7 +19,7 @@ public abstract class PcrOwnerCommand extends PcrBaseCommand {
                 || isGroupOwner(sender) //群主
                 || isOwner(subject.getId(), sender.getId()) //bot主人(也就是超管)
         ) {
-            return new PrivateModel<>(ReturnCode.SUCCESS, "sucess");
+            return new PrivateModel<>(ReturnCode.SUCCESS, "success");
         } else {
             return new PrivateModel<>(ReturnCode.FAIL, "无权操作,该指令需要[群主][超管]权限");
         }

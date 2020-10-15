@@ -6,10 +6,7 @@ import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
-import net.mamoe.mirai.utils.MiraiLogger;
-import net.mamoe.mirai.utils.Utils;
 import org.springframework.stereotype.Component;
-
 
 import java.util.ArrayList;
 

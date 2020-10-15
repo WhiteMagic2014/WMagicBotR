@@ -8,7 +8,6 @@ import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,14 +23,16 @@ public class SwithCommand extends AdminFriendCommand {
 
     @Override
     protected Message executeHandle(Friend sender, ArrayList<String> args, MessageChain messageChain, Friend subject) {
-        if (args.size() != 2) return new PlainText("指令错误: 开关 [开启/关闭] [组件名]\n当前组件有:\n"+MagicSwitch.list());
+        if (args.size() != 2) {
+            return new PlainText("指令错误: 开关 [开启/关闭] [组件名]\n当前组件有:\n"+MagicSwitch.list());
+        }
         String opt = args.get(0);
         String componentName = args.get(1);
 
         PrivateModel<String> openResult;
-        if (opt.equals("开启")) {
+        if ("开启".equals(opt)) {
             openResult = MagicSwitch.open(componentName);
-        } else if (opt.equals("关闭")) {
+        } else if ("关闭".equals(opt)) {
             openResult = MagicSwitch.close(componentName);
         } else {
             return new PlainText("指令错误: 开关 [开启/关闭] [组件名]\n当前组件有:\n"+MagicSwitch.list());

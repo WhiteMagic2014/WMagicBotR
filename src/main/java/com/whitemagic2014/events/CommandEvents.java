@@ -109,7 +109,9 @@ public class CommandEvents extends SimpleListenerHost {
         String[] args = msg.trim().split(" ");
         ArrayList<String> list = new ArrayList<>();
         for (String arg : args) {
-            if (StringUtils.isNotBlank(arg)) list.add(arg);
+            if (StringUtils.isNotBlank(arg)) {
+                list.add(arg);
+            }
         }
         list.remove(0);
         return list;

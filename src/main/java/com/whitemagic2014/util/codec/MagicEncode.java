@@ -71,7 +71,7 @@ public class MagicEncode {
                 }
             }
         }
-        if (!temp.equals("")) {
+        if (!"".equals(temp)) {
             result += hexStr2Str(temp);
         }
         return result;
@@ -103,7 +103,7 @@ public class MagicEncode {
         String str = "0123456789ABCDEF"; // 16进制能用到的所有字符 0-15
         for (int i = 0; i < hex.length(); i++) {
             String s = hex.substring(i, i + 1);
-            if (s.equals("a") || s.equals("b") || s.equals("c") || s.equals("d") || s.equals("e") || s.equals("f")) {
+            if ("a".equals(s) || "b".equals(s) || "c".equals(s) || "d".equals(s) || "e".equals(s) || "f".equals(s)) {
                 s = s.toUpperCase().substring(0, 1);
             }
             hexStr += s;
@@ -153,48 +153,60 @@ public class MagicEncode {
     }
 
     static boolean isPunctuation(char ch) {
-        if (isCjkPunc(ch))
+        if (isCjkPunc(ch)) {
             return true;
-        if (isEnPunc(ch))
+        }
+        if (isEnPunc(ch)) {
             return true;
+        }
 
-        if (0x2018 <= ch && ch <= 0x201F)
+        if (0x2018 <= ch && ch <= 0x201F) {
             return true;
-        if (ch == 0xFF01 || ch == 0xFF02)
+        }
+        if (ch == 0xFF01 || ch == 0xFF02) {
             return true;
-        if (ch == 0xFF07 || ch == 0xFF0C)
+        }
+        if (ch == 0xFF07 || ch == 0xFF0C) {
             return true;
-        if (ch == 0xFF1A || ch == 0xFF1B)
+        }
+        if (ch == 0xFF1A || ch == 0xFF1B) {
             return true;
-        if (ch == 0xFF1F || ch == 0xFF61)
+        }
+        if (ch == 0xFF1F || ch == 0xFF61) {
             return true;
-        if (ch == 0xFF0E)
+        }
+        if (ch == 0xFF0E) {
             return true;
-        if (ch == 0xFF65)
+        }
+        if (ch == 0xFF65) {
             return true;
-
+        }
         return false;
     }
 
     static boolean isEnPunc(char ch) {
-        if (0x21 <= ch && ch <= 0x22)
+        if (0x21 <= ch && ch <= 0x22) {
             return true;
-        if (ch == 0x27 || ch == 0x2C)
+        }
+        if (ch == 0x27 || ch == 0x2C) {
             return true;
-        if (ch == 0x2E || ch == 0x3A)
+        }
+        if (ch == 0x2E || ch == 0x3A) {
             return true;
-        if (ch == 0x3B || ch == 0x3F)
+        }
+        if (ch == 0x3B || ch == 0x3F) {
             return true;
-
+        }
         return false;
     }
 
     static boolean isCjkPunc(char ch) {
-        if (0x3001 <= ch && ch <= 0x3003)
+        if (0x3001 <= ch && ch <= 0x3003) {
             return true;
-        if (0x301D <= ch && ch <= 0x301F)
+        }
+        if (0x301D <= ch && ch <= 0x301F) {
             return true;
-
+        }
         return false;
     }
 

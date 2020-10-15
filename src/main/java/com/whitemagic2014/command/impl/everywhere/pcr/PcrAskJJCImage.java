@@ -1,13 +1,13 @@
 package com.whitemagic2014.command.impl.everywhere.pcr;
 
 import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
+import com.whitemagic2014.config.sw.Switch;
 import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
 import com.whitemagic2014.pojo.pcrjjc.TeamMember;
 import com.whitemagic2014.service.Pcrjjc;
-import com.whitemagic2014.config.sw.Switch;
 import com.whitemagic2014.util.MagicImage;
 import com.whitemagic2014.util.MagicMaps;
 import com.whitemagic2014.util.Path;
@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
  * @date: 2020/8/29 15:28
  **/
 @Component
-@Switch(name = Dic.Component_Pcr_JJC_Image, defaultOn = false)
+@Switch(name = Dic.Component_Pcr_JJC_Image)
 public class PcrAskJJCImage extends BaseEveryWhereCommand {
 
     private static HashMap<String, BufferedImage> icon = new HashMap<>();
@@ -63,7 +63,9 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
             return simpleErrMsg(sender, model);
         }
         List<Answer> answers = model.getReturnObject();
-        if (answers.isEmpty()) return simpleMsg(sender, new PlainText("没有找到解法"));
+        if (answers.isEmpty()) {
+            return simpleMsg(sender, new PlainText("没有找到解法"));
+        }
 
         String zuoyeKey = "Image_" + model.getReturnMessage();
 
@@ -135,12 +137,14 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
 
         String key = "pcrJjcImageDetail_" + id + star + equip;
         // 读缓存
-        if (MagicMaps.check(key)) return MagicMaps.get(key, BufferedImage.class);
+        if (MagicMaps.check(key)) {
+            return MagicMaps.get(key, BufferedImage.class);
+        }
 
         int realid;
         if (star < 3) {
             realid = id + 10;
-        } else if (star >= 3 && star < 6) {
+        } else if (star < 6) {
             realid = id + 30;
         } else {
             realid = id + 60;
@@ -166,48 +170,48 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
         int height = grayStarIcon.getHeight();
         switch (star) {
             case 1:
-                graphics.drawImage(starIcon, dx + width * 0, y, width, height, null);
-                graphics.drawImage(grayStarIcon, dx + width * 1, y, width, height, null);
+                graphics.drawImage(starIcon, dx, y, width, height, null);
+                graphics.drawImage(grayStarIcon, dx + width, y, width, height, null);
                 graphics.drawImage(grayStarIcon, dx + width * 2, y, width, height, null);
                 graphics.drawImage(grayStarIcon, dx + width * 3, y, width, height, null);
                 graphics.drawImage(grayStarIcon, dx + width * 4, y, width, height, null);
                 break;
 
             case 2:
-                graphics.drawImage(starIcon, dx + width * 0, y, width, height, null);
-                graphics.drawImage(starIcon, dx + width * 1, y, width, height, null);
+                graphics.drawImage(starIcon, dx, y, width, height, null);
+                graphics.drawImage(starIcon, dx + width, y, width, height, null);
                 graphics.drawImage(grayStarIcon, dx + width * 2, y, width, height, null);
                 graphics.drawImage(grayStarIcon, dx + width * 3, y, width, height, null);
                 graphics.drawImage(grayStarIcon, dx + width * 4, y, width, height, null);
                 break;
 
             case 3:
-                graphics.drawImage(starIcon, dx + width * 0, y, width, height, null);
-                graphics.drawImage(starIcon, dx + width * 1, y, width, height, null);
+                graphics.drawImage(starIcon, dx, y, width, height, null);
+                graphics.drawImage(starIcon, dx + width, y, width, height, null);
                 graphics.drawImage(starIcon, dx + width * 2, y, width, height, null);
                 graphics.drawImage(grayStarIcon, dx + width * 3, y, width, height, null);
                 graphics.drawImage(grayStarIcon, dx + width * 4, y, width, height, null);
                 break;
 
             case 4:
-                graphics.drawImage(starIcon, dx + width * 0, y, width, height, null);
-                graphics.drawImage(starIcon, dx + width * 1, y, width, height, null);
+                graphics.drawImage(starIcon, dx, y, width, height, null);
+                graphics.drawImage(starIcon, dx + width, y, width, height, null);
                 graphics.drawImage(starIcon, dx + width * 2, y, width, height, null);
                 graphics.drawImage(starIcon, dx + width * 3, y, width, height, null);
                 graphics.drawImage(grayStarIcon, dx + width * 4, y, width, height, null);
                 break;
 
             case 5:
-                graphics.drawImage(starIcon, dx + width * 0, y, width, height, null);
-                graphics.drawImage(starIcon, dx + width * 1, y, width, height, null);
+                graphics.drawImage(starIcon, dx, y, width, height, null);
+                graphics.drawImage(starIcon, dx + width, y, width, height, null);
                 graphics.drawImage(starIcon, dx + width * 2, y, width, height, null);
                 graphics.drawImage(starIcon, dx + width * 3, y, width, height, null);
                 graphics.drawImage(starIcon, dx + width * 4, y, width, height, null);
                 break;
 
             case 6:
-                graphics.drawImage(starIcon, dx + width * 0, y, width, height, null);
-                graphics.drawImage(starIcon, dx + width * 1, y, width, height, null);
+                graphics.drawImage(starIcon, dx, y, width, height, null);
+                graphics.drawImage(starIcon, dx + width, y, width, height, null);
                 graphics.drawImage(starIcon, dx + width * 2, y, width, height, null);
                 graphics.drawImage(starIcon, dx + width * 3, y, width, height, null);
                 graphics.drawImage(starIcon, dx + width * 4, y, width, height, null);
@@ -291,7 +295,9 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
      * @Date: 2020/8/29 13:40
      **/
     private static BufferedImage getPcrImageInternal(Integer id) throws Exception {
-        if (pcrimage.containsKey(id)) return pcrimage.get(id);
+        if (pcrimage.containsKey(id)) {
+            return pcrimage.get(id);
+        }
         String path = Path.getPath() + "PcrRoleImage/" + id + ".jpeg";
 
         File file = new File(path);

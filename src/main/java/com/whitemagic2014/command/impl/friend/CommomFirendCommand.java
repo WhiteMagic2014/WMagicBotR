@@ -13,6 +13,6 @@ public abstract class CommomFirendCommand extends BaseFriendCommand {
 
     @Override
     protected PrivateModel<String> checkRole(Friend sender, Friend subject) {
-        return new PrivateModel<>(ReturnCode.SUCCESS, "sucess");
+        return new PrivateModel<>(ReturnCode.SUCCESS, "success");
     }
 }

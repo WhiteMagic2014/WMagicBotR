@@ -13,9 +13,9 @@ import java.util.concurrent.TimeUnit;
 public class MagicHelper {
 
 
-    private static DecimalFormat df1 = new DecimalFormat("#,###");
+    private static final DecimalFormat df1 = new DecimalFormat("#,###");
 
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     /**
      * @Name: longAddComma

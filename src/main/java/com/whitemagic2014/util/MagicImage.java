@@ -49,7 +49,7 @@ public class MagicImage {
      **/
     public static BufferedImage resizeBufferedImage(BufferedImage source, int targetW, int targetH, boolean flag) {
         int type = source.getType();
-        BufferedImage target = null;
+        BufferedImage target;
         double sx = (double) targetW / source.getWidth();
         double sy = (double) targetH / source.getHeight();
         if (flag && sx > sy) {

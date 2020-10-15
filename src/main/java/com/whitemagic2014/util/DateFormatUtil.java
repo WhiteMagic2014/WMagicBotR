@@ -169,7 +169,7 @@ public class DateFormatUtil {
      * @Date: 2020/8/22 12:35
      **/
     public static List<String> getBetweenDate(Date fromDate, Date toDate, int type) {
-        SimpleDateFormat sdf = null;
+        SimpleDateFormat sdf;
         if (type == Calendar.YEAR) {
             sdf = new SimpleDateFormat("yyyy");
         } else if (type == Calendar.MONTH) {
@@ -177,7 +177,7 @@ public class DateFormatUtil {
         } else {
             sdf = new SimpleDateFormat("yyyy-MM-dd");
         }
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         // 得到最后一个日期
         String endStr = sdf.format(toDate);
         // 设置初始时间

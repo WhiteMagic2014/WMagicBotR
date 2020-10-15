@@ -83,11 +83,7 @@ public class MagicMaps {
      * @Date: 2020/8/20 15:01
      **/
     public static Object getObject(String key) {
-        if (map.containsKey(key)) {
-            return map.get(key);
-        } else {
-            return null;
-        }
+        return map.getOrDefault(key, null);
     }
 
 
@@ -113,9 +109,7 @@ public class MagicMaps {
      * @Date: 2020/8/23 10:13
      **/
     public static void remove(String key) {
-        if (map.containsKey(key)) {
-            map.remove(key);
-        }
+        map.remove(key);
     }
 
 }

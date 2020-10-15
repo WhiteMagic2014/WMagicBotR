@@ -23,7 +23,9 @@ public class UpdateBoss extends PcrAdminCommand {
 
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
-        if (args.isEmpty() || args.size() > 3) return new At(sender).plus("指令错误," + txt);
+        if (args.isEmpty() || args.size() > 3) {
+            return new At(sender).plus("指令错误," + txt);
+        }
         try {
             Integer cycle = Integer.valueOf(args.get(0));
             Integer num = Integer.valueOf(args.get(1));

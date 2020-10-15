@@ -19,7 +19,7 @@ public abstract class PcrAdminCommand extends PcrBaseCommand {
                 || isGroupOwner(sender) //群主
                 || isAdmin(subject.getId(), sender.getId()) //bot管理
         ) {
-            return new PrivateModel<>(ReturnCode.SUCCESS, "sucess");
+            return new PrivateModel<>(ReturnCode.SUCCESS, "success");
         } else {
             return new PrivateModel<>(ReturnCode.FAIL, "无权操作,该指令需要[群主][群管理员][超管][bot管理员]权限");
         }
