@@ -53,7 +53,7 @@ public class SqlLiteConfig {
 
     @Bean(name="dbversionList")
     public List<DBVersionTable> getDbVersionTables(){
-        List<DBVersionTable> result = new ArrayList<DBVersionTable>();
+        List<DBVersionTable> result = new ArrayList<>();
 
 
         DBVersionTable v0_0_2 = new DBVersionTable();

@@ -12,7 +12,7 @@ import java.util.TimerTask;
  **/
 public class MagicTaskObserver {
 
-    private static Map<String, TimerTask> taskMap = new HashMap<>();
+    private static final Map<String, TimerTask> taskMap = new HashMap<>();
 
     /**
      * @Name: addTask
@@ -36,9 +36,7 @@ public class MagicTaskObserver {
      * @Date: 2020/9/30 17:29
      **/
     public static void removeTask(String key) {
-        if (taskMap.containsKey(key)) {
-            taskMap.remove(key);
-        }
+        taskMap.remove(key);
     }
 
     /**

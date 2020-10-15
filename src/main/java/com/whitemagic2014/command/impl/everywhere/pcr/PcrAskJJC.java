@@ -25,7 +25,7 @@ import java.util.List;
  * @date: 2020/8/26 17:24
  **/
 @Component
-@Switch(name = Dic.Component_Pcr_JJC,defaultOn = false)
+@Switch(name = Dic.Component_Pcr_JJC)
 public class PcrAskJJC extends BaseEveryWhereCommand {
 
     @Autowired
@@ -46,7 +46,9 @@ public class PcrAskJJC extends BaseEveryWhereCommand {
             String at = i + ".";
             for (TeamMember member : answer.getAtk()) {
                 String mt = member.getName() + member.getStar() + "";
-                if (member.getEquip()) mt += "带专";
+                if (member.getEquip()) {
+                    mt += "带专";
+                }
                 at += "[" + mt + "] ";
             }
             result += at + answer.getUp() + "赞 " + answer.getDown() + "踩\n";

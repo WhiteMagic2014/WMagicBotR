@@ -54,7 +54,7 @@ public class EventsConfig {
 
     @Bean(name = "botEvents")
     public List<ListenerHost> getBotevents() {
-        List<ListenerHost> events = new ArrayList<ListenerHost>();
+        List<ListenerHost> events = new ArrayList<>();
 //        events.add(recallEvent);
         events.add(commandEvents);
         events.add(messageEvents);

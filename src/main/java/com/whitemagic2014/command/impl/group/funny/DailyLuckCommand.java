@@ -30,7 +30,7 @@ public class DailyLuckCommand extends NoAuthCommand {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public DailyLuckCommand() {
-        Map<String, Integer> itemAndRate = new HashMap<String, Integer>();
+        Map<String, Integer> itemAndRate = new HashMap<>();
         itemAndRate.put("大吉 恭喜你! 万事如意 百无禁忌 不去买个彩票吗?欧皇 ", 500);
         itemAndRate.put("中吉 恭喜拉! 抽卡应该能见彩咯~ ", 1500);
         itemAndRate.put("小吉 恭喜！刷困难本也许能出3碎片 走起！", 1500);

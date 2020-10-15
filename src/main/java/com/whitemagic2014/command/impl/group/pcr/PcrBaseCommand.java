@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * @author: magic chen
  * @date: 2020/8/23 11:45
  **/
-@Switch(name = Dic.Component_Pcr_Guild, defaultOn = false)
+@Switch(name = Dic.Component_Pcr_Guild)
 public abstract class PcrBaseCommand extends BaseGroupCommand {
 
     private static final Logger logger = LoggerFactory.getLogger(PcrBaseCommand.class);
@@ -39,7 +39,7 @@ public abstract class PcrBaseCommand extends BaseGroupCommand {
             return new At(sender).plus(" " + checkResult.getReturnMessage());
         }
         // pcrbase 架构加锁
-        Message msg = null;
+        Message msg;
         String lockKey = "MagicLock" + subject.getId();
         Object lock = MagicLock.getPrivateLock(lockKey);
         MagicLock.waitLock(lockKey, lock);//等锁

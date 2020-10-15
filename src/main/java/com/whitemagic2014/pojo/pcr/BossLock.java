@@ -7,7 +7,7 @@ package com.whitemagic2014.pojo.pcr;
  **/
 public class BossLock {
 
-    public static final String getLockname(Long gid) {
+    public static String getLockname(Long gid) {
         return "BossLock" + gid;
     }
 

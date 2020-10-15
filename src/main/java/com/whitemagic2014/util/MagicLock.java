@@ -11,9 +11,9 @@ import java.util.concurrent.locks.ReentrantLock;
  **/
 public class MagicLock {
 
-    private static Map<String, Object> forLock = new ConcurrentHashMap<String, Object>();
-    private static Map<String, Object> forPrivateLock = new ConcurrentHashMap<String, Object>();
-    private static Map<String, ReentrantLock> forLockRemoveable = new ConcurrentHashMap<String, ReentrantLock>();
+    private static final Map<String, Object> forLock = new ConcurrentHashMap<>();
+    private static final Map<String, Object> forPrivateLock = new ConcurrentHashMap<>();
+    private static final Map<String, ReentrantLock> forLockRemoveable = new ConcurrentHashMap<>();
 
 
     /**

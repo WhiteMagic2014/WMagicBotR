@@ -7,21 +7,21 @@ package com.whitemagic2014.dic;
  **/
 public interface Dic {
 
-    public static final Long[] BossHp = new Long[]{6000000L, 8000000L, 10000000L, 12000000L, 20000000L};
+    Long[] BossHp = new Long[]{6000000L, 8000000L, 10000000L, 12000000L, 20000000L};
 
     // 在更新jjc文件的时候锁定 key
-    public static final String JJC_NICK_LOCK = "JJC_NICK_LOCK";
+    String JJC_NICK_LOCK = "JJC_NICK_LOCK";
 
     // jjc 查询的缓存
-    public static final String JJC_CACHE = "JJC_CACHE";
+    String JJC_CACHE = "JJC_CACHE";
 
     //pcr 工会战组件
-    public static final String Component_Pcr_Guild = "component.pcr.guild";
+    String Component_Pcr_Guild = "component.pcr.guild";
 
     // pcr jjc组件
-    public static final String Component_Pcr_JJC = "component.pcr.jjc";
+    String Component_Pcr_JJC = "component.pcr.jjc";
 
     // pcr jjc图形组件
-    public static final String Component_Pcr_JJC_Image = "component.pcr.jjc.image";
+    String Component_Pcr_JJC_Image = "component.pcr.jjc.image";
 
 }

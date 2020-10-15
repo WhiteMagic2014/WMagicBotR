@@ -63,11 +63,11 @@ public class MagicMd5 {
     }
 
     private static String byteToString(byte[] bytes) {
-        StringBuffer sBuffer = new StringBuffer();
-        for (int i = 0; i < bytes.length; i++) {
-            sBuffer.append(byteToArrayString(bytes[i]));
+        StringBuilder sb = new StringBuilder();
+        for (byte aByte : bytes) {
+            sb.append(byteToArrayString(aByte));
         }
-        return sBuffer.toString();
+        return sb.toString();
     }
 
     private static int bytes2Int(byte[] bytes) {

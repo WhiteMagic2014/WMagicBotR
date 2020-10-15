@@ -85,10 +85,7 @@ public class PrivateModel<T> {
      * @Date: 2020/8/22 13:57
      **/
     public boolean isSuccess() {
-        if (ReturnCode.SUCCESS.equals(this.getReturnCode())) {
-            return true;
-        }
-        return false;
+        return ReturnCode.SUCCESS.equals(this.getReturnCode());
     }
 
     @Override

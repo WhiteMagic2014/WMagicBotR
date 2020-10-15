@@ -26,7 +26,7 @@ public class CancelOrder extends PcrNoAuthCommand {
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
 
         try {
-            Integer num = Integer.valueOf(args.get(0));
+            int num = Integer.parseInt(args.get(0));
             if (num < 1 || num > 5) {
                 return new At(sender).plus("指令错误: " + txt);
             }

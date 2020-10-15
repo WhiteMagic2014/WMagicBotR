@@ -9,7 +9,6 @@ import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.MessageUtils;
-import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

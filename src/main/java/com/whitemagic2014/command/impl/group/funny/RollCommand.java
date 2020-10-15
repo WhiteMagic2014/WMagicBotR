@@ -33,18 +33,15 @@ public class RollCommand extends NoAuthCommand {
             return new PlainText("指令错误: [指令前缀][roll] [数字(可省略)]");
         } else {
             At at = new At(sender);
-            PlainText plainText = null;
+            PlainText plainText;
             if (args.isEmpty()) {
                 plainText = new PlainText(" roll出 " + (random.nextInt(100) + 1));
             } else {
-                int range = 0;
+                int range;
                 try {
-                    range = Integer.valueOf(args.get(0));
+                    range = Integer.parseInt(args.get(0));
                 } catch (NumberFormatException e) {
                     return new PlainText("指令错误: [指令前缀][roll] [数字(可省略)]");
-                }
-                if (range > Integer.MAX_VALUE) {
-                    return new PlainText("指令错误: 数字范围 0 ~ " + Integer.MAX_VALUE);
                 }
                 plainText = new PlainText(" roll出 " + (random.nextInt(range) + 1));
             }

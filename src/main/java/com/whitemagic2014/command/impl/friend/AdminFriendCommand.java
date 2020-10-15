@@ -18,7 +18,7 @@ public abstract class AdminFriendCommand extends BaseFriendCommand {
     @Override
     protected PrivateModel<String> checkRole(Friend sender, Friend subject) {
         if (sender.getId() == adminUid) {
-            return new PrivateModel<>(ReturnCode.SUCCESS, "sucess");
+            return new PrivateModel<>(ReturnCode.SUCCESS, "success");
         } else {
             return new PrivateModel<>(ReturnCode.FAIL, "无权操作,该指令需要[超管]权限");
         }

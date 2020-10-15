@@ -1,6 +1,5 @@
 package com.whitemagic2014.command.impl.everywhere;
 
-import com.whitemagic2014.command.EverywhereCommand;
 import com.whitemagic2014.dao.CanEatDao;
 import com.whitemagic2014.pojo.CanEat;
 import com.whitemagic2014.pojo.CommandProperties;
@@ -37,18 +36,14 @@ public class CanEatCommand extends BaseEveryWhereCommand {
         if (sender.getId() != 418379149L) {
             return null;
         }
-        if (args.get(0).equals("记录") || args.get(0).equals("创建")) {
+        if ("记录".equals(args.get(0)) || "创建".equals(args.get(0))) {
             List<CanEat> ceList = ced.findByName(args.get(1).trim());
             if (!ceList.isEmpty()) {
                 return simpleMsg(sender, new PlainText("已经记录"));
             }
             CanEat ce = new CanEat();
             ce.setItemName(args.get(1).trim());
-            if (args.get(2).contains("不")) {
-                ce.setCan(false);
-            } else {
-                ce.setCan(true);
-            }
+            ce.setCan(!args.get(2).contains("不"));
             ced.insert(ce);
             return simpleMsg(sender, new PlainText("已经记录"));
         } else {

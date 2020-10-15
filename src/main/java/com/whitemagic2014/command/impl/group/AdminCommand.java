@@ -18,7 +18,7 @@ public abstract class AdminCommand extends BaseGroupCommand{
                 || isGroupAdmin(sender) //群管理
                 || isGroupOwner(sender) //群主
         ) {
-            return new PrivateModel<>(ReturnCode.SUCCESS, "sucess");
+            return new PrivateModel<>(ReturnCode.SUCCESS, "success");
         } else {
             return new PrivateModel<>(ReturnCode.FAIL, "无权操作,该指令需要[群主][群管理员][超管]权限");
         }

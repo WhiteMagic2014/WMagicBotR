@@ -23,7 +23,7 @@ public class Version implements Comparable<Version> {
     public Version(String ver) {
         String[] temp = ver.split("\\.");
         this.main = Long.valueOf(temp[0]);
-        this.child = Long.valueOf(temp[1]) * 10L + Long.valueOf(temp[2]);
+        this.child = Long.parseLong(temp[1]) * 10L + Long.parseLong(temp[2]);
     }
 
     @Override

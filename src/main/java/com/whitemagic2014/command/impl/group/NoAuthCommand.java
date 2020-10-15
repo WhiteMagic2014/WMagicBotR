@@ -14,7 +14,7 @@ public abstract class NoAuthCommand extends BaseGroupCommand {
 
     @Override
     protected PrivateModel<String> checkRole(Member sender, Group subject) {
-        return new PrivateModel<>(ReturnCode.SUCCESS, "sucess");
+        return new PrivateModel<>(ReturnCode.SUCCESS, "success");
     }
 
 }

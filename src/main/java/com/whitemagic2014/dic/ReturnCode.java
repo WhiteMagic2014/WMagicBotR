@@ -7,8 +7,8 @@ package com.whitemagic2014.dic;
  **/
 public interface ReturnCode {
 
-    public static final String SUCCESS = "SUCCESS";
+    String SUCCESS = "SUCCESS";
 
-    public static final String FAIL = "FAIL";
+    String FAIL = "FAIL";
 
 }

@@ -28,7 +28,7 @@ public interface PcrDao {
     /**
      * @Name: deleteUser
      * @Description: 删除用户
-     * @param: gid 群号
+     * @Param: gid 群号
      * @Param: uid qq号
      * @Return: int
      * @Author: magic chen

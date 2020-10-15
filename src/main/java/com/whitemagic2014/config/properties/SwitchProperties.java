@@ -23,7 +23,7 @@ public class SwitchProperties {
 
         File in = new File(ReadOutDesignatedConfiguration.OUT_LOCATION);
         try (BufferedReader br = new BufferedReader(new FileReader(in))) {
-            String line = "";
+            String line;
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("component.")) {
                     String[] temp = line.split("=");

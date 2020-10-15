@@ -15,7 +15,7 @@ import java.util.Date;
  **/
 public class MagicMsgSender {
 
-    private static Bot bot = MagicBotR.getBot();
+    private static final Bot bot = MagicBotR.getBot();
 
 
     /**

@@ -15,6 +15,6 @@ public abstract class PcrNoAuthCommand extends PcrBaseCommand {
     @Override
     protected PrivateModel<String> checkRole(Member sender, Group subject) {
         //无需权限
-        return new PrivateModel<>(ReturnCode.SUCCESS, "sucess");
+        return new PrivateModel<>(ReturnCode.SUCCESS, "success");
     }
 }

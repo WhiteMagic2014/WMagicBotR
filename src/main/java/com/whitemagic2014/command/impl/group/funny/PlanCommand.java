@@ -45,16 +45,16 @@ public class PlanCommand extends NoAuthCommand {
         String com = args.get(0);
 
         try {
-            if (com.equals("delete") || com.equals("删除") || com.equals("del")) {
+            if ("delete".equals(com) || "删除".equals(com) || "del".equals(com)) {
                 return at.plus(deleteByName(uid, (args.get(1))));
-            } else if (com.equals("new") || com.equals("新建") || com.equals("创建")) {
-                return at.plus(addNewPlan(uid, args.get(1), Integer.valueOf(args.get(2))));
-            } else if (com.equals("add") || com.equals("增加")) {
-                return at.plus(execPlan(uid, args.get(1), Integer.valueOf(args.get(2))));
-            } else if (com.equals("check") || com.equals("查询") || com.equals("look")) {
+            } else if ("new".equals(com) || "新建".equals(com) || "创建".equals(com)) {
+                return at.plus(addNewPlan(uid, args.get(1), Integer.parseInt(args.get(2))));
+            } else if ("add".equals(com) || "增加".equals(com)) {
+                return at.plus(execPlan(uid, args.get(1), Integer.parseInt(args.get(2))));
+            } else if ("check".equals(com) || "查询".equals(com) || "look".equals(com)) {
                 return at.plus(find(uid, args.get(1)));
-            } else if (com.equals("update") || com.equals("更新")) {
-                return at.plus(updatePlan(uid, args.get(1), Integer.valueOf(args.get(2))));
+            } else if ("update".equals(com) || "更新".equals(com)) {
+                return at.plus(updatePlan(uid, args.get(1), Integer.parseInt(args.get(2))));
             }
         } catch (Exception e) {
             return new PlainText(help());
@@ -156,13 +156,12 @@ public class PlanCommand extends NoAuthCommand {
 
 
     private String help() {
-        String result = "计划表功能:\n"
+        return "计划表功能:\n"
                 + "创建: [指令前缀][plan/计划] [new/新建/创建] [目标名] [目标数量]\n"
                 + "增加: [指令前缀][plan/计划] [add/增加] [目标名] [新获得数量]\n"
                 + "更新: [指令前缀][plan/计划] [update/更新] [目标名] [目前数量]\n"
                 + "删除: [指令前缀][plan/计划] [delete/del/删除] [目标名]\n"
                 + "查询: [指令前缀][plan/计划] [check/look/查询] [目标名]";
-        return result;
     }
 
 }

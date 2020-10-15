@@ -87,7 +87,7 @@ public class PcrjjcImpl implements Pcrjjc {
             }
             logger.info("开始下载文件,文件地址:" + url);
             HttpHeaders headers = new HttpHeaders();
-            HttpEntity<Resource> httpEntity = new HttpEntity<Resource>(headers);
+            HttpEntity<Resource> httpEntity = new HttpEntity<>(headers);
 
             ResponseEntity<byte[]> response;
             try {
@@ -98,7 +98,7 @@ public class PcrjjcImpl implements Pcrjjc {
             }
 
             File file = new File(Path.getPath() + "nicknames.txt");
-            try (FileOutputStream fos = new FileOutputStream(file);) {
+            try (FileOutputStream fos = new FileOutputStream(file)) {
                 fos.write(response.getBody());
             } catch (IOException e) {
                 logger.info("下载失败!", e);
@@ -119,11 +119,19 @@ public class PcrjjcImpl implements Pcrjjc {
     // 缓存1小时
     @Override
     public PrivateModel<List<Answer>> checkjjc(List<String> names, Integer region) {
-        if (!pcrdfansOpen) return new PrivateModel<>(ReturnCode.FAIL, "未启用jjc查询功能,请联系管理员修改配置后重启");
-        if (StringUtils.isBlank(pcrdfansKey)) return new PrivateModel<>(ReturnCode.FAIL, "jjc查询不可用,未配置pcrdfans key");
+        if (!pcrdfansOpen) {
+            return new PrivateModel<>(ReturnCode.FAIL, "未启用jjc查询功能,请联系管理员修改配置后重启");
+        }
+        if (StringUtils.isBlank(pcrdfansKey)) {
+            return new PrivateModel<>(ReturnCode.FAIL, "jjc查询不可用,未配置pcrdfans key");
+        }
         // 查询前需要check一下当前是否在更新 更新中不可用
-        if (MagicMaps.check(Dic.JJC_NICK_LOCK)) return new PrivateModel<>(ReturnCode.FAIL, "正在获取最新nickname表,请稍后查询");
-        if (names.isEmpty() || names.size() > 5) return new PrivateModel<>(ReturnCode.FAIL, "请输入5位选手名,空格分开");
+        if (MagicMaps.check(Dic.JJC_NICK_LOCK)) {
+            return new PrivateModel<>(ReturnCode.FAIL, "正在获取最新nickname表,请稍后查询");
+        }
+        if (names.isEmpty() || names.size() > 5) {
+            return new PrivateModel<>(ReturnCode.FAIL, "请输入5位选手名,空格分开");
+        }
 
         PrivateModel<List<Integer>> idModel = nameToId(names);
         if (!idModel.isSuccess()) {
@@ -131,7 +139,7 @@ public class PcrjjcImpl implements Pcrjjc {
         }
         List<Integer> ids = idModel.getReturnObject();
         // 去读缓存 有缓存就不请求了
-        String memKey = Dic.JJC_CACHE + ids.stream().sorted().map(String::valueOf).reduce("", String::concat) + "region" + region;;
+        String memKey = Dic.JJC_CACHE + ids.stream().sorted().map(String::valueOf).reduce("", String::concat) + "region" + region;
         if (MagicMaps.check(memKey)) {
             return new PrivateModel<>(ReturnCode.SUCCESS, "success", (List<Answer>) MagicMaps.getObject(memKey));
         }
@@ -152,7 +160,7 @@ public class PcrjjcImpl implements Pcrjjc {
         json.put("ts", System.currentTimeMillis() / 1000);
         json.put("region", region);
 
-        HttpEntity<String> formEntity = new HttpEntity<String>(json.toString(), headers);
+        HttpEntity<String> formEntity = new HttpEntity<>(json.toString(), headers);
 
         ResponseEntity<JSONObject> response;
         try {
@@ -173,12 +181,8 @@ public class PcrjjcImpl implements Pcrjjc {
             JSONObject data = result.getJSONObject("data");
             List<Answer> answers = JSON.parseArray(data.getJSONArray("result").toJSONString(), Answer.class);
             for (Answer answer : answers) {
-                answer.getAtk().forEach(m -> {
-                    m.setName(id2Name(m.getId()));
-                });
-                answer.getDef().forEach(m -> {
-                    m.setName(id2Name(m.getId()));
-                });
+                answer.getAtk().forEach(m -> m.setName(id2Name(m.getId())));
+                answer.getDef().forEach(m -> m.setName(id2Name(m.getId())));
             }
             // 减少请求数量 这边做一个缓存 1小时
             MagicMaps.putWithExpire(memKey, answers, 1L, TimeUnit.HOURS);
@@ -191,7 +195,9 @@ public class PcrjjcImpl implements Pcrjjc {
 
     @Override
     public String id2Name(Integer id) {
-        if (!idNames.containsKey(id)) return "unkonw" + id;
+        if (!idNames.containsKey(id)) {
+            return "unkonw" + id;
+        }
         List<String> names = idNames.get(id);
 
         // 随机返回该角色的一个昵称
@@ -226,9 +232,11 @@ public class PcrjjcImpl implements Pcrjjc {
             }
             String line = "";
             while ((line = br.readLine()) != null && i++ < end) {
-                if (line.startsWith("id")) continue;
+                if (line.startsWith("id")) {
+                    continue;
+                }
                 String[] temp = line.split(",");
-                Integer id = Integer.valueOf(temp[0]) * 100 + 1;
+                Integer id = Integer.parseInt(temp[0]) * 100 + 1;
                 List<String> names = new ArrayList<>();
                 for (int j = 1; j < temp.length; j++) {
                     nameIdTemp.put(temp[j], id);
@@ -264,9 +272,10 @@ public class PcrjjcImpl implements Pcrjjc {
                 ids.add(nameId.get(name));
             }
         }
-        LinkedHashSet<Integer> hashSet = new LinkedHashSet<>(ids);
         ids = ids.stream().distinct().collect(Collectors.toList());
-        if (ids.size() < 5) return new PrivateModel<>(ReturnCode.FAIL, "请输入五个不同的角色");
+        if (ids.size() < 5) {
+            return new PrivateModel<>(ReturnCode.FAIL, "请输入五个不同的角色");
+        }
 
         return new PrivateModel<>(ReturnCode.SUCCESS, "success", ids);
     }
