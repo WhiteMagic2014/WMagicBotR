@@ -1,7 +1,7 @@
 package com.whitemagic2014.command.impl.everywhere;
 
 import com.whitemagic2014.command.EverywhereCommand;
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.At;

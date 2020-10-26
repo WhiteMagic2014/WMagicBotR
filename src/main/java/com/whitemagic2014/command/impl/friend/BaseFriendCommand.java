@@ -1,7 +1,7 @@
 package com.whitemagic2014.command.impl.friend;
 
 import com.whitemagic2014.command.FriendCommand;
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
@@ -61,7 +61,7 @@ public abstract class BaseFriendCommand implements FriendCommand {
      * @Description: 根据业务做前置 权限判断
      * @Param: sender
      * @Param: subject
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/27 17:13
      **/

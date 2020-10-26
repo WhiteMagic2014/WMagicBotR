@@ -36,19 +36,20 @@ public class MagicMsgSender {
      * @Description: 发送延时群消息
      * @Param: groupId
      * @Param: msg
-     * @Param: delay
-     * @Return: void
+     * @Param: delay  秒
+     * @Return: taskkey 可用来取消延时任务
      * @Author: magic chen
      * @Date: 2020/9/30 17:07
      **/
-    public static void sendGroupMsgDelay(Long groupId, Message msg, Long delay) {
+    public static String sendGroupMsgDelay(Long groupId, Message msg, Long delay) {
         String key = MagicMd5.getMd5String("g" + groupId + msg.toString() + System.currentTimeMillis());
         new MagicOnceTask(key) {
             @Override
             public void handle() {
                 bot.getGroup(groupId).sendMessage(msg);
             }
-        }.schedule(delay);
+        }.schedule(delay * 1000L);
+        return key;
     }
 
     /**
@@ -57,18 +58,19 @@ public class MagicMsgSender {
      * @Param: groupId
      * @Param: msg
      * @Param: time
-     * @Return: void
+     * @Return: taskkey 可用来取消延时任务
      * @Author: magic chen
      * @Date: 2020/9/30 17:07
      **/
-    public static void sendGroupMsgTiming(Long groupId, Message msg, Date time) {
-        String key = MagicMd5.getMd5String("g" + groupId + msg.toString()+ System.currentTimeMillis());
+    public static String sendGroupMsgTiming(Long groupId, Message msg, Date time) {
+        String key = MagicMd5.getMd5String("g" + groupId + msg.toString() + System.currentTimeMillis());
         new MagicOnceTask(key) {
             @Override
             public void handle() {
                 bot.getGroup(groupId).sendMessage(msg);
             }
         }.schedule(time);
+        return key;
     }
 
     /**
@@ -90,19 +92,20 @@ public class MagicMsgSender {
      * @Description: 发送延时私聊消息
      * @Param: uid
      * @Param: msg
-     * @Param: delay
-     * @Return: void
+     * @Param: delay 秒
+     * @Return: taskkey 可用来取消延时任务
      * @Author: magic chen
      * @Date: 2020/9/30 17:10
      **/
-    public static void sendFriendMsgDelay(Long uid, Message msg, Long delay) {
-        String key = MagicMd5.getMd5String("u" + uid + msg.toString()+ System.currentTimeMillis());
+    public static String sendFriendMsgDelay(Long uid, Message msg, Long delay) {
+        String key = MagicMd5.getMd5String("u" + uid + msg.toString() + System.currentTimeMillis());
         new MagicOnceTask(key) {
             @Override
             public void handle() {
                 bot.getFriend(uid).sendMessage(msg);
             }
-        }.schedule(delay);
+        }.schedule(delay * 1000L);
+        return key;
     }
 
 
@@ -112,18 +115,19 @@ public class MagicMsgSender {
      * @Param: uid
      * @Param: msg
      * @Param: time
-     * @Return: void
+     * @Return: taskkey 可用来取消延时任务
      * @Author: magic chen
      * @Date: 2020/9/30 17:10
      **/
-    public static void sendFriendMsgTiming(Long uid, Message msg, Date time) {
-        String key = MagicMd5.getMd5String("u" + uid + msg.toString()+ System.currentTimeMillis());
+    public static String sendFriendMsgTiming(Long uid, Message msg, Date time) {
+        String key = MagicMd5.getMd5String("u" + uid + msg.toString() + System.currentTimeMillis());
         new MagicOnceTask(key) {
             @Override
             public void handle() {
                 bot.getFriend(uid).sendMessage(msg);
             }
         }.schedule(time);
+        return key;
     }
 
 

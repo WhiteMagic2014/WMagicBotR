@@ -2,7 +2,7 @@ package com.whitemagic2014.command.impl.friend.admin;
 
 import com.whitemagic2014.command.impl.friend.AdminFriendCommand;
 import com.whitemagic2014.pojo.CommandProperties;
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.util.MagicSwitch;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.message.data.Message;

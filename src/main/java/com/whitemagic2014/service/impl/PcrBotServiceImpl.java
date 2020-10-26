@@ -1,12 +1,14 @@
 package com.whitemagic2014.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.whitemagic2014.dao.PcrDao;
 import com.whitemagic2014.dic.*;
-import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcr.*;
 import com.whitemagic2014.service.PcrBotService;
 import com.whitemagic2014.util.MagicHelper;
 import com.whitemagic2014.util.MagicMaps;
+import com.whitemagic2014.vo.PrivateModel;
+import com.whitemagic2014.vo.pcr.BattleVo;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.MemberPermission;
 import org.slf4j.Logger;
@@ -15,10 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -410,20 +409,42 @@ public class PcrBotServiceImpl implements PcrBotService {
 
 
     @Override
-    public PrivateModel<List<Battle>> checkKnife(Long gid, Boolean findall) {
-
+    public PrivateModel<List<JSONObject>> checkKnife(Long gid, Boolean findall) {
         PrivateModel<Guild> gexist = checkGuildExist(gid);
         if (!gexist.isSuccess()) {
-            return new PrivateModel<List<Battle>>().wrapper(gexist);
+            return new PrivateModel<List<JSONObject>>().wrapper(gexist);
         }
-
         Battle cond = new Battle();
         if (!findall) {
             cond.setTime(MagicHelper.pcrToday());
         }
         cond.setGid(gid);
-        List<Battle> datas = pcrDao.findBattleByConditions(cond);
-        return new PrivateModel<>(ReturnCode.SUCCESS, "success", datas);
+        List<BattleVo> datas = pcrDao.findBattleByConditions(cond);
+
+        List<JSONObject> result = new ArrayList<>();
+
+        Map<String,List<BattleVo>> groupByDate =
+                datas.stream().collect(Collectors.groupingBy(BattleVo::getTime));
+
+        for (String date: groupByDate.keySet()) {
+
+            JSONObject tempD = new JSONObject();
+            tempD.put("date",date);
+            List<BattleVo> bvd = groupByDate.get(date);
+
+            List<JSONObject> resultU = new ArrayList<>();
+            Map<Long,List<BattleVo>> groupByUid =
+                    bvd.stream().collect(Collectors.groupingBy(BattleVo::getUid));
+            for (Long uid :groupByUid.keySet()) {
+                JSONObject tempU = new JSONObject();
+                tempU.put("uid",uid);
+                tempU.put("data",groupByUid.get(uid));
+                resultU.add(tempU);
+            }
+            tempD.put("data",resultU);
+            result.add(tempD);
+        }
+        return new PrivateModel<>(ReturnCode.SUCCESS, "success", result);
     }
 
 
@@ -817,7 +838,8 @@ public class PcrBotServiceImpl implements PcrBotService {
         }
     }
 
-    private PrivateModel<User> checkUserExist(Long gid, Long uid) {
+    @Override
+    public PrivateModel<User> checkUserExist(Long gid, Long uid) {
         User user = pcrDao.findUserByUid(gid, uid);
         if (user == null) {
             return new PrivateModel<>(ReturnCode.FAIL, "用户[" + uid + "]还未加入公会,请先加入公会");
@@ -826,7 +848,8 @@ public class PcrBotServiceImpl implements PcrBotService {
         }
     }
 
-    private PrivateModel<Guild> checkGuildExist(Long gid) {
+    @Override
+    public PrivateModel<Guild> checkGuildExist(Long gid) {
         Guild guild = pcrDao.findGuildByGid(gid);
         if (guild == null) {
             return new PrivateModel<>(ReturnCode.FAIL, "还未创建公会,请先创建公会");

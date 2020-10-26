@@ -2,7 +2,7 @@ package com.whitemagic2014.command.impl.group.pcr;
 
 import com.whitemagic2014.command.impl.group.BaseGroupCommand;
 import com.whitemagic2014.dic.Dic;
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.service.PcrBotService;
 import com.whitemagic2014.config.sw.Switch;
 import com.whitemagic2014.util.MagicLock;

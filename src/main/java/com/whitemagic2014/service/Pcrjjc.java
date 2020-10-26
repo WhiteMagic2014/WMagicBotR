@@ -1,6 +1,6 @@
 package com.whitemagic2014.service;
 
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
 
 import java.util.List;
