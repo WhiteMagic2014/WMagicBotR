@@ -2,7 +2,9 @@ package com.whitemagic2014.service;
 
 import com.whitemagic2014.pojo.PrivateModel;
 import com.whitemagic2014.pojo.pcr.Battle;
+import com.whitemagic2014.pojo.pcr.Guild;
 import com.whitemagic2014.pojo.pcr.Notice;
+import com.whitemagic2014.pojo.pcr.User;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.MemberPermission;
 
@@ -251,6 +253,28 @@ public interface PcrBotService {
      * @Date: 2020/8/23 13:05
      **/
     Boolean userIsAdmin(Long gid, Long uid);
+
+
+    /**
+     * @Name: checkUserExist
+     * @Description: 检查用户是否存已经加入公会
+     * @Param: gid
+     * @Param: uid
+     * @Return: PrivateModel<User>
+     * @Author: magic chen
+     * @Date: 2020/10/26 12:00
+     **/
+    PrivateModel<User> checkUserExist(Long gid, Long uid);
+
+    /**
+     * @Name: checkGuildExist
+     * @Description: 检查是否已经创建公会
+     * @Param: gid
+     * @Return: PrivateModel<Guild>
+     * @Author: magic chen
+     * @Date: 2020/10/26 12:01
+     **/
+    PrivateModel<Guild> checkGuildExist(Long gid);
 
 
     /**

@@ -817,7 +817,8 @@ public class PcrBotServiceImpl implements PcrBotService {
         }
     }
 
-    private PrivateModel<User> checkUserExist(Long gid, Long uid) {
+    @Override
+    public PrivateModel<User> checkUserExist(Long gid, Long uid) {
         User user = pcrDao.findUserByUid(gid, uid);
         if (user == null) {
             return new PrivateModel<>(ReturnCode.FAIL, "用户[" + uid + "]还未加入公会,请先加入公会");
@@ -826,7 +827,8 @@ public class PcrBotServiceImpl implements PcrBotService {
         }
     }
 
-    private PrivateModel<Guild> checkGuildExist(Long gid) {
+    @Override
+    public PrivateModel<Guild> checkGuildExist(Long gid) {
         Guild guild = pcrDao.findGuildByGid(gid);
         if (guild == null) {
             return new PrivateModel<>(ReturnCode.FAIL, "还未创建公会,请先创建公会");

@@ -1,19 +1,18 @@
 package com.whitemagic2014.command.impl.group.pcr.operation;
 
-import com.alibaba.fastjson.JSON;
 import com.whitemagic2014.command.impl.group.pcr.PcrNoAuthCommand;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.pojo.PrivateModel;
-import com.whitemagic2014.pojo.pcr.Battle;
+import com.whitemagic2014.pojo.pcr.Guild;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Description: 查刀 格式化未完成,现在只返回json,后期有空优化
@@ -22,17 +21,21 @@ import java.util.List;
  **/
 @Component
 public class CheckKnife extends PcrNoAuthCommand {
+
+    @Value("${site.url}")
+    String siteUrl;
+
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
-
-        PrivateModel<List<Battle>> result = pcrBotService.checkKnife(subject.getId(), false);
-        if (!result.isSuccess()) {
-            return simpleErrMsg(sender, result);
+        PrivateModel<Guild> gexist = pcrBotService.checkGuildExist(subject.getId());
+        if (!gexist.isSuccess()) {
+            return simpleErrMsg(sender, gexist);
         }
-
-        List<Battle> data = result.getReturnObject();
-
-        return new PlainText(JSON.toJSONString(data));
+        if (!siteUrl.endsWith("/")){
+            siteUrl = siteUrl.concat("/");
+        }
+        String url = siteUrl + "botr/pcr/guild/checkKnife?gid="+subject.getId();
+        return new PlainText("查刀移步:\n" + url);
     }
 
     @Override
