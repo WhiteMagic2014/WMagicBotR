@@ -1,6 +1,7 @@
 package com.whitemagic2014.dao;
 
 import com.whitemagic2014.pojo.pcr.*;
+import com.whitemagic2014.vo.pcr.BattleVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -258,7 +259,7 @@ public interface PcrDao {
      * @Author: magic chen
      * @Date: 2020/8/22 16:55
      **/
-    List<Battle> findBattleByConditions(Battle battle);
+    List<BattleVo> findBattleByConditions(Battle battle);
 
     /**
      * @Name: checkKnifeNum

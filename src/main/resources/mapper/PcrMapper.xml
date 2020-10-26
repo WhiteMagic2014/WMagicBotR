@@ -270,35 +270,39 @@
 
 
     <select id="findBattleByConditions" parameterType="com.whitemagic2014.pojo.pcr.Battle"
-            resultType="com.whitemagic2014.pojo.pcr.Battle">
-        select * from pcr_battle
+            resultType="com.whitemagic2014.vo.pcr.BattleVo">
+        SELECT
+            ba.id id, ba.bossid bossid, ba.uid uid, ba.gid gid,ba.uname uname,ba.damage damage, ba.killboss killboss, ba.`type` `type`, ba.`time` `time`, bo.num num,bo.cycle cycle
+        from
+            pcr_battle ba,pcr_boss bo
         <where>
+            and ba.bossid = bo.id
             <if test="id != null">
-                and id = #{id}
+                and ba.id = #{id}
             </if>
             <if test="bossid != null">
-                and bossid = #{bossid}
+                and ba.bossid = #{bossid}
             </if>
             <if test="uid != null">
-                and uid = #{uid}
+                and ba.uid = #{uid}
             </if>
             <if test="uname != null and uname != ''">
-                and uname = #{uname}
+                and ba.uname = #{uname}
             </if>
             <if test="gid != null">
-                and gid = #{gid}
+                and ba.gid = #{gid}
             </if>
             <if test="damage != null">
-                and damage = #{damage}
+                and ba.damage = #{damage}
             </if>
             <if test="killboss != null">
-                and killboss = #{killboss}
+                and ba.killboss = #{killboss}
             </if>
             <if test="type != null">
-                and `type` = #{type}
+                and ba.`type` = #{type}
             </if>
             <if test="time != null and time != ''">
-                and `time` = #{time}
+                and ba.`time` = #{time}
             </if>
         </where>
     </select>
