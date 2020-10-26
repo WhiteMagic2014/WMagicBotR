@@ -1,6 +1,6 @@
 package com.whitemagic2014.service;
 
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.pojo.pcr.Battle;
 import com.whitemagic2014.pojo.pcr.Guild;
 import com.whitemagic2014.pojo.pcr.Notice;
@@ -25,7 +25,7 @@ public interface PcrBotService {
      * @Description: 创建公会
      * @Param: gid  q群号
      * @Param: gname 公会名
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 21:06
      **/
@@ -35,7 +35,7 @@ public interface PcrBotService {
      * @Name: deleteGuild
      * @Description: 人生有梦 各自精彩
      * @Param: gid
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 17:17
      **/
@@ -46,7 +46,7 @@ public interface PcrBotService {
      * @Name: clearGuildData
      * @Description: 清理工会战数据 不删除工会
      * @Param: gid
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 12:16
      **/
@@ -60,7 +60,7 @@ public interface PcrBotService {
      * @Param: uid  目标成员qq
      * @Param: uname  目标成员群昵称
      * @Param: permission  目标成员 群组权限
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 21:12
      **/
@@ -72,7 +72,7 @@ public interface PcrBotService {
      * @Description: 删除某公会成员
      * @Param: gid
      * @Param: uid
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 11:42
      **/
@@ -82,7 +82,7 @@ public interface PcrBotService {
      * @Name: addAllMemer
      * @Description: 添加所有人进公会  这个功能仅在群聊下可用，web不可用
      * @Param: group
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 17:28
      **/
@@ -96,7 +96,7 @@ public interface PcrBotService {
      * @Param: uid 人员
      * @Param: damage 伤害
      * @Param: yesterday 是否报昨日刀
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 18:44
      **/
@@ -120,7 +120,7 @@ public interface PcrBotService {
      * @Description: 查刀
      * @Param: gid
      * @Param: findall  true查询所有刀,false查询当天刀
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/24 23:25
      **/
@@ -130,7 +130,7 @@ public interface PcrBotService {
      * @Name: checkBossState
      * @Description: 查询boss状态
      * @Param: gid
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 12:47
      **/
@@ -144,7 +144,7 @@ public interface PcrBotService {
      * @Param: cycle  几周目
      * @Param: num  几王
      * @Param: hpnow 现在血量 null则为满血
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/28 16:45
      **/
@@ -155,7 +155,7 @@ public interface PcrBotService {
      * @Description: 撤销最后一次报刀
      * @Param: gid
      * @Param: sender 注意这个不是要撤销这个人，而是这个发送人，要看有无权限撤销(自己可以撤销自己,管理员可以撤销所有)
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 18:54
      **/
@@ -167,7 +167,7 @@ public interface PcrBotService {
      * @Param: gid
      * @Param: uid
      * @Param: true 为查询sl false为记录sl
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 18:56
      **/
@@ -180,7 +180,7 @@ public interface PcrBotService {
      * @Param: gid
      * @Param: uid
      * @Param: bossNum 预约的是几王
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 19:00
      **/
@@ -193,7 +193,7 @@ public interface PcrBotService {
      * @Param: gid
      * @Param: uid
      * @Param: num
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 12:06
      **/
@@ -204,7 +204,7 @@ public interface PcrBotService {
      * @Description: 挂树
      * @Param: gid
      * @Param: uid
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/22 19:02
      **/
@@ -284,7 +284,7 @@ public interface PcrBotService {
      * @Param: uid 锁定用户的人
      * @Param: uname 用户名
      * @Param: desc 是申请出刀还是其他留言什么的
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 10:04
      **/
@@ -295,7 +295,7 @@ public interface PcrBotService {
      * @Name: removeLock
      * @Description: 移除某群内boss锁定
      * @Param: gid
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 10:18
      **/
@@ -305,7 +305,7 @@ public interface PcrBotService {
      * @Name: checkLock
      * @Description: 检查是否有群内boss锁定
      * @Param: gid
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 10:20
      **/

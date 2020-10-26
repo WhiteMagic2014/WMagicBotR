@@ -2,7 +2,7 @@ package com.whitemagic2014.service.impl;
 
 import com.whitemagic2014.dao.PcrDao;
 import com.whitemagic2014.dic.*;
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.pojo.pcr.*;
 import com.whitemagic2014.service.PcrBotService;
 import com.whitemagic2014.util.MagicHelper;

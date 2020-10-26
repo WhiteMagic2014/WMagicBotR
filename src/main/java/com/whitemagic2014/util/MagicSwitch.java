@@ -1,7 +1,7 @@
 package com.whitemagic2014.util;
 
 import com.whitemagic2014.dic.ReturnCode;
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class MagicSwitch {
      * @Name: open
      * @Description: 开启某功能
      * @Param: name
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/27 17:43
      **/
@@ -40,7 +40,7 @@ public class MagicSwitch {
      * @Name: close
      * @Description: 关闭某功能
      * @Param: name
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/27 17:43
      **/

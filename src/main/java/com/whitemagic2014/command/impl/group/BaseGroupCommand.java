@@ -1,7 +1,7 @@
 package com.whitemagic2014.command.impl.group;
 
 import com.whitemagic2014.command.GroupCommand;
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.contact.MemberPermission;
@@ -54,7 +54,7 @@ public abstract class BaseGroupCommand implements GroupCommand {
      * @Name: checkRole
      * @Description: 根据业务做前置 权限判断
      * @Param: sender
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/23 18:30
      **/

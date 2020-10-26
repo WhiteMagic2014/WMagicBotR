@@ -1,7 +1,7 @@
 package com.whitemagic2014.command.impl.group.pcr;
 
 import com.whitemagic2014.dic.ReturnCode;
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
 

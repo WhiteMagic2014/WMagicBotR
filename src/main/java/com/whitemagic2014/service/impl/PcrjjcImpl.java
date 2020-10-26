@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.dic.ReturnCode;
-import com.whitemagic2014.pojo.PrivateModel;
+import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
 import com.whitemagic2014.service.Pcrjjc;
 import com.whitemagic2014.util.MagicMaps;
@@ -285,7 +285,7 @@ public class PcrjjcImpl implements Pcrjjc {
      * @Name: checkPcrdfansCode
      * @Description: 解析pcrdfans api code
      * @Param: code
-     * @Return: com.whitemagic2014.pojo.PrivateModel<java.lang.String>
+     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
      * @Author: magic chen
      * @Date: 2020/8/27 15:30
      **/

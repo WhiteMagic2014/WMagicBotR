@@ -1,4 +1,4 @@
-package com.whitemagic2014.pojo;
+package com.whitemagic2014.vo;
 
 import com.whitemagic2014.dic.ReturnCode;
 
