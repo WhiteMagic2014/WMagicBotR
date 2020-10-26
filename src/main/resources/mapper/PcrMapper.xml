@@ -273,7 +273,7 @@
             resultType="com.whitemagic2014.vo.pcr.BattleVo">
         SELECT
             ba.id id, ba.bossid bossid, ba.uid uid, ba.gid gid,ba.uname uname,ba.damage damage, ba.killboss killboss, ba.`type` `type`, ba.`time` `time`, bo.num num,bo.cycle cycle
-        from
+        FROM
             pcr_battle ba,pcr_boss bo
         <where>
             and ba.bossid = bo.id
@@ -305,6 +305,7 @@
                 and ba.`time` = #{time}
             </if>
         </where>
+        ORDER BY ba.id
     </select>
 
 

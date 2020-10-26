@@ -1,10 +1,10 @@
 package com.whitemagic2014.service;
 
-import com.whitemagic2014.vo.PrivateModel;
-import com.whitemagic2014.pojo.pcr.Battle;
+import com.alibaba.fastjson.JSONObject;
 import com.whitemagic2014.pojo.pcr.Guild;
 import com.whitemagic2014.pojo.pcr.Notice;
 import com.whitemagic2014.pojo.pcr.User;
+import com.whitemagic2014.vo.PrivateModel;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.MemberPermission;
 
@@ -120,11 +120,11 @@ public interface PcrBotService {
      * @Description: 查刀
      * @Param: gid
      * @Param: findall  true查询所有刀,false查询当天刀
-     * @Return: com.whitemagic2014.vo.PrivateModel<java.lang.String>
+     * @Return:
      * @Author: magic chen
      * @Date: 2020/8/24 23:25
      **/
-    PrivateModel<List<Battle>> checkKnife(Long gid, Boolean findall);
+    PrivateModel<List<JSONObject>> checkKnife(Long gid, Boolean findall);
 
     /**
      * @Name: checkBossState
