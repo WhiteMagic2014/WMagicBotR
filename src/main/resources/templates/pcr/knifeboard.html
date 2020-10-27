@@ -1,8 +1,9 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>面板</title>
+    <meta charset="utf-8">
+
     <style type="text/css">
         table {
             border-collapse: collapse;
@@ -19,17 +20,26 @@
             text-align: center;
         }
     </style>
+
 </head>
 <body>
 
-<select id="date" onchange="refreshData(this.options[this.options.selectedIndex].value);">
-    <!--/*@thymesVar id="result" type="com.alibaba.fastjson.JSON"*/-->
-    <option th:each="date : ${result}" th:text="${date}" th:value="${date}" > </option>
-</select>
+<span  class="select-box"  style="width:150px">
+   <select class="select" id="date" onchange="refreshData(this.options[this.options.selectedIndex].value);">
+        <!--/*@thymesVar id="result" type="com.alibaba.fastjson.JSON"*/-->
+        <option  th:each="date : ${result}" th:text="${date}" th:value="${date}" > </option>
+    </select>
+</span>
 
-<table>
+<span id="knifeBoard"></span>
+
+<table class="table table-border table-bordered table-hover table-bg scfire_table">
     <thead>
-        <tr>
+        <tr class="text-c scfire_th_tr">
+            <th width="10%">成员</th>
+            <th width="30%">第一刀</th>
+            <th width="30%">第二刀</th>
+            <th width="30%">第三刀</th>
         </tr>
     </thead>
     <tbody id="table_data"></tbody>

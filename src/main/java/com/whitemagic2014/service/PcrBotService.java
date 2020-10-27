@@ -137,7 +137,7 @@ public interface PcrBotService {
      * @Author: magic chen
      * @Date: 2020/8/24 23:25
      **/
-    PrivateModel<List<JSONObject>> checkKnife(Long gid, String dateStr);
+    PrivateModel<JSONObject> checkKnife(Long gid, String dateStr);
 
     /**
      * @Name: checkBossState
