@@ -407,43 +407,63 @@ public class PcrBotServiceImpl implements PcrBotService {
                 resultMap);
     }
 
+    @Override
+    public PrivateModel<List<String>> getKnifeDate(Long gid) {
+        List<String> dates = pcrDao.findBattleDateByGid(gid);
+        if (dates.isEmpty()){
+            return new PrivateModel<>(ReturnCode.FAIL,"暂无出刀数据");
+        }
+        return new PrivateModel<>(ReturnCode.SUCCESS,"success",dates);
+    }
 
     @Override
-    public PrivateModel<List<JSONObject>> checkKnife(Long gid, Boolean findall) {
+    public PrivateModel<JSONObject> checkKnife(Long gid, String dateStr) {
         PrivateModel<Guild> gexist = checkGuildExist(gid);
         if (!gexist.isSuccess()) {
-            return new PrivateModel<List<JSONObject>>().wrapper(gexist);
+            return new PrivateModel<JSONObject>().wrapper(gexist);
         }
         Battle cond = new Battle();
-        if (!findall) {
-            cond.setTime(MagicHelper.pcrToday());
-        }
+        cond.setTime(dateStr);
         cond.setGid(gid);
-        List<BattleVo> datas = pcrDao.findBattleByConditions(cond);
+        List<BattleVo> battleVoList = pcrDao.findBattleByConditions(cond);
 
-        List<JSONObject> result = new ArrayList<>();
+        JSONObject result = new JSONObject();
+        // 出了几刀
+        float knifeNum = 0.0f;
+        // 用户的出刀数据
+        List<JSONObject> userdata = new ArrayList<>();
+        // 根据用户分组
+        Map<Long,List<BattleVo>> groupByUid = battleVoList.stream().collect(Collectors.groupingBy(BattleVo::getUid));
+        for (Long uid :groupByUid.keySet()) {
+            JSONObject userData = new JSONObject();
+            userData.put("uid",uid);
+            userData.put("uname",groupByUid.get(uid).get(0).getUname());
 
-        Map<String,List<BattleVo>> groupByDate =
-                datas.stream().collect(Collectors.groupingBy(BattleVo::getTime));
-
-        for (String date: groupByDate.keySet()) {
-
-            JSONObject tempD = new JSONObject();
-            tempD.put("date",date);
-            List<BattleVo> bvd = groupByDate.get(date);
-
-            List<JSONObject> resultU = new ArrayList<>();
-            Map<Long,List<BattleVo>> groupByUid =
-                    bvd.stream().collect(Collectors.groupingBy(BattleVo::getUid));
-            for (Long uid :groupByUid.keySet()) {
-                JSONObject tempU = new JSONObject();
-                tempU.put("uid",uid);
-                tempU.put("data",groupByUid.get(uid));
-                resultU.add(tempU);
+            List<JSONObject> knifes = new ArrayList<>();
+            for (BattleVo bv : groupByUid.get(uid)) {
+                if (bv.getType().equals(BattleType.nomal)){
+                    JSONObject temp = new JSONObject();
+                    temp.put("type","single");
+                    temp.put("nomal",bv);
+                    knifes.add(temp);
+                    knifeNum += 1.0f;
+                }else if (bv.getType().equals(BattleType.end)){
+                    JSONObject temp = new JSONObject();
+                    temp.put("type","double");
+                    temp.put("end",bv);
+                    knifes.add(temp);
+                    knifeNum += 0.5f;
+                }else if (bv.getType().equals(BattleType.extra)){
+                    knifes.get(knifes.size()-1).put("extra",bv);
+                    knifeNum += 0.5f;
+                }
             }
-            tempD.put("data",resultU);
-            result.add(tempD);
+            userData.put("knifes",knifes);
+            userdata.add(userData);
         }
+        result.put("userdata",userdata);
+        result.put("knifeNum",knifeNum);
+        result.put("remainNum",30.0f - knifeNum);
         return new PrivateModel<>(ReturnCode.SUCCESS, "success", result);
     }
 

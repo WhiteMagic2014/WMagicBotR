@@ -4,8 +4,7 @@ import com.whitemagic2014.vo.ResultModel;
 import com.whitemagic2014.service.PcrBotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -29,10 +28,34 @@ public class GuildController {
      * @Date: 2020/10/26 17:25
      **/
     @GetMapping("/checkKnife")
-    public ModelAndView checkKnife(Long gid) {
-        ModelAndView mv = new ModelAndView("pcr/knifeboard");
-        ResultModel result = new ResultModel().wrapper(pbs.checkKnife(gid, true));
-        mv.addAllObjects(result);
+    public ModelAndView checkKnifePage(@RequestParam("gid") Long gid) {
+        ResultModel result = new ResultModel().wrapper(pbs.getKnifeDate(gid));
+        ModelAndView mv;
+        if (result.isSuccess()){
+            mv = new ModelAndView("pcr/knifeboard");
+            mv.addAllObjects(result);
+            mv.addObject("gid", gid);
+        }else {
+            mv = new ModelAndView("errorPage");
+            mv.addObject("status","404");
+            mv.addObject("message","该公会还没有出刀记录,稍后再来查询吧");
+        }
+        return mv;
+    }
+
+    /**
+     * @Name: checkKnife
+     * @Description: 出刀数据接口
+     * @Param: gid
+     * @Param: dateStr
+     * @Return: ResultModel
+     * @Author: magic chen
+     * @Date: 2020/10/27 14:23
+     **/
+    @PostMapping("/api/checkKnife")
+    public ModelAndView checkKnife(@RequestParam("gid") Long gid,@RequestParam("dateStr") String dateStr) {
+        ModelAndView mv = new ModelAndView("pcr/knife-list");
+        mv.addAllObjects(new ResultModel().wrapper(pbs.checkKnife(gid, dateStr)));
         return mv;
     }
 

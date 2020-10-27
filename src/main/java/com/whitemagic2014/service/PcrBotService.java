@@ -115,6 +115,19 @@ public interface PcrBotService {
     PrivateModel<Map<String, String>> endKnife(Long gid, Long uid, Boolean yesterday);
 
 
+
+
+    /**
+     * @Name: getKnifeDate
+     * @Description: 查询某工会有出刀记录的天数
+     * @Param: gid
+     * @Return: PrivateModel<List<String>>
+     * @Author: magic chen
+     * @Date: 2020/10/27 14:09
+     **/
+    PrivateModel<List<String>> getKnifeDate(Long gid);
+
+
     /**
      * @Name: checkKnife
      * @Description: 查刀
@@ -124,7 +137,7 @@ public interface PcrBotService {
      * @Author: magic chen
      * @Date: 2020/8/24 23:25
      **/
-    PrivateModel<List<JSONObject>> checkKnife(Long gid, Boolean findall);
+    PrivateModel<JSONObject> checkKnife(Long gid, String dateStr);
 
     /**
      * @Name: checkBossState

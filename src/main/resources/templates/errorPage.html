@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>出错啦</title>
+<head lang="cn">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<style>
+.errorContent {
+	max-width: 49.375rem;
+	margin: 0 auto;
+}
+
+.errorTop {
+	margin-top: 100px;
+	height: 100px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.errorNumber {
+	font-family: 'PingFangSC-Regular', '微软雅黑';
+	font-size: 99px;
+	color: #333333;
+	text-align: center;
+	font-weight: bolder;
+}
+
+p {
+	font-family: 'PingFangSC-Regular', '微软雅黑';
+	font-size: 20px;
+	color: #888888;
+	text-align: center;
+	margin-top: 1.25rem
+}
+
+</style>
+</head>
+<body>
+	<div class="errorContent">
+		<div class="errorTop"></div>
+		<div class="errorNumber" th:text="${status}"></div>
+		<p th:text="${message}"></p>
+	</div>
+</body>
+</html>
+
