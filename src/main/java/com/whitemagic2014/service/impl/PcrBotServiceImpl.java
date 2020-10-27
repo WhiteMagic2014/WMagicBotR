@@ -407,42 +407,33 @@ public class PcrBotServiceImpl implements PcrBotService {
                 resultMap);
     }
 
+    @Override
+    public PrivateModel<List<String>> getKnifeDate(Long gid) {
+        List<String> dates = pcrDao.findBattleDateByGid(gid);
+        if (dates.isEmpty()){
+            return new PrivateModel<>(ReturnCode.FAIL,"暂无出刀数据");
+        }
+        return new PrivateModel<>(ReturnCode.SUCCESS,"success",dates);
+    }
 
     @Override
-    public PrivateModel<List<JSONObject>> checkKnife(Long gid, Boolean findall) {
+    public PrivateModel<List<JSONObject>> checkKnife(Long gid, String dateStr) {
         PrivateModel<Guild> gexist = checkGuildExist(gid);
         if (!gexist.isSuccess()) {
             return new PrivateModel<List<JSONObject>>().wrapper(gexist);
         }
         Battle cond = new Battle();
-        if (!findall) {
-            cond.setTime(MagicHelper.pcrToday());
-        }
+        cond.setTime(dateStr);
         cond.setGid(gid);
-        List<BattleVo> datas = pcrDao.findBattleByConditions(cond);
-
+        List<BattleVo> battleVoList = pcrDao.findBattleByConditions(cond);
         List<JSONObject> result = new ArrayList<>();
-
-        Map<String,List<BattleVo>> groupByDate =
-                datas.stream().collect(Collectors.groupingBy(BattleVo::getTime));
-
-        for (String date: groupByDate.keySet()) {
-
-            JSONObject tempD = new JSONObject();
-            tempD.put("date",date);
-            List<BattleVo> bvd = groupByDate.get(date);
-
-            List<JSONObject> resultU = new ArrayList<>();
-            Map<Long,List<BattleVo>> groupByUid =
-                    bvd.stream().collect(Collectors.groupingBy(BattleVo::getUid));
-            for (Long uid :groupByUid.keySet()) {
-                JSONObject tempU = new JSONObject();
-                tempU.put("uid",uid);
-                tempU.put("data",groupByUid.get(uid));
-                resultU.add(tempU);
-            }
-            tempD.put("data",resultU);
-            result.add(tempD);
+        // 根据用户分组
+        Map<Long,List<BattleVo>> groupByUid = battleVoList.stream().collect(Collectors.groupingBy(BattleVo::getUid));
+        for (Long uid :groupByUid.keySet()) {
+            JSONObject temp = new JSONObject();
+            temp.put("uid",uid);
+            temp.put("data",groupByUid.get(uid));
+            result.add(temp);
         }
         return new PrivateModel<>(ReturnCode.SUCCESS, "success", result);
     }

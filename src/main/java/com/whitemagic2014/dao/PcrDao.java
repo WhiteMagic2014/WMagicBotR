@@ -251,6 +251,17 @@ public interface PcrDao {
      **/
     Battle findLastBattleGuild(@Param("gid") Long gid);
 
+
+    /**
+     * @Name: findBattleDateByGid
+     * @Description: 查询某工会有出刀记录的天数
+     * @Param: gid
+     * @Return: List<String>
+     * @Author: magic chen
+     * @Date: 2020/10/27 14:12
+     **/
+    List<String> findBattleDateByGid(@Param("gid") Long gid);
+
     /**
      * @Name: findBattleByConditions
      * @Description: 查刀

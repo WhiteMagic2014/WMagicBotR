@@ -2,14 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>查刀面板</title>
+    <title>面板</title>
 </head>
 <body>
 
-施工中
-<!--<span th:text="${result}"></span>-->
+<select id="date" onchange="refreshData(this.options[this.options.selectedIndex].value);">
+    <!--/*@thymesVar id="result" type="com.alibaba.fastjson.JSON"*/-->
+    <option th:each="date : ${result}" th:text="${date}" th:value="${date}" > </option>
+</select>
 
-
+<table>
+    <thead>
+        <tr>
+            <th>成员</th>
+            <th>一</th>
+            <th>二</th>
+            <th>三</th>
+        </tr>
+    </thead>
+    <tbody id="table_data"></tbody>
+</table>
+<script src="../../jquery/jquery-2.1.1.min.js"></script>
+<script src="../../common.util.js"></script>
+<script th:inline="javascript">
+    $(function(){
+        refreshData();
+    });
+    var gid = [[${gid}]];
+    function refreshData() {
+        $.ajax({
+            type : "POST",
+            dataType : "HTML",
+            url : getApiPath()+'/pcr/guild/api/checkKnife',
+            data : {
+                dateStr : $("#date").val(),
+                gid : gid
+            },
+            success : function(result) {
+                $("#table_data").empty().append(result);
+            },
+            error : function() {
+                console.log(result);
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
