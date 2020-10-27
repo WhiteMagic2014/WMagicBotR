@@ -270,7 +270,7 @@
 
 
     <select id="findBattleDateByGid" resultType="java.lang.String">
-        SELECT DISTINCT `time` FROM pcr_battle WHERE gid = #{gid}
+        SELECT DISTINCT `time` FROM pcr_battle WHERE gid = #{gid} order by id desc
     </select>
 
     <select id="findBattleByConditions" parameterType="com.whitemagic2014.pojo.pcr.Battle"

@@ -1,5 +1,15 @@
-<tr class="text-c" th:each=" data : ${result}">
-    <td th:text="${data.uid}"></td>
-    <td th:text="${data.uid}"></td>
-    <td th:text="${data.uid}"></td>
+<tr class="text-c" th:each=" data :${result}">
+    <td>
+        <span th:text="${data.uname}"></span>
+        <br/>
+        <span th:text="${data.uid}"></span>
+    </td>
+
+    <td th:each=" knife :${data.knifes}">
+        <span th:text="${knife.damage}"></span>
+        <br/>
+        <span th:text="${knife.cycle}"></span>-<span th:text="${knife.num}"></span>
+        <br/>
+        <span th:text="${knife.type}"></span>
+    </td>
 </tr>

@@ -432,7 +432,8 @@ public class PcrBotServiceImpl implements PcrBotService {
         for (Long uid :groupByUid.keySet()) {
             JSONObject temp = new JSONObject();
             temp.put("uid",uid);
-            temp.put("data",groupByUid.get(uid));
+            temp.put("uname",groupByUid.get(uid).get(0).getUname());
+            temp.put("knifes",groupByUid.get(uid));
             result.add(temp);
         }
         return new PrivateModel<>(ReturnCode.SUCCESS, "success", result);
