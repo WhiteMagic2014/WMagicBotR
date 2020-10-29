@@ -20,7 +20,7 @@ public class GuildController {
     PcrBotService pbs;
 
     /**
-     * @Name: checkKnife
+     * @Name: checkKnifePage
      * @Description: 面板查刀页面
      * @Param: gid
      * @Return: ModelAndView
@@ -48,7 +48,7 @@ public class GuildController {
      * @Description: 出刀数据接口
      * @Param: gid
      * @Param: dateStr
-     * @Return: ResultModel
+     * @Return: ModelAndView 返回 thymeleaf 模板
      * @Author: magic chen
      * @Date: 2020/10/27 14:23
      **/

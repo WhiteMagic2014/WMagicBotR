@@ -77,14 +77,14 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
             zuoye = answer2Image(answers);
             MagicMaps.putWithExpire(zuoyeKey, zuoye, 1L, TimeUnit.HOURS);
         }
-
-        return simpleMsg(sender, new PlainText("查询结果:\n").plus(subject.uploadImage(zuoye)));
+        return simpleMsg(sender, new PlainText("\n防守方: "+args.stream().map(n->n.concat(" ")).reduce("",String::concat)+"\n查询结果:\n")
+                .plus(subject.uploadImage(zuoye)));
     }
 
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("测试查");
+        return new CommandProperties("测试查","jjc查询");
     }
 
 
