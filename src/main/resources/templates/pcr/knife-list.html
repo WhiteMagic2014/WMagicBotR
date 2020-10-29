@@ -1,36 +1,27 @@
 <tr class="text-c" th:each=" data :${result.userdata}">
-    <td>
-        <span th:text="${data.uname}"></span>
-        <br/>
-        <span th:text="${data.uid}"></span>
-    </td>
-    <td th:each=" knife :${data.knifes}" >
-        <div th:if="${knife.type == 'single'}">
+    <td></td>
+    <td><span th:text="${data.uid}"></span></td>
+    <td><span th:text="${data.uname}"></span></td>
+    <div th:each=" knife :${data.knifes}">
+        <td rowspan="1" colspan="2" th:if="${knife.type == 'single'}" >
+            (<span th:text="${knife.nomal.cycle}"></span>-<span th:text="${knife.nomal.num}"></span>)
             <span th:text="${#numbers.formatDecimal(knife.nomal.damage,1,'COMMA',0,'POINT')}"></span>
-            <br/>
-            <span th:text="${knife.nomal.cycle}"></span>-<span th:text="${knife.nomal.num}"></span>
-            <br/>
-            <span>完整刀</span>
-        </div>
-        <div th:if="${knife.type == 'double'}" style="display: flex;flex-direction:row ; justify-content:space-around;">
-            <div th:if="${knife.containsKey('end')}">
+        </td>
+        <div th:if="${knife.type == 'double'}">
+            <td rowspan="1" colspan="1" th:if="${knife.containsKey('end')}">
+               (<span th:text="${knife.end.cycle}"></span>-<span th:text="${knife.end.num}"></span>)
                 <span th:text="${#numbers.formatDecimal(knife.end.damage,1,'COMMA',0,'POINT')}"></span>
-                <br/>
-                <span th:text="${knife.end.cycle}"></span>-<span th:text="${knife.end.num}"></span>
-                <br/>
-                <span>尾刀</span>
-            </div>
-            <div th:if="${knife.containsKey('extra')}">
+            </td>
+            <td rowspan="1" colspan="1" th:if="${knife.containsKey('extra')}">
+                (<span th:text="${knife.extra.cycle}"></span>-<span th:text="${knife.extra.num}"></span>)
                 <span th:text="${#numbers.formatDecimal(knife.extra.damage,1,'COMMA',0,'POINT')}"></span>
-                <br/>
-                <span th:text="${knife.extra.cycle}"></span>-<span th:text="${knife.extra.num}"></span>
-                <br/>
-                <span>补偿刀</span>
-            </div>
-            <div th:if="${!knife.containsKey('extra')}">
-            </div>
+            </td>
+            <td th:if="${!knife.containsKey('extra')}">
+            </td>
         </div>
-    </td>
+    </div>
+
+
 </tr>
 <script th:inline="javascript">
     $("#knifeBoard").text('已出 '+ [[${result.knifeNum}]] +' 刀,剩余 '+ [[${result.remainNum}]] +' 刀');

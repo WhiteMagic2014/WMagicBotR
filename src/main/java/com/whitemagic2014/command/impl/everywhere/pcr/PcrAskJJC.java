@@ -61,7 +61,7 @@ public class PcrAskJJC extends BaseEveryWhereCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("jjc查询");
+        return new CommandProperties("jjc文字");
     }
 
 

@@ -84,7 +84,7 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("测试查");
+        return new CommandProperties("测试查","jjc查询");
     }
 
 

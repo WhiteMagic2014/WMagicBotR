@@ -116,7 +116,7 @@ public class PcrjjcImpl implements Pcrjjc {
 
 
     // region  国服 2; 台服 3; 日服 4
-    // 缓存1小时
+    // 查询成功缓存1小时
     @Override
     public PrivateModel<List<Answer>> checkjjc(List<String> names, Integer region) {
         if (!pcrdfansOpen) {
@@ -180,13 +180,17 @@ public class PcrjjcImpl implements Pcrjjc {
         if (checkCode.isSuccess()) {
             JSONObject data = result.getJSONObject("data");
             List<Answer> answers = JSON.parseArray(data.getJSONArray("result").toJSONString(), Answer.class);
-            for (Answer answer : answers) {
-                answer.getAtk().forEach(m -> m.setName(id2Name(m.getId())));
-                answer.getDef().forEach(m -> m.setName(id2Name(m.getId())));
+            if (answers.isEmpty()){
+                return new PrivateModel<>(ReturnCode.FAIL, "ㄟ( ▔_ ▔ )ㄏ 找不到作业");
+            }else {
+                for (Answer answer : answers) {
+                    answer.getAtk().forEach(m -> m.setName(id2Name(m.getId())));
+                    answer.getDef().forEach(m -> m.setName(id2Name(m.getId())));
+                }
+                // 减少请求数量 这边做一个缓存 1小时
+                MagicMaps.putWithExpire(memKey, answers, 1L, TimeUnit.HOURS);
+                return new PrivateModel<>(ReturnCode.SUCCESS, memKey, answers);
             }
-            // 减少请求数量 这边做一个缓存 1小时
-            MagicMaps.putWithExpire(memKey, answers, 1L, TimeUnit.HOURS);
-            return new PrivateModel<>(ReturnCode.SUCCESS, memKey, answers);
         } else {
             return new PrivateModel<>(ReturnCode.FAIL, "pcrdfans 错误码:" + code + "," + checkCode.getReturnMessage());
         }

@@ -4,22 +4,8 @@
     <title>面板</title>
     <meta charset="utf-8">
 
-    <style type="text/css">
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-        table thead tr th{
-            font-weight: bold;
-            background-color: #8EB4E3;
-        }
-        table td,table th{
-            height: 20px;
-            border:1px solid #A6A6A6;
-            font-size: 14px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../../css/hui/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/hui/H-ui.admin.css" />
 
 </head>
 <body>
@@ -33,13 +19,23 @@
 
 <span id="knifeBoard"></span>
 
-<table class="table table-border table-bordered table-hover table-bg scfire_table">
+<table class="table table-border table-bordered table-hover table-bg">
     <thead>
-        <tr class="text-c scfire_th_tr">
-            <th width="10%">成员</th>
-            <th width="30%">第一刀</th>
-            <th width="30%">第二刀</th>
-            <th width="30%">第三刀</th>
+        <tr class="text-c">
+            <th colspan="1" rowspan="2" width="5%">@</th>
+            <th colspan="1" rowspan="2" width="10%">QQ号</th>
+            <th colspan="1" rowspan="2" width="10%">昵称</th>
+            <th colspan="2" rowspan="1" width="25%">第一刀</th>
+            <th colspan="2" rowspan="1" width="25%">第二刀</th>
+            <th colspan="2" rowspan="1" width="25%">第三刀</th>
+        </tr>
+        <tr class="text-c">
+            <th colspan="1" rowspan="1" width="12.5%">尾刀</th>
+            <th colspan="1" rowspan="1" width="12.5%">补偿刀</th>
+            <th colspan="1" rowspan="1" width="12.5%">尾刀</th>
+            <th colspan="1" rowspan="1" width="12.5%">补偿刀</th>
+            <th colspan="1" rowspan="1" width="12.5%">尾刀</th>
+            <th colspan="1" rowspan="1" width="12.5%">补偿刀</th>
         </tr>
     </thead>
     <tbody id="table_data"></tbody>
