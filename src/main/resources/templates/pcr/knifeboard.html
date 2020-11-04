@@ -1,23 +1,23 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>面板</title>
+    <title>查刀面板</title>
     <meta charset="utf-8">
 
     <link rel="stylesheet" type="text/css" href="../../css/hui/H-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="../../css/hui/H-ui.admin.css" />
-
 </head>
 <body>
 
-<span  class="select-box"  style="width:150px">
-   <select class="select" id="date" onchange="refreshData(this.options[this.options.selectedIndex].value);">
-        <!--/*@thymesVar id="result" type="com.alibaba.fastjson.JSON"*/-->
-        <option  th:each="date : ${result}" th:text="${date}" th:value="${date}" > </option>
-    </select>
-</span>
-
-<span id="knifeBoard"></span>
+<div style="padding-top: 20px;">
+   <span class="select-box"  style="width:150px;">
+       <select class="select" id="date" onchange="refreshData(this.options[this.options.selectedIndex].value);">
+            <!--/*@thymesVar id="result" type="com.alibaba.fastjson.JSON"*/-->
+            <option  th:each="date : ${result}" th:text="${date}" th:value="${date}" > </option>
+        </select>
+    </span>
+    <span id="knifeBoard"></span>
+</div>
 
 <table class="table table-border table-bordered table-hover table-bg">
     <thead>

@@ -46,6 +46,17 @@ public interface Pcrjjc {
 
 
     /**
+     * @Name: checkPcrdfansCode
+     * @Description: 解析pcrdfans api code
+     * @Param: code
+     * @Return: PrivateModel<String>
+     * @Author: magic chen
+     * @Date: 2020/11/4 10:57
+     **/
+    PrivateModel<String> checkPcrdfansCode(Integer code);
+
+
+    /**
      * @Name: id2Name
      * @Description: id转name 如果有多个名字 随机返回一个中文名
      * @Param: pcr role id

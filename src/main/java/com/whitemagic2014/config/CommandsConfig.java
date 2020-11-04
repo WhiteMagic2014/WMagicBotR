@@ -3,6 +3,7 @@ package com.whitemagic2014.config;
 import com.whitemagic2014.command.Command;
 import com.whitemagic2014.command.impl.everywhere.CanEatCommand;
 import com.whitemagic2014.command.impl.everywhere.HelpCommand;
+import com.whitemagic2014.command.impl.everywhere.pcr.CheckPcrdfansCode;
 import com.whitemagic2014.command.impl.everywhere.pcr.PcrAskJJC;
 import com.whitemagic2014.command.impl.friend.admin.RefreshPcrNick;
 import com.whitemagic2014.command.impl.friend.admin.SwithCommand;
@@ -129,6 +130,9 @@ public class CommandsConfig {
     @Autowired
     RefreshPcrNick refreshPcrNick;
 
+    @Autowired
+    CheckPcrdfansCode checkPcrdfansCode;
+
     @Bean(name = "initCommandHeads")
     public String[] initCommandHeads() {
         return new String[]{
@@ -150,7 +154,7 @@ public class CommandsConfig {
                 onTree, checkTree,
                 orderBoss, cancelOrder, checkOrder,
                 requestAttack, lockBoss, removeLock,
-                pcrAskJJC, refreshPcrNick, pcrAskJJCImage
+                pcrAskJJC, refreshPcrNick, pcrAskJJCImage, checkPcrdfansCode
         };
     }
 
