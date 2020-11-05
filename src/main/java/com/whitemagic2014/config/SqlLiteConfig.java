@@ -135,6 +135,12 @@ public class SqlLiteConfig {
         v0_0_4.setSqls(sql_0_0_4);
         result.add(v0_0_4);
 
+
+        DBVersionTable v1_0_0 = new DBVersionTable();
+        v1_0_0.setVer(new Version("1.0.0"));
+        v1_0_0.setSqls(new ArrayList<>());
+        result.add(v1_0_0);
+
         return result;
     }
 

@@ -131,9 +131,13 @@
 - 指令对应变更，jjc查询->图形版查询，jjc文字->文字版查询
 - jjc查询图形版优化返回
 
+### 2020年11月04日
+- 新增pcrdfans code查询,详见指令book
+
 ### 2020年11月05日
 - 重构command加载注册机制
 - 现在无需使用 @Component + @Autowired 在CommandsConfig中单独注册指令,直接在使用command上使用 @Command注解,即可完成指令的注册
+- 版本号更新为 1.0.0 
 
 - 本项目不稳定更新中(有空的时候会更新)
 
