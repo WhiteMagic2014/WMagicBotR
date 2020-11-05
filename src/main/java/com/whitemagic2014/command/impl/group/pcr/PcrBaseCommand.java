@@ -4,7 +4,7 @@ import com.whitemagic2014.command.impl.group.BaseGroupCommand;
 import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.service.PcrBotService;
-import com.whitemagic2014.config.sw.Switch;
+import com.whitemagic2014.annotate.Switch;
 import com.whitemagic2014.util.MagicLock;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;

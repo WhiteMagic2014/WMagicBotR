@@ -1,9 +1,11 @@
 package com.whitemagic2014;
 
+import com.whitemagic2014.annotate.AnnotateAnalyzer;
 import com.whitemagic2014.bot.MagicBotR;
 import com.whitemagic2014.config.properties.SwitchProperties;
 import com.whitemagic2014.db.DBInitHelper;
 import com.whitemagic2014.db.DBVersion;
+import com.whitemagic2014.events.CommandEvents;
 import com.whitemagic2014.service.Pcrjjc;
 import net.mamoe.mirai.event.ListenerHost;
 import org.slf4j.Logger;
@@ -46,6 +48,10 @@ public class Simulator implements ApplicationRunner {
     @Value("${log.net.path}")
     String lognet;
 
+
+    @Autowired
+    AnnotateAnalyzer annotateAnalyzer;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // 数据库check初始化
@@ -56,6 +62,13 @@ public class Simulator implements ApplicationRunner {
         SwitchProperties.updateSwitchByProperty();
         // jjc查询 check nickname文件 是否存在
         pcrjjc.initNameFile();
+
+        // 指令事件 实例化后加入事件列表
+        CommandEvents commandEvents = new CommandEvents();
+        commandEvents.registerCommandHeads("#", "$", "!", "！", "");
+        commandEvents.registerCommands(annotateAnalyzer.getCommands());
+        events.add(commandEvents);
+
         // 启动bot
         MagicBotR.startBot(account, pwd, "deviceInfo.json", events, lognet);
         logger.info("启动成功！");

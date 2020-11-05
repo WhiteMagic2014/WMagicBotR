@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.everywhere;
 
+import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.dao.CanEatDao;
 import com.whitemagic2014.pojo.CanEat;
 import com.whitemagic2014.pojo.CommandProperties;
@@ -9,7 +10,6 @@ import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author: magic chen
  * @date: 2020/8/21 18:27
  **/
-@Component
+@Command
 public class CanEatCommand extends BaseEveryWhereCommand {
 
     @Autowired

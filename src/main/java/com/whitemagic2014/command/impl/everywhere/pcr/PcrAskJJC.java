@@ -1,20 +1,20 @@
 package com.whitemagic2014.command.impl.everywhere.pcr;
 
+import com.whitemagic2014.annotate.Command;
+import com.whitemagic2014.annotate.Switch;
 import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
 import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.pojo.CommandProperties;
-import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
 import com.whitemagic2014.pojo.pcrjjc.TeamMember;
 import com.whitemagic2014.service.Pcrjjc;
-import com.whitemagic2014.config.sw.Switch;
+import com.whitemagic2014.vo.PrivateModel;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
  * @author: magic chen
  * @date: 2020/8/26 17:24
  **/
-@Component
+@Command
 @Switch(name = Dic.Component_Pcr_JJC)
 public class PcrAskJJC extends BaseEveryWhereCommand {
 

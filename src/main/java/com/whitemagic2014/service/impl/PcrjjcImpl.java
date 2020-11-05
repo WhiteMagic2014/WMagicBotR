@@ -192,6 +192,7 @@ public class PcrjjcImpl implements Pcrjjc {
                 return new PrivateModel<>(ReturnCode.SUCCESS, memKey, answers);
             }
         } else {
+            logger.error("pcrdfans返回" + code + ":" + checkCode.getReturnMessage());
             return new PrivateModel<>(ReturnCode.FAIL, "pcrdfans 错误码:" + code + "," + checkCode.getReturnMessage());
         }
     }
@@ -293,7 +294,8 @@ public class PcrjjcImpl implements Pcrjjc {
      * @Author: magic chen
      * @Date: 2020/8/27 15:30
      **/
-    private PrivateModel<String> checkPcrdfansCode(Integer code) {
+    @Override
+    public PrivateModel<String> checkPcrdfansCode(Integer code) {
         String msg = "";
         switch (code) {
             case 0:
@@ -383,9 +385,10 @@ public class PcrjjcImpl implements Pcrjjc {
             case -429:
                 msg = "Too many requests";
                 break;
-
+            default:
+                msg = "Unknown";
+                break;
         }
-        logger.error("pcrdfans返回" + code + ":" + msg);
         return new PrivateModel<>(ReturnCode.FAIL, msg);
     }
 

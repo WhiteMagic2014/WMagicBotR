@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.group.funny;
 
+import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.command.impl.group.NoAuthCommand;
 import com.whitemagic2014.pojo.CommandProperties;
 import net.mamoe.mirai.contact.Group;
@@ -8,7 +9,6 @@ import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,7 +18,7 @@ import java.util.Random;
  * @author: magic chen
  * @date: 2020/8/21 16:33
  **/
-@Component
+@Command
 public class RollCommand extends NoAuthCommand {
 
     @Override

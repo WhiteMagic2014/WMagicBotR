@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.group.pcr.operation;
 
+import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.command.impl.group.pcr.PcrNoAuthCommand;
 import com.whitemagic2014.dic.PcrNoticeType;
 import com.whitemagic2014.pojo.CommandProperties;
@@ -9,7 +10,6 @@ import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @author: magic chen
  * @date: 2020/8/23 21:45
  **/
-@Component
+@Command
 public class EndKnife extends PcrNoAuthCommand {
 
     String txt = "尾刀 [@某人 可选] [昨日 可选]";

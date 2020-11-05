@@ -1,12 +1,12 @@
 package com.whitemagic2014.command.impl.everywhere;
 
+import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.pojo.CommandProperties;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author: magic chen
  * @date: 2020/8/20 23:12
  **/
-@Component
+@Command
 public class HelloCommand extends BaseEveryWhereCommand {
 
     @Override

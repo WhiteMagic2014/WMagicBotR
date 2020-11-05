@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.friend.admin;
 
+import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.command.impl.friend.AdminFriendCommand;
 import com.whitemagic2014.dao.BotDBDao;
 import com.whitemagic2014.pojo.CommandProperties;
@@ -8,7 +9,6 @@ import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author: magic chen
  * @date: 2020/8/21 17:53
  **/
-@Component
+@Command
 public class CheckDBCommand extends AdminFriendCommand {
 
     @Autowired
