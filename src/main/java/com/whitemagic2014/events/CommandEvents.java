@@ -1,7 +1,7 @@
 package com.whitemagic2014.events;
 
 import com.whitemagic2014.command.*;
-import com.whitemagic2014.config.sw.Switch;
+import com.whitemagic2014.annotate.Switch;
 import com.whitemagic2014.util.MagicSwitch;
 import kotlin.coroutines.CoroutineContext;
 import net.mamoe.mirai.event.EventHandler;
@@ -64,7 +64,7 @@ public class CommandEvents extends SimpleListenerHost {
      * @Author: magic chen
      * @Date: 2020/8/21 00:04
      **/
-    public void registerCommands(Command... commands) {
+    public void registerCommands(List<Command> commands) {
         for (Command command : commands) {
             registerCommand(command);
         }

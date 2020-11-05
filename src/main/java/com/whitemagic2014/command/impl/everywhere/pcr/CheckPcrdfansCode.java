@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.everywhere.pcr;
 
+import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.service.Pcrjjc;
@@ -10,7 +11,6 @@ import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @author: magic chen
  * @date: 2020/11/4 10:58
  **/
-@Component
+@Command
 public class CheckPcrdfansCode extends BaseEveryWhereCommand {
 
     @Autowired

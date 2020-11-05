@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.group.funny;
 
+import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.command.impl.group.NoAuthCommand;
 import com.whitemagic2014.dao.UserPlanDao;
 import com.whitemagic2014.pojo.CommandProperties;
@@ -11,7 +12,6 @@ import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * @author: magic chen
  * @date: 2020/8/21 17:21
  **/
-@Component
+@Command
 public class PlanCommand extends NoAuthCommand {
 
     @Autowired

@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.group.funny;
 
+import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.command.impl.group.NoAuthCommand;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.util.MagicGacha;
@@ -10,7 +11,6 @@ import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
-import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.Map;
  * @author: magic chen
  * @date: 2020/8/21 15:57
  **/
-@Component
+@Command
 public class DailyLuckCommand extends NoAuthCommand {
 
     MagicGacha dailyGacha;

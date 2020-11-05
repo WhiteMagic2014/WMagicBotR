@@ -1,4 +1,4 @@
-package com.whitemagic2014.config.sw;
+package com.whitemagic2014.annotate;
 
 import java.lang.annotation.*;
 

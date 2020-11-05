@@ -1,14 +1,14 @@
 package com.whitemagic2014.command.impl.friend.admin;
 
+import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.command.impl.friend.AdminFriendCommand;
 import com.whitemagic2014.pojo.CommandProperties;
-import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.util.MagicSwitch;
+import com.whitemagic2014.vo.PrivateModel;
 import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author: magic chen
  * @date: 2020/8/27 17:58
  **/
-@Component
+@Command
 public class SwithCommand extends AdminFriendCommand {
 
 
