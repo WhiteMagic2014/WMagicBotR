@@ -14,7 +14,7 @@
         </where>
     </select>
 
-    <insert id="instertPlan" parameterType="com.whitemagic2014.pojo.UserPlan" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertPlan" parameterType="com.whitemagic2014.pojo.UserPlan" useGeneratedKeys="true" keyProperty="id">
         insert into user_plan
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="uid != null">
