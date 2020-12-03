@@ -70,7 +70,7 @@ public class PlanCommand extends NoAuthCommand {
             plan.setUid(uid);
             plan.setPlanNum(planNum);
             plan.setNowNum(0);
-            upd.instertPlan(plan);
+            upd.insertPlan(plan);
             return "计划添加成功";
         } catch (Exception e) {
             return "计划添加失败:\n" + e.getMessage();

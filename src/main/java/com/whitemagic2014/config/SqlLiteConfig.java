@@ -141,6 +141,40 @@ public class SqlLiteConfig {
         v1_0_0.setSqls(new ArrayList<>());
         result.add(v1_0_0);
 
+
+
+        // 货币系统
+        DBVersionTable v1_1_0 = new DBVersionTable();
+        v1_1_0.setVer(new Version("1.1.0"));
+        List<String> sql_1_1_0 = new ArrayList<>();
+        // 账户表
+        sql_1_1_0.add("DROP TABLE IF EXISTS user_coin");
+        sql_1_1_0.add("CREATE TABLE \"user_coin\" (\n" +
+                " \"uid\" INTEGER PRIMARY KEY,\n" +
+                " \"magicCoin\" INTEGER,\n" +
+                " \"time\" TEXT(32),\n" +
+                " \"available\" INTEGER\n" +
+                ");");
+        // 货币变更记录表
+        sql_1_1_0.add("DROP TABLE IF EXISTS coin_log");
+        sql_1_1_0.add("CREATE TABLE \"coin_log\" (\n" +
+                " \"id\" INTEGER PRIMARY KEY autoincrement,\n" +
+                " \"uid\" INTEGER,\n" +
+                " \"gid\" INTEGER,\n" +
+                " \"type\" TEXT(16),\n" +
+                " \"amount\" INTEGER,\n" +
+                " \"before\" INTEGER,\n" +
+                " \"after\" INTEGER,\n" +
+                " \"remark\" TEXT(511),\n" +
+                " \"time\" TEXT(32),\n" +
+                " \"field1\" TEXT(255),\n" +
+                " \"field2\" TEXT(255),\n" +
+                " \"field3\" TEXT(255)\n" +
+                ");");
+        v1_1_0.setSqls(sql_1_1_0);
+        result.add(v1_1_0);
+
+
         return result;
     }
 

@@ -16,7 +16,7 @@ public interface UserPlanDao {
 
     List<UserPlan> findPlans(@Param("uid") String uid, @Param("itemName") String itemName);
 
-    int instertPlan(UserPlan plan);
+    int insertPlan(UserPlan plan);
 
     int updatePlan(UserPlan plan);
 

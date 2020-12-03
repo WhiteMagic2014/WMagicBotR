@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemagic2014.dao.UserCoinDao">
+
+    <select id="findByUid" resultType="com.whitemagic2014.pojo.currency.UserCoin">
+        select * from user_coin where uid = #{uid}
+    </select>
+
+    <insert id="insert" parameterType="com.whitemagic2014.pojo.currency.UserCoin">
+        insert into user_coin (uid, magicCoin, `time`, available)
+        values (#{uid}, #{magicCoin}, #{time}, #{available})
+    </insert>
+
+    <update id="updateByUid" parameterType="com.whitemagic2014.pojo.currency.UserCoin">
+        update user_coin
+        <set>
+            <if test="magicCoin != null">
+                magicCoin = #{magicCoin},
+            </if>
+            <if test="time != null">
+                `time` = #{time},
+            </if>
+            <if test="available != null">
+                available = #{available},
+            </if>
+        </set>
+        where uid = #{uid}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM user_coin where uid = #{uid}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemagic2014.dao.CoinLogDao">
+
+    <select id="selectByCondition" resultType="com.whitemagic2014.pojo.currency.CoinLog">
+        select * from coin_log
+        <where>
+            <if test="uid != null and uid != ''">
+                and uid = #{uid}
+            </if>
+            <if test="gid != null and gid != ''">
+                and gid = #{gid}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="insert" parameterType="com.whitemagic2014.pojo.currency.CoinLog">
+        insert into coin_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="gid != null">
+                gid,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="before != null">
+                `before`,
+            </if>
+            <if test="after != null">
+                `after`,
+            </if>
+            <if test="remark != null">
+                `remark`,
+            </if>
+            <if test="time != null">
+                `time`,
+            </if>
+            <if test="field1 != null">
+                `field1`,
+            </if>
+            <if test="field2 != null">
+                `field2`,
+            </if>
+            <if test="field3 != null">
+                `field3`,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid},
+            </if>
+            <if test="gid != null">
+                #{gid},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="amount != null">
+                #{amount},
+            </if>
+            <if test="before != null">
+                #{before},
+            </if>
+            <if test="after != null">
+                #{after},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="time != null">
+                #{time},
+            </if>
+            <if test="field1 != null">
+                #{field1},
+            </if>
+            <if test="field2 != null">
+                #{field2},
+            </if>
+            <if test="field3 != null">
+                #{field3},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
