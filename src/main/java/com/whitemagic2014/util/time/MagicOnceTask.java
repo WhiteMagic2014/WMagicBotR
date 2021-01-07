@@ -7,17 +7,27 @@ import java.util.Date;
  * @author: magic chen
  * @date: 2020/9/30 16:43
  **/
-public abstract class MagicOnceTask extends MagicTask {
+public class MagicOnceTask extends MagicTask {
 
-    public MagicOnceTask(String key) {
-        super(key);
+
+    public static MagicOnceTask build(String key, Task taskTk) {
+        return new MagicOnceTask(key, taskTk);
     }
 
+    /**
+     * 请使用 build 方法获取实例
+     *
+     * @param key
+     * @param taskTk
+     */
+    private MagicOnceTask(String key, Task taskTk) {
+        super(key, taskTk);
+    }
 
     @Override
     public void run() {
         logger.info("OnceTask [" + taskKey + "] Fired");
-        handle();
+        taskTk.handle();
         // 单次任务 执行后从注册中心将自己移除
         cancel();
     }

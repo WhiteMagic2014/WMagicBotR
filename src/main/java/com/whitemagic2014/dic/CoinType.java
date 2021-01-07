@@ -7,6 +7,7 @@ package com.whitemagic2014.dic;
  **/
 public enum CoinType {
 
+    // 注意货币类型 取名必须要和 UserCoin 中的一样 否则反射取值可能会有问题
     magicCoin("魔力币");
 
     String desc;

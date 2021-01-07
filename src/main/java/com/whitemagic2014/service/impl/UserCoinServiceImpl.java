@@ -8,11 +8,11 @@ import com.whitemagic2014.pojo.currency.CoinLog;
 import com.whitemagic2014.pojo.currency.UserCoin;
 import com.whitemagic2014.service.UserCoinService;
 import com.whitemagic2014.util.DateFormatUtil;
-import com.whitemagic2014.util.MagicHelper;
 import com.whitemagic2014.vo.PrivateModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
 
@@ -119,4 +119,37 @@ public class UserCoinServiceImpl implements UserCoinService {
         List<CoinLog> result = coinLogDao.selectByCondition(uid, gid, typeStr);
         return new PrivateModel<>(ReturnCode.SUCCESS, "", result);
     }
+
+
+    /**
+     * @Name: checkRestCoin
+     * @Description: 查询余额是否足够
+     * @Param: uid
+     * @Param: type
+     * @Param: amount
+     * @Return: PrivateModel<Boolean>
+     * @Author: magic chen
+     * @Date: 2020/12/4 15:20
+     **/
+    private PrivateModel<Boolean> checkRestCoin(Long uid, CoinType type, Long amount) {
+        UserCoin userCoin = userCoinDao.findByUid(uid);
+        if (userCoin == null) {
+            return new PrivateModel<>(ReturnCode.FAIL, "账户不存在", false);
+        }
+        try {
+            Field dataField = userCoin.getClass().getDeclaredField(type.name());
+            dataField.setAccessible(true);
+            Long rest = dataField.getLong(userCoin);
+            if (rest < amount) {
+                return new PrivateModel<>(ReturnCode.SUCCESS, "", false);
+            } else {
+                return new PrivateModel<>(ReturnCode.SUCCESS, "", true);
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+            return new PrivateModel<>(ReturnCode.FAIL, e.getMessage(), false);
+        }
+    }
+
+
 }

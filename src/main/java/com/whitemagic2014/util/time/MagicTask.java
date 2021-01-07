@@ -19,16 +19,21 @@ public abstract class MagicTask extends TimerTask {
 
     protected String taskKey;
 
+    protected Task taskTk;
+
+
     /**
-     * @Name:
+     * @Name: MagicTask
      * @Description: 在创建时候 在观察中心注册
-     * @Param: null
-     * @Return:
+     * @Param: key
+     * @Param: tk
+     * @Return: null
      * @Author: magic chen
-     * @Date: 2020/9/30 15:29
+     * @Date: 2021/1/7 16:10
      **/
-    public MagicTask(String key) {
+    public MagicTask(String key,Task tk) {
         taskKey = key;
+        taskTk = tk;
         logger.info("Task ["+key+"] Regist");
         MagicTaskObserver.addTask(key, this);
     }
@@ -41,6 +46,5 @@ public abstract class MagicTask extends TimerTask {
         return super.cancel();
     }
 
-    public abstract void handle();
 
 }
