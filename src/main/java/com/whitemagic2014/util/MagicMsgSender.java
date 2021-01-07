@@ -43,12 +43,7 @@ public class MagicMsgSender {
      **/
     public static String sendGroupMsgDelay(Long groupId, Message msg, Long delay) {
         String key = MagicMd5.getMd5String("g" + groupId + msg.toString() + System.currentTimeMillis());
-        new MagicOnceTask(key) {
-            @Override
-            public void handle() {
-                bot.getGroup(groupId).sendMessage(msg);
-            }
-        }.schedule(delay * 1000L);
+        MagicOnceTask.build(key, () -> bot.getGroup(groupId).sendMessage(msg)).schedule(delay * 1000L);
         return key;
     }
 
@@ -64,12 +59,7 @@ public class MagicMsgSender {
      **/
     public static String sendGroupMsgTiming(Long groupId, Message msg, Date time) {
         String key = MagicMd5.getMd5String("g" + groupId + msg.toString() + System.currentTimeMillis());
-        new MagicOnceTask(key) {
-            @Override
-            public void handle() {
-                bot.getGroup(groupId).sendMessage(msg);
-            }
-        }.schedule(time);
+        MagicOnceTask.build(key, () -> bot.getGroup(groupId).sendMessage(msg)).schedule(time);
         return key;
     }
 
@@ -99,12 +89,7 @@ public class MagicMsgSender {
      **/
     public static String sendFriendMsgDelay(Long uid, Message msg, Long delay) {
         String key = MagicMd5.getMd5String("u" + uid + msg.toString() + System.currentTimeMillis());
-        new MagicOnceTask(key) {
-            @Override
-            public void handle() {
-                bot.getFriend(uid).sendMessage(msg);
-            }
-        }.schedule(delay * 1000L);
+        MagicOnceTask.build(key, () -> bot.getFriend(uid).sendMessage(msg)).schedule(delay * 1000L);
         return key;
     }
 
@@ -121,12 +106,7 @@ public class MagicMsgSender {
      **/
     public static String sendFriendMsgTiming(Long uid, Message msg, Date time) {
         String key = MagicMd5.getMd5String("u" + uid + msg.toString() + System.currentTimeMillis());
-        new MagicOnceTask(key) {
-            @Override
-            public void handle() {
-                bot.getFriend(uid).sendMessage(msg);
-            }
-        }.schedule(time);
+        MagicOnceTask.build(key, () -> bot.getFriend(uid).sendMessage(msg)).schedule(time);
         return key;
     }
 

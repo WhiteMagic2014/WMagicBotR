@@ -91,7 +91,7 @@ public class PlanCommand extends NoAuthCommand {
             upd.deletePlan(id);
             return "计划删除成功";
         } catch (Exception e) {
-            return "计划添加失败:\n" + e.getMessage();
+            return "计划删除失败:\n" + e.getMessage();
         }
     }
 
