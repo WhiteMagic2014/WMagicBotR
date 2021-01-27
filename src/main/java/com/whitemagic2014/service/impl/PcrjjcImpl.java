@@ -114,6 +114,11 @@ public class PcrjjcImpl implements Pcrjjc {
         }
     }
 
+    @Override
+    public PrivateModel<String> reloadNameFile() {
+        makeMap();
+        return new PrivateModel<>(ReturnCode.SUCCESS, "success", "重载成功");
+    }
 
     // region  国服 2; 台服 3; 日服 4
     // 查询成功缓存1小时

@@ -150,8 +150,10 @@
 
 ### 2021年01月27日
 - nickname源文件格式变更 ,兼容新的csv格式nickname文件
+- 新增指令 重载nickname 适合手动修改nickname文件后刷新缓存
 - 本次更新后可以使用新的 [nickname文件](https://github.com/pcrbot/pcr-nickname/blob/master/nicknames_zh-cn.csv)
 - 备忘功能实装 详见[指令book](CommandBook.md)
+
 
 - 本项目不稳定更新中(有空的时候会更新)
 
