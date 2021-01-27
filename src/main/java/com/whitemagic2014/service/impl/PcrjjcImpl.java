@@ -240,6 +240,7 @@ public class PcrjjcImpl implements Pcrjjc {
                 if (line.startsWith("id")) {
                     continue;
                 }
+                line = line.replace("\"","");
                 String[] temp = line.split(",");
                 Integer id = Integer.parseInt(temp[0]) * 100 + 1;
                 List<String> names = new ArrayList<>();

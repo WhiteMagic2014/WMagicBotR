@@ -148,6 +148,11 @@
 - 重构MagicTask，使用函数式接口,调用的时候更舒服一些
 - 新增备忘功能(内测中)
 
+### 2021年01月27日
+- nickname源文件格式变更 ,兼容新的csv格式nickname文件
+- 本次更新后可以使用新的 [nickname文件](https://github.com/pcrbot/pcr-nickname/blob/master/nicknames_zh-cn.csv)
+- 备忘功能实装 详见[指令book](CommandBook.md)
+
 - 本项目不稳定更新中(有空的时候会更新)
 
 ## 计划任务
@@ -159,6 +164,7 @@
 - ~~定时消息,延时消息,广播消息~~
 - ~~pcr公会战挂树 倒计时提醒 （延时消息）~~
 - 查刀页面样式优化 (不太会写页面T.T)
+- 有计划把微信的bot一起接进来(大坑)
 
 ## 感谢
 - [Mirai](https://github.com/mamoe/mirai) 开发组所有成员
