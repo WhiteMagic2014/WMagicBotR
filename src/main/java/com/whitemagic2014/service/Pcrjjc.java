@@ -34,6 +34,16 @@ public interface Pcrjjc {
 
 
     /**
+     * @Name: reloadNameFile
+     * @Description: 重新加载 nickname 文件（不下载新的文件）
+     * @Param:
+     * @Return: PrivateModel<String>
+     * @Author: magic chen
+     * @Date: 2021/1/27 15:55
+     **/
+    PrivateModel<String> reloadNameFile();
+
+    /**
      * @Name: checkjjc
      * @Description: jjc查询
      * @Param: names
