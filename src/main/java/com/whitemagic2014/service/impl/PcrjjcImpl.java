@@ -242,7 +242,7 @@ public class PcrjjcImpl implements Pcrjjc {
             }
             String line = "";
             while ((line = br.readLine()) != null && i++ < end) {
-                if (line.startsWith("id")) {
+                if (line.startsWith("id") || StringUtils.isBlank(line)) {
                     continue;
                 }
                 line = line.replace("\"","");
