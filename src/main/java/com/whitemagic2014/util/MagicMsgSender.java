@@ -5,6 +5,7 @@ import com.whitemagic2014.util.time.MagicOnceTask;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.data.Message;
+import net.mamoe.mirai.message.data.PlainText;
 
 import java.util.Date;
 
@@ -112,16 +113,16 @@ public class MagicMsgSender {
 
 
     /**
-     * @Name: sendBoradcast
+     * @Name: sendBroadcast
      * @Description: 发送广播消息
      * @Param: msg
      * @Return: void
      * @Author: magic chen
      * @Date: 2020/9/29 17:02
      **/
-    public static void sendBoradcast(Message msg) {
+    public static void sendBroadcast(Message msg) {
         for (Group g : bot.getGroups()) {
-            g.sendMessage(msg);
+            g.sendMessage(new PlainText("公告通知:\n").plus(msg));
         }
     }
 

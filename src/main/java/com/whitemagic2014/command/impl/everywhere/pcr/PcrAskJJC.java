@@ -14,6 +14,8 @@ import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -31,12 +33,17 @@ public class PcrAskJJC extends BaseEveryWhereCommand {
     @Autowired
     Pcrjjc pcrjjc;
 
+    private static final Logger logger = LoggerFactory.getLogger(PcrAskJJC.class);
+
+
     @Override
     public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) {
         PrivateModel<List<Answer>> model = pcrjjc.checkjjc(args, 2);
 
         if (!model.isSuccess()) {
-            return simpleErrMsg(sender, model);
+//            return simpleErrMsg(sender, model);
+            logger.error(model.getReturnMessage());
+            return null;
         }
         List<Answer> answers = model.getReturnObject();
 

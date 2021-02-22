@@ -60,7 +60,9 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
         PrivateModel<List<Answer>> model = pcrjjc.checkjjc(args, 2);
 
         if (!model.isSuccess()) {
-            return simpleErrMsg(sender, model);
+            //return simpleErrMsg(sender, model);
+            logger.error(model.getReturnMessage());
+            return null;
         }
         List<Answer> answers = model.getReturnObject();
         if (answers.isEmpty()) {
