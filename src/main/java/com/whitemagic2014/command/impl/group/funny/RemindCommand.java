@@ -18,9 +18,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
- * @Description: 描述这个类的作用
+ * @Description: 预约功能
  * @author: magic chen
  * @date: 2021/1/7 17:15
  **/
@@ -43,19 +44,32 @@ public class RemindCommand extends NoAuthCommand {
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
         if (args.size() != 2) {
-            return new PlainText("备忘 yyyy-MM-dd/HH:mm:ss [备忘内容]");
+            return new PlainText("备忘 yyyy-MM-dd/HH:mm:ss [备忘内容]\n备忘 HH:mm:ss后 [备忘内容]");
         }
-        String dateStr = args.get(0).replace("/", " ");
-        Date date = null;
-        try {
-            date = DateFormatUtil.sdf.parse(dateStr);
-        } catch (ParseException pe) {
-            return new PlainText("时间格式错误 yyyy-MM-dd/HH:mm:ss");
+        String param = args.get(0);
+        if (param.contains("后")) {
+            String time = param.replace("后", "");
+            String[] hms = time.split(":");
+            int lastIndex = hms.length - 1;
+            int result = 0;
+            for (int i = lastIndex; i >= 0; i--) {
+                result += Integer.parseInt(hms[i]) * Math.pow(60, (lastIndex - i));
+            }
+            Date date = DateFormatUtil.dateAdd(new Date(), (long) result, TimeUnit.SECONDS);
+            MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender).plus(args.get(1)), date);
+        } else {
+            String dateStr = param.replace("/", " ");
+            Date date = null;
+            try {
+                date = DateFormatUtil.sdf.parse(dateStr);
+            } catch (ParseException pe) {
+                return new PlainText("时间格式错误 yyyy-MM-dd/HH:mm:ss");
+            }
+            if (date.before(new Date())) {
+                return new PlainText(getDmail());
+            }
+            MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender).plus(args.get(1)), date);
         }
-        if (date.before(new Date())) {
-            return new PlainText(getDmail());
-        }
-        MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender).plus(args.get(1)), date);
         return new PlainText(getOk());
     }
 
