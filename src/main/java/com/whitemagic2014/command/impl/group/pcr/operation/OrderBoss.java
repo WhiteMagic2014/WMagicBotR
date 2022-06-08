@@ -33,12 +33,12 @@ public class OrderBoss extends PcrNoAuthCommand {
         try {
             Integer num = Integer.parseInt(args.get(0));
             if (num < 1 || num > 5) {
-                return new At(sender).plus("指令错误: " + txt);
+                return new At(sender.getId()).plus("指令错误: " + txt);
             }
             PrivateModel<String> result = pcrBotService.orderBoss(subject.getId(), sender.getId(), num);
             return simpleMsg(sender, result);
         } catch (Exception e) {
-            return new At(sender).plus("指令错误: " + txt);
+            return new At(sender.getId()).plus("指令错误: " + txt);
         }
     }
 

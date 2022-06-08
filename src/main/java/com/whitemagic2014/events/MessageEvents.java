@@ -2,11 +2,8 @@ package com.whitemagic2014.events;
 
 import com.whitemagic2014.util.MagicMaps;
 import net.mamoe.mirai.contact.Group;
-import net.mamoe.mirai.event.EventHandler;
-import net.mamoe.mirai.event.Listener;
-import net.mamoe.mirai.event.ListeningStatus;
-import net.mamoe.mirai.event.SimpleListenerHost;
-import net.mamoe.mirai.message.GroupMessageEvent;
+import net.mamoe.mirai.event.*;
+import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +32,7 @@ public class MessageEvents extends SimpleListenerHost {
      * @Date: 2020/9/8 11:44
      **/
     @NotNull
-    @EventHandler(priority = Listener.EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.NORMAL)
     public ListeningStatus catchXikali(@NotNull GroupMessageEvent event) throws Exception {
         Group g = event.getSubject();
         // 捕获cd 当捕获一次后,进入cd
@@ -45,7 +42,7 @@ public class MessageEvents extends SimpleListenerHost {
                     String oriMsg = event.getMessage().contentToString();
                     if (oriMsg.toLowerCase().contains("key")) {
                         logger.info("捕获光佬");
-                        Message msg = new At(g.get(418379149L)).plus("\n捕获光佬发言,包含关键字[key],请及时确认避免错失获得机会");
+                        Message msg = new At(418379149L).plus("\n捕获光佬发言,包含关键字[key],请及时确认避免错失获得机会");
                         g.sendMessage(msg);
                         // cd 5分钟
                         MagicMaps.putWithExpire("catchXikali", "", 5L, TimeUnit.MINUTES);

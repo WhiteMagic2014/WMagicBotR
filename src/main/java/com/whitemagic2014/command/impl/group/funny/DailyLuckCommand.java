@@ -52,7 +52,7 @@ public class DailyLuckCommand extends NoAuthCommand {
         String seed = sender.getId() + sdf.format(new Date());
         String item = dailyGacha.gacha(MagicMd5.getGachaRate(seed));
 
-        At at = new At(sender);
+        At at = new At(sender.getId());
         PlainText plainText = new PlainText("\n抽到了 " + item);
         return at.plus(plainText);
     }

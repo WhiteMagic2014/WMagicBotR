@@ -32,7 +32,7 @@ public class RollCommand extends NoAuthCommand {
         if (!args.isEmpty() && args.size() != 1) {
             return new PlainText("指令错误: [指令前缀][roll] [数字(可省略)]");
         } else {
-            At at = new At(sender);
+            At at = new At(sender.getId());
             PlainText plainText;
             if (args.isEmpty()) {
                 plainText = new PlainText(" roll出 " + (random.nextInt(100) + 1));

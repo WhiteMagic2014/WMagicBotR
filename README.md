@@ -54,7 +54,7 @@
 
 在本项目 正常启动后 该目录下应该会有6个文件:
 1. 本项目jar包
-2. deviceInfo.json ： 用于记录bot设备信息的文件（Mirai 其实是虚拟了一个设备登录qq,这个文件就是虚拟设备的设备信息,如果迁移服务器带着这个文件走,还是会视作同一个设备登录）
+2. ~~deviceInfo.json~~  cache文件夹 ： 用于记录bot设备信息的文件（Mirai 其实是虚拟了一个设备登录qq,这个文件就是虚拟设备的设备信息,如果迁移服务器带着这个文件走,还是会视作同一个设备登录）
 3. botData.db ： sqlite数据库文件,如果服务器要迁移，你需要带走的数据就在botData.db里面,可以用Navicat直接打开
 4. nicknames.txt ： pcr jjc 查询功能的角色昵称 和角色Id 对照表
 5. WMagicBotR.properties ： 项目配置文件
@@ -158,6 +158,16 @@
 - 前一段时间太忙了，没精力来做bot的优化
 - 备忘功能新增一种模式
 
+### 2022年06月08日
+这个项目很久没有更新，最近想在用一下，发现太久没更新没法登录了...
+
+- 更新 mirai 版本,使用 mirai-core-all 2.8.2 
+- 登录协议使用ipad
+- 新的登录方式
+ ![v5](./img/v5.png)
+- ps:我用的是ios 和 safari 连调获取ticket的方式, 如果在过程中发现 safari无法取得ios上联调的数据信息,可以下载使用 [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/) 来代替safari
+- 版本号更新至1.2.0
+- 目前仅恢复登录和一些基本功能，由于mirai版本升级,有些方法调用变更,部分功能可能会失效,发现了会修复...
 ###
 - 本项目不稳定更新中(有空的时候会更新)
 

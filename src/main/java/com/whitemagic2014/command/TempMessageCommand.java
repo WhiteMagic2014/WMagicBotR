@@ -1,6 +1,7 @@
 package com.whitemagic2014.command;
 
 import net.mamoe.mirai.contact.Member;
+import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 
@@ -24,5 +25,5 @@ public interface TempMessageCommand extends Command {
      * @Author: magic chen
      * @Date: 2020/8/20 23:08
      **/
-    Message execute(Member sender, ArrayList<String> args, MessageChain messageChain, Member subject) throws Exception;
+    Message execute(Member sender, ArrayList<String> args, MessageChain messageChain, User subject) throws Exception;
 }

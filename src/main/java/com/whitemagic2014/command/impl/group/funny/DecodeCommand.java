@@ -27,7 +27,7 @@ public class DecodeCommand extends NoAuthCommand {
 
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
-        At at = new At(sender);
+        At at = new At(sender.getId());
         String result = "已经解密完啦,明文: \n" + MagicEncode.decode(args.get(0), null);
         return at.plus(result);
     }

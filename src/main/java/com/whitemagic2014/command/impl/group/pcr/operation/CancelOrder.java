@@ -28,12 +28,12 @@ public class CancelOrder extends PcrNoAuthCommand {
         try {
             int num = Integer.parseInt(args.get(0));
             if (num < 1 || num > 5) {
-                return new At(sender).plus("指令错误: " + txt);
+                return new At(sender.getId()).plus("指令错误: " + txt);
             }
             PrivateModel<String> result = pcrBotService.cancelOrder(subject.getId(), sender.getId(), num);
             return simpleMsg(sender, result);
         } catch (Exception e) {
-            return new At(sender).plus("指令错误:" + txt);
+            return new At(sender.getId()).plus("指令错误:" + txt);
         }
 
     }

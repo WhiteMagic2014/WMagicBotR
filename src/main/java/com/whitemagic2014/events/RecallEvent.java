@@ -39,8 +39,8 @@ public class RecallEvent extends SimpleListenerHost {
     @EventHandler
     public ListeningStatus onGroupRecall(@NotNull MessageRecallEvent.GroupRecall event) {
         String result = event.getOperator().getNameCard();
-        System.out.println(result + " 撤回了" + event.getMessageId());
-        event.getGroup().sendMessage(result + " 撤回了" + event.getMessageId());
+        System.out.println(result + " 撤回了" + event.getMessageIds());
+        event.getGroup().sendMessage(result + " 撤回了" + event.getMessageIds());
         return ListeningStatus.LISTENING; // 表示继续监听事件
     }
 
@@ -56,8 +56,8 @@ public class RecallEvent extends SimpleListenerHost {
     @EventHandler
     public ListeningStatus onFriendRecall(@NotNull MessageRecallEvent.FriendRecall event) {
         String result = event.getOperator() + "";
-        System.out.println(result + " 撤回了" + event.getMessageId());
-        event.getBot().getFriend(event.getOperator()).sendMessage("你撤回了 " + event.getMessageId());
+        System.out.println(result + " 撤回了" + event.getMessageIds());
+        event.getBot().getFriendOrFail(event.getOperator().getId()).sendMessage("你撤回了 " + event.getMessageIds());
         return ListeningStatus.LISTENING; // 表示继续监听事件
     }
 

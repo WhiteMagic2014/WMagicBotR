@@ -43,7 +43,7 @@ public class AttackKnife extends PcrNoAuthCommand {
                 if (args.get(1).contains("@")) {
                     //代报
                     System.out.println("报刀 代报");
-                    At at = messageChain.first(At.Key);
+                    At at = (At) messageChain.stream().filter(At.class::isInstance).findFirst().orElse(null);
                     result = pcrBotService.attackKnife(subject.getId(), at.getTarget(), damage, false);
                 } else {
                     //报自己昨日刀
@@ -53,15 +53,15 @@ public class AttackKnife extends PcrNoAuthCommand {
             } else if (size == 3) {
                 // 代报昨日
                 System.out.println("报刀 代报 昨日");
-                At at = messageChain.first(At.Key);
+                At at = (At) messageChain.stream().filter(At.class::isInstance).findFirst().orElse(null);
                 result = pcrBotService.attackKnife(subject.getId(), at.getTarget(), damage, true);
             } else {
-                return new At(sender).plus("指令错误," + txt);
+                return new At(sender.getId()).plus("指令错误," + txt);
             }
             return simpleMsg(sender, result);
         } catch (Exception e) {
             e.printStackTrace();
-            return new At(sender).plus("指令错误." + txt);
+            return new At(sender.getId()).plus("指令错误." + txt);
         }
 
     }

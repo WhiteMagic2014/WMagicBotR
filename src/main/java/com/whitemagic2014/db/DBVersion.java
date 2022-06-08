@@ -37,7 +37,7 @@ public class DBVersion {
             BotDB db = dbDao.DBVersion();
             Version ver = new Version(db.getVersion());
             Version latestVer = dbVersionTable.get(dbVersionTable.size() - 1).getVer();
-            logger.info("当前版本:" + ver + ",最新版本:" + latestVer);
+            logger.info("db当前版本:" + ver + ",最新版本:" + latestVer);
             if (ver.compareTo(latestVer) < 0) {
                 logger.info("开始更新!");
                 for (DBVersionTable dbver : dbVersionTable) {
