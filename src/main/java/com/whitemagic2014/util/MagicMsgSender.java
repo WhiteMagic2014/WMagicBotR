@@ -29,7 +29,7 @@ public class MagicMsgSender {
      * @Date: 2020/9/29 17:02
      **/
     public static void sendGroupMsg(Long groupId, Message msg) {
-        bot.getGroup(groupId).sendMessage(msg);
+        bot.getGroupOrFail(groupId).sendMessage(msg);
     }
 
     /**
@@ -44,7 +44,7 @@ public class MagicMsgSender {
      **/
     public static String sendGroupMsgDelay(Long groupId, Message msg, Long delay) {
         String key = MagicMd5.getMd5String("g" + groupId + msg.toString() + System.currentTimeMillis());
-        MagicOnceTask.build(key, () -> bot.getGroup(groupId).sendMessage(msg)).schedule(delay * 1000L);
+        MagicOnceTask.build(key, () -> bot.getGroupOrFail(groupId).sendMessage(msg)).schedule(delay * 1000L);
         return key;
     }
 
@@ -60,7 +60,7 @@ public class MagicMsgSender {
      **/
     public static String sendGroupMsgTiming(Long groupId, Message msg, Date time) {
         String key = MagicMd5.getMd5String("g" + groupId + msg.toString() + System.currentTimeMillis());
-        MagicOnceTask.build(key, () -> bot.getGroup(groupId).sendMessage(msg)).schedule(time);
+        MagicOnceTask.build(key, () -> bot.getGroupOrFail(groupId).sendMessage(msg)).schedule(time);
         return key;
     }
 
@@ -74,7 +74,7 @@ public class MagicMsgSender {
      * @Date: 2020/9/29 17:12
      **/
     public static void sendFriendMsg(Long uid, Message msg) {
-        bot.getFriend(uid).sendMessage(msg);
+        bot.getFriendOrFail(uid).sendMessage(msg);
     }
 
 
@@ -90,7 +90,7 @@ public class MagicMsgSender {
      **/
     public static String sendFriendMsgDelay(Long uid, Message msg, Long delay) {
         String key = MagicMd5.getMd5String("u" + uid + msg.toString() + System.currentTimeMillis());
-        MagicOnceTask.build(key, () -> bot.getFriend(uid).sendMessage(msg)).schedule(delay * 1000L);
+        MagicOnceTask.build(key, () -> bot.getFriendOrFail(uid).sendMessage(msg)).schedule(delay * 1000L);
         return key;
     }
 
@@ -107,7 +107,7 @@ public class MagicMsgSender {
      **/
     public static String sendFriendMsgTiming(Long uid, Message msg, Date time) {
         String key = MagicMd5.getMd5String("u" + uid + msg.toString() + System.currentTimeMillis());
-        MagicOnceTask.build(key, () -> bot.getFriend(uid).sendMessage(msg)).schedule(time);
+        MagicOnceTask.build(key, () -> bot.getFriendOrFail(uid).sendMessage(msg)).schedule(time);
         return key;
     }
 

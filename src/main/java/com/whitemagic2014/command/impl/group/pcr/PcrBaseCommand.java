@@ -36,7 +36,7 @@ public abstract class PcrBaseCommand extends BaseGroupCommand {
         // 总体判别权限,有些指令只能管理员 或者 群主执行
         PrivateModel checkResult = checkRole(sender, subject);
         if (!checkResult.isSuccess()) {
-            return new At(sender).plus(" " + checkResult.getReturnMessage());
+            return new At(sender.getId()).plus(" " + checkResult.getReturnMessage());
         }
         // pcrbase 架构加锁
         Message msg;

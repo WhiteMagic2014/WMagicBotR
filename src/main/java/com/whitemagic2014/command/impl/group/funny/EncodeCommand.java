@@ -27,7 +27,7 @@ public class EncodeCommand extends NoAuthCommand {
 
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
-        At at = new At(sender);
+        At at = new At(sender.getId());
         String result = "已经加密完啦,密文: \n" + MagicEncode.encode(args.get(0), null);
         return at.plus(result);
     }

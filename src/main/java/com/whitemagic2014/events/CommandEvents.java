@@ -1,17 +1,11 @@
 package com.whitemagic2014.events;
 
-import com.whitemagic2014.command.*;
 import com.whitemagic2014.annotate.Switch;
+import com.whitemagic2014.command.*;
 import com.whitemagic2014.util.MagicSwitch;
 import kotlin.coroutines.CoroutineContext;
-import net.mamoe.mirai.event.EventHandler;
-import net.mamoe.mirai.event.Listener;
-import net.mamoe.mirai.event.ListeningStatus;
-import net.mamoe.mirai.event.SimpleListenerHost;
-import net.mamoe.mirai.message.FriendMessageEvent;
-import net.mamoe.mirai.message.GroupMessageEvent;
-import net.mamoe.mirai.message.MessageEvent;
-import net.mamoe.mirai.message.TempMessageEvent;
+import net.mamoe.mirai.event.*;
+import net.mamoe.mirai.event.events.*;
 import net.mamoe.mirai.message.data.Message;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -175,7 +169,7 @@ public class CommandEvents extends SimpleListenerHost {
      * @Date: 2020/8/21 15:00
      **/
     @NotNull
-    @EventHandler(priority = Listener.EventPriority.LOW)
+    @EventHandler(priority = EventPriority.LOW)
     public ListeningStatus onMessage(@NotNull MessageEvent event) throws Exception { // 可以抛出任何异常, 将在 handleException 处理
         String oriMsg = event.getMessage().contentToString();
         if (isCommand(oriMsg)) {
@@ -208,7 +202,7 @@ public class CommandEvents extends SimpleListenerHost {
      * @Date: 2020/8/21 11:59
      **/
     @NotNull
-    @EventHandler(priority = Listener.EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.NORMAL)
     public ListeningStatus onFriendMessage(@NotNull FriendMessageEvent event) throws Exception {
         String oriMsg = event.getMessage().contentToString();
         if (isCommand(oriMsg)) {
@@ -243,7 +237,7 @@ public class CommandEvents extends SimpleListenerHost {
      * @Date: 2020/8/21 14:32
      **/
     @NotNull
-    @EventHandler(priority = Listener.EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.NORMAL)
     public ListeningStatus onGroupMessage(@NotNull GroupMessageEvent event) throws Exception {
         String oriMsg = event.getMessage().contentToString();
         if (isCommand(oriMsg)) {
@@ -278,8 +272,8 @@ public class CommandEvents extends SimpleListenerHost {
      * @Date: 2020/8/21 14:57
      **/
     @NotNull
-    @EventHandler(priority = Listener.EventPriority.NORMAL)
-    public ListeningStatus onTempMessage(@NotNull TempMessageEvent event) throws Exception {
+    @EventHandler(priority = EventPriority.NORMAL)
+    public ListeningStatus onTempMessage(@NotNull GroupTempMessageEvent event) throws Exception {
         String oriMsg = event.getMessage().contentToString();
         if (isCommand(oriMsg)) {
             TempMessageCommand command = (TempMessageCommand) getCommand(oriMsg, tempMsgCommands);

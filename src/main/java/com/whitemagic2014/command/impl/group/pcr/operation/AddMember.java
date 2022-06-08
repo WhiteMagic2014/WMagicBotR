@@ -35,14 +35,14 @@ public class AddMember extends PcrNoAuthCommand {
             // 加入别人 只有管理员可以添加其他群员
             if (sender.getId() == adminUid || isGroupAdmin(sender) || isGroupOwner(sender) || isAdmin(subject.getId(), sender.getId())) {
                 try {
-                    At at = messageChain.first(At.Key);
+                    At at = (At) messageChain.stream().filter(At.class::isInstance).findFirst().orElse(null);
                     Member ated = subject.get(at.getTarget());
                     result = pcrBotService.addMemer(subject.getId(), ated.getId(), ated.getNick(), ated.getPermission());
                 } catch (Exception e) {
-                    return new At(sender).plus("指令错误,请@出需要添加的成员");
+                    return new At(sender.getId()).plus("指令错误,请@出需要添加的成员");
                 }
             } else {
-                return new At(sender).plus(" 无权操作,添加其他成员需要[群主][群管理员][超管]权限");
+                return new At(sender.getId()).plus(" 无权操作,添加其他成员需要[群主][群管理员][超管]权限");
             }
         }
         return simpleMsg(sender, result);

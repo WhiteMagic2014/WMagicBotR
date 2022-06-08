@@ -37,7 +37,7 @@ public class PlanCommand extends NoAuthCommand {
 
         String uid = String.valueOf(sender.getId());
 
-        At at = new At(sender);
+        At at = new At(sender.getId());
 
         if (args.size() == 0) {
             return at.plus(find(uid, ""));

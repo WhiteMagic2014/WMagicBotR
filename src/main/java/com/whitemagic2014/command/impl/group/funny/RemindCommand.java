@@ -56,7 +56,7 @@ public class RemindCommand extends NoAuthCommand {
                 result += Integer.parseInt(hms[i]) * Math.pow(60, (lastIndex - i));
             }
             Date date = DateFormatUtil.dateAdd(new Date(), (long) result, TimeUnit.SECONDS);
-            MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender).plus(args.get(1)), date);
+            MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender.getId()).plus(args.get(1)), date);
         } else {
             String dateStr = param.replace("/", " ");
             Date date = null;
@@ -68,7 +68,7 @@ public class RemindCommand extends NoAuthCommand {
             if (date.before(new Date())) {
                 return new PlainText(getDmail());
             }
-            MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender).plus(args.get(1)), date);
+            MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender.getId()).plus(args.get(1)), date);
         }
         return new PlainText(getOk());
     }

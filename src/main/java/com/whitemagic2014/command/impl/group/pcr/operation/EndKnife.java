@@ -45,7 +45,7 @@ public class EndKnife extends PcrNoAuthCommand {
                 if (args.get(0).contains("@")) {
                     //代报
                     System.out.println("尾刀 代报");
-                    At at = messageChain.first(At.Key);
+                    At at = (At) messageChain.stream().filter(At.class::isInstance).findFirst().orElse(null);
                     result = pcrBotService.endKnife(subject.getId(), at.getTarget(), false);
                 } else {
                     //报自己昨日刀
@@ -55,10 +55,10 @@ public class EndKnife extends PcrNoAuthCommand {
             } else if (size == 2) {
                 // 代报昨日
                 System.out.println("尾刀 代报 昨日");
-                At at = messageChain.first(At.Key);
+                At at = (At) messageChain.stream().filter(At.class::isInstance).findFirst().orElse(null);
                 result = pcrBotService.endKnife(subject.getId(), at.getTarget(), true);
             } else {
-                return new At(sender).plus("指令错误," + txt);
+                return new At(sender.getId()).plus("指令错误," + txt);
             }
 
             //需要自定义回复
@@ -66,7 +66,7 @@ public class EndKnife extends PcrNoAuthCommand {
                 return simpleErrMsg(sender, result);
             }
 
-            Message nomal = new At(sender).plus(result.getReturnObject().get("nomal"));
+            Message nomal = new At(sender.getId()).plus(result.getReturnObject().get("nomal"));
             subject.sendMessage(nomal);
 
             Map<String, List<Long>> ats = result.getAts();
@@ -83,7 +83,7 @@ public class EndKnife extends PcrNoAuthCommand {
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            return new At(sender).plus("指令错误." + txt);
+            return new At(sender.getId()).plus("指令错误." + txt);
         }
     }
 

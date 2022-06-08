@@ -1,9 +1,6 @@
 package com.whitemagic2014.events;
 
-import net.mamoe.mirai.event.EventHandler;
-import net.mamoe.mirai.event.Listener;
-import net.mamoe.mirai.event.ListeningStatus;
-import net.mamoe.mirai.event.SimpleListenerHost;
+import net.mamoe.mirai.event.*;
 import net.mamoe.mirai.event.events.MemberJoinEvent;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
@@ -26,7 +23,7 @@ public class GroupEvents extends SimpleListenerHost {
      * @Date: 2020/9/9 18:20
      **/
     @NotNull
-    @EventHandler(priority = Listener.EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.NORMAL)
     public ListeningStatus onMemberJoinEvent(@NotNull MemberJoinEvent event) {
         String name = event.getMember().getNameCard();
         event.getGroup().sendMessage("欢迎: " + name);

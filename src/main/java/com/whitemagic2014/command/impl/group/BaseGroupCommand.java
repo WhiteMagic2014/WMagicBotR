@@ -30,7 +30,7 @@ public abstract class BaseGroupCommand implements GroupCommand {
         // 总体判别权限,有些指令只能管理员 或者 群主执行
         PrivateModel checkResult = checkRole(sender, subject);
         if (!checkResult.isSuccess()) {
-            return new At(sender).plus(" " + checkResult.getReturnMessage());
+            return new At(sender.getId()).plus(" " + checkResult.getReturnMessage());
         }
         return executeHandle(sender, args, messageChain, subject);
     }
@@ -98,9 +98,9 @@ public abstract class BaseGroupCommand implements GroupCommand {
      **/
     protected Message simpleMsg(Member sender, PrivateModel<String> result) {
         if (result.isSuccess()) {
-            return new At(sender).plus(result.getReturnObject());
+            return new At(sender.getId()).plus(result.getReturnObject());
         } else {
-            return new At(sender).plus(result.getReturnMessage());
+            return new At(sender.getId()).plus(result.getReturnMessage());
         }
     }
 
@@ -114,7 +114,7 @@ public abstract class BaseGroupCommand implements GroupCommand {
      * @Date: 2020/8/23 18:25
      **/
     protected <S> Message simpleErrMsg(Member sender, PrivateModel<S> result) {
-        return new At(sender).plus(result.getReturnMessage());
+        return new At(sender.getId()).plus(result.getReturnMessage());
     }
 
     /**
@@ -129,7 +129,7 @@ public abstract class BaseGroupCommand implements GroupCommand {
     protected MessageChain makeAts(List<Long> uids, Group subject) {
         MessageChain chain = MessageUtils.newChain();
         for (Long uid : uids) {
-            At temp = new At(subject.get(uid));
+            At temp = new At(uid);
             chain = chain.plus(temp);
         }
         return chain;

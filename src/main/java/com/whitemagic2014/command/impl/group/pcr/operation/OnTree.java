@@ -31,7 +31,7 @@ public class OnTree extends PcrNoAuthCommand {
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) {
         PrivateModel<String> result = pcrBotService.hangOnTree(subject.getId(),sender.getId());
         if (result.isSuccess()){
-            MagicMsgSender.sendGroupMsgDelay(subject.getId(), new At(sender).plus("挂树30分钟提醒,请注意时间,避免掉刀(如已下树请忽略)"),1800L);
+            MagicMsgSender.sendGroupMsgDelay(subject.getId(), new At(sender.getId()).plus("挂树30分钟提醒,请注意时间,避免掉刀(如已下树请忽略)"),1800L);
         }
         return simpleMsg(sender,result);
     }

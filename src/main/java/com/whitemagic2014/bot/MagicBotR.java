@@ -2,10 +2,13 @@ package com.whitemagic2014.bot;
 
 import com.whitemagic2014.util.MagicLogger;
 import net.mamoe.mirai.Bot;
-import net.mamoe.mirai.BotFactoryJvm;
+import net.mamoe.mirai.BotFactory;
+import net.mamoe.mirai.event.EventChannel;
 import net.mamoe.mirai.event.Events;
+import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.ListenerHost;
 import net.mamoe.mirai.utils.BotConfiguration;
+import net.mamoe.mirai.utils.LoginSolver;
 
 import java.io.File;
 import java.util.List;
@@ -41,11 +44,14 @@ public class MagicBotR {
         config.setBotLoggerSupplier(bot -> new MagicLogger());
         // 将net层输出写入文件
         config.redirectNetworkLogToDirectory(new File(netlog));
-        miraiBot = BotFactoryJvm.newBot(account, pwd, config);
+        config.setProtocol(BotConfiguration.MiraiProtocol.IPAD);
+        config.setLoginSolver(LoginSolver.Default);
+        miraiBot = BotFactory.INSTANCE.newBot(account, pwd, config);
         miraiBot.login();
         // 注册事件
         for (ListenerHost event : events) {
-            Events.registerEvents(miraiBot, event);
+            GlobalEventChannel.INSTANCE.registerListenerHost(event);
+//            Events.registerEvents(miraiBot, event);
         }
         // 这个和picbotx 还是不太一样 那个不会占用主线程
         // 这里必须要启新线程去跑bot 不然会占用主线程

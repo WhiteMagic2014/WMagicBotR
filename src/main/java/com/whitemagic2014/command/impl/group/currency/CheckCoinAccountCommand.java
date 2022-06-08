@@ -36,7 +36,7 @@ public class CheckCoinAccountCommand extends NoAuthCommand {
         }
         List<CoinLog> logList = result.getReturnObject();
         String msg =  "\n" +logList.stream().map(CoinLog::getRemark).map(s->s.concat("\n")).reduce("",String::concat);
-        return new At(sender).plus(msg);
+        return new At(sender.getId()).plus(msg);
     }
 
     @Override

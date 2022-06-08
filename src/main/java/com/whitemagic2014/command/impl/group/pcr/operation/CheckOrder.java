@@ -10,6 +10,7 @@ import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.MessageUtils;
+import net.mamoe.mirai.message.data.PlainText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class CheckOrder extends PcrNoAuthCommand {
         }
 
         Map<Integer, List<Notice>> dataMap = result.getReturnObject();
-        MessageChain msg = MessageUtils.newChain("预约情况\n");
+        MessageChain msg = MessageUtils.newChain(new PlainText("预约情况\n"));
         for (Integer num : dataMap.keySet()) {
             msg = msg.plus(num + "号boss:\n");
             List<Long> uids = dataMap.get(num).stream().map(Notice::getUid).collect(Collectors.toList());
