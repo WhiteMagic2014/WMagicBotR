@@ -168,6 +168,10 @@
 - ps:我用的是ios 和 safari 连调获取ticket的方式, 如果在过程中发现 safari无法取得ios上联调的数据信息,可以下载使用 [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/) 来代替safari
 - 版本号更新至1.2.0
 - 目前仅恢复登录和一些基本功能，由于mirai版本升级,有些方法调用变更,部分功能可能会失效,发现了会修复...
+
+###2022年07月01日
+- 新增图片混沌加密功能
+
 ###
 - 本项目不稳定更新中(有空的时候会更新)
 

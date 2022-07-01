@@ -1,10 +1,15 @@
 package com.whitemagic2014.util;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @Description: 处理image
@@ -74,5 +79,21 @@ public class MagicImage {
         return target;
     }
 
+
+    /**
+     * image 转InputStream
+     *
+     * @param image
+     * @return
+     */
+    public static InputStream bufferedImage2InputStream(BufferedImage image) {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "JPEG", os);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ByteArrayInputStream(os.toByteArray());
+    }
 
 }
