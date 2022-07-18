@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +22,10 @@ public class ChpServiceImpl implements ChpService {
     ChpDao chpDao;
 
     private Map<String, String> chpCache = null;
+
+
+    // 登记开启彩虹屁的用户
+    private Set<String> chpUser = new HashSet<>();
 
     @Override
     public String getChp() {
@@ -47,6 +48,24 @@ public class ChpServiceImpl implements ChpService {
         }
     }
 
+
+    @Override
+    public void registChp(Long gid, Long uid) {
+        String chpKey = gid + "_" + uid;
+        chpUser.add(chpKey);
+    }
+
+    @Override
+    public void unRegistChp(Long gid, Long uid) {
+        String chpKey = gid + "_" + uid;
+        chpUser.remove(chpKey);
+    }
+
+    @Override
+    public boolean checkChp(Long gid, Long uid) {
+        String chpKey = gid + "_" + uid;
+        return chpUser.contains(chpKey);
+    }
 
     private String getByCache() {
         List<String> chpList = new ArrayList<>(chpCache.values());
