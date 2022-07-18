@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemagic2014.dao.ChpDao">
+
+    <select id="loadAll" resultType="com.whitemagic2014.pojo.Chp">
+        select * from chp_data
+    </select>
+
+    <insert id="insert" parameterType="com.whitemagic2014.pojo.Chp">
+        insert into chp_data(hash,content) values (#{hash},#{content})
+    </insert>
+
+    <select id="getByHash" resultType="com.whitemagic2014.pojo.Chp">
+        select * from chp_data where hash = #{hash}
+    </select>
+
+</mapper>
