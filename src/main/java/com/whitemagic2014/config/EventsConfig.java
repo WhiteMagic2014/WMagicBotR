@@ -4,6 +4,7 @@ import com.whitemagic2014.command.Command;
 import com.whitemagic2014.events.CommandEvents;
 import com.whitemagic2014.events.GroupEvents;
 import com.whitemagic2014.events.MessageEvents;
+import com.whitemagic2014.events.RecallEvent;
 import net.mamoe.mirai.event.ListenerHost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,8 +24,8 @@ import java.util.List;
 public class EventsConfig {
 
 
-//    @Autowired
-//    RecallEvent recallEvent;
+    @Autowired
+    RecallEvent recallEvent;
 
     @Autowired
     MessageEvents messageEvents;
@@ -37,7 +38,7 @@ public class EventsConfig {
         List<ListenerHost> events = new ArrayList<>();
 //        events.add(recallEvent);
         events.add(messageEvents);
-        events.add(groupEvents);
+//        events.add(groupEvents);
         return events;
     }
 

@@ -175,6 +175,20 @@ public class SqlLiteConfig {
         result.add(v1_1_0);
 
 
+        // 夸夸模块
+        DBVersionTable v1_2_0 = new DBVersionTable();
+        v1_2_0.setVer(new Version("1.2.0"));
+        List<String> sql_1_2_0 = new ArrayList<>();
+        sql_1_2_0.add("DROP TABLE IF EXISTS chp_data");
+        sql_1_2_0.add("CREATE TABLE \"chp_data\" (\n" +
+                " \"hash\" TEXT(32) PRIMARY KEY,\n" +
+                " \"content\" TEXT(1024)\n" +
+                ");");
+
+        v1_2_0.setSqls(sql_1_2_0);
+        result.add(v1_2_0);
+
+
         return result;
     }
 
