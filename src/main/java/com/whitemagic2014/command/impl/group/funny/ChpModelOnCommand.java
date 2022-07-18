@@ -33,8 +33,6 @@ public class ChpModelOnCommand extends NoAuthCommand {
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
         chpService.registChp(subject.getId(), sender.getId());
-
-
-        return new PlainText("注册");
+        return new PlainText("已为您开启夸夸模式");
     }
 }

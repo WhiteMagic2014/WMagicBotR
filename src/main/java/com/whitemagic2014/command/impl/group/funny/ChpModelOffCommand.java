@@ -8,6 +8,7 @@ import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -31,6 +32,6 @@ public class ChpModelOffCommand extends NoAuthCommand {
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
         chpService.unRegistChp(subject.getId(), sender.getId());
-        return null;
+        return new PlainText("已为您关闭夸夸模式");
     }
 }
