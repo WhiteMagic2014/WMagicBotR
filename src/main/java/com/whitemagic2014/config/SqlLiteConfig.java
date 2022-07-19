@@ -188,6 +188,22 @@ public class SqlLiteConfig {
         v1_2_0.setSqls(sql_1_2_0);
         result.add(v1_2_0);
 
+        // 毒鸡汤 朋友圈 文案
+        DBVersionTable v1_2_1 = new DBVersionTable();
+        v1_2_1.setVer(new Version("1.2.1"));
+        List<String> sql_1_2_1 = new ArrayList<>();
+        sql_1_2_1.add("DROP TABLE IF EXISTS djt_data");
+        sql_1_2_1.add("CREATE TABLE \"djt_data\" (\n" +
+                " \"hash\" TEXT(32) PRIMARY KEY,\n" +
+                " \"content\" TEXT(1024)\n" +
+                ");");
+        sql_1_2_1.add("DROP TABLE IF EXISTS pyq_data");
+        sql_1_2_1.add("CREATE TABLE \"pyq_data\" (\n" +
+                " \"hash\" TEXT(32) PRIMARY KEY,\n" +
+                " \"content\" TEXT(1024)\n" +
+                ");");
+        v1_2_1.setSqls(sql_1_2_1);
+        result.add(v1_2_1);
 
         return result;
     }
