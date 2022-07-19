@@ -5,16 +5,27 @@ package com.whitemagic2014.service;
  * @author: magic chen
  * @date: 2022/7/18 11:26
  **/
-public interface ChpService {
+public interface FunnyTextService {
 
 
     /**
-     * 获得chp
+     * 获得彩虹屁
      *
      * @return
      */
     String getChp();
 
+    /**
+     * 获得毒鸡汤
+     *
+     * @return
+     */
+    String getDjt();
+
+    /**
+     * 获得朋友圈
+     */
+    String getPyq();
 
     /**
      * 注册夸夸 随机在用户发言后夸夸
@@ -39,6 +50,6 @@ public interface ChpService {
      * @param uid
      * @return
      */
-    boolean checkChp(Long gid, Long uid);
+    boolean checkRequireChp(Long gid, Long uid);
 
 }

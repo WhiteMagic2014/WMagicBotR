@@ -1,6 +1,6 @@
 package com.whitemagic2014.events;
 
-import com.whitemagic2014.service.ChpService;
+import com.whitemagic2014.service.FunnyTextService;
 import net.mamoe.mirai.event.EventHandler;
 import net.mamoe.mirai.event.EventPriority;
 import net.mamoe.mirai.event.ListeningStatus;
@@ -30,17 +30,17 @@ public class MessageEvents extends SimpleListenerHost {
     private Random random = new Random();
 
     @Autowired
-    ChpService chpService;
+    FunnyTextService funnyTextService;
 
     @NotNull
     @EventHandler(priority = EventPriority.NORMAL)
     public ListeningStatus chpModel(@NotNull GroupMessageEvent event) throws Exception {
         long gid = event.getGroup().getId();
         long uid = event.getSender().getId();
-        if (chpService.checkChp(gid, uid)) {
+        if (funnyTextService.checkRequireChp(gid, uid)) {
             int seed = random.nextInt(100);
             if (seed > 50) {
-                Message msg = new At(uid).plus(chpService.getChp());
+                Message msg = new At(uid).plus(funnyTextService.getChp());
                 event.getSubject().sendMessage(msg);
             }
         }

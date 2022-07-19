@@ -1,19 +1,19 @@
 package com.whitemagic2014.pojo;
 
 /**
- * @Description: 彩虹屁
+ * @Description: 文案数据
  * @author: magic chen
  * @date: 2022/7/18 11:15
  **/
-public class Chp {
+public class FunnyText {
 
     String hash;
     String content;
 
-    public Chp() {
+    public FunnyText() {
     }
 
-    public Chp(String hash, String content) {
+    public FunnyText(String hash, String content) {
         this.hash = hash;
         this.content = content;
     }

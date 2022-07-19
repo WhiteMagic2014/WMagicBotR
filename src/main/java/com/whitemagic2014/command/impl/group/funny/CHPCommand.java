@@ -3,7 +3,7 @@ package com.whitemagic2014.command.impl.group.funny;
 import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.command.impl.group.NoAuthCommand;
 import com.whitemagic2014.pojo.CommandProperties;
-import com.whitemagic2014.service.ChpService;
+import com.whitemagic2014.service.FunnyTextService;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.At;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class CHPCommand extends NoAuthCommand {
 
     @Autowired
-    ChpService chpService;
+    FunnyTextService funnyTextService;
 
     @Override
     public CommandProperties properties() {
@@ -32,6 +32,6 @@ public class CHPCommand extends NoAuthCommand {
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
         At at = new At(sender.getId());
-        return at.plus(chpService.getChp());
+        return at.plus(funnyTextService.getChp());
     }
 }
