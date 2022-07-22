@@ -26,7 +26,7 @@ public class CHPCommand extends NoAuthCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("chp", "夸我", "夸夸我", "说句好听的");
+        return new CommandProperties("chp", "夸", "继续夸", "夸我", "夸夸我", "说句好听的");
     }
 
     @Override
