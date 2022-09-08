@@ -47,6 +47,7 @@ public class RemindCommand extends NoAuthCommand {
             return new PlainText("备忘 yyyy-MM-dd/HH:mm:ss [备忘内容]\n备忘 HH:mm:ss后 [备忘内容]");
         }
         String param = args.get(0);
+        String taskKey = "";
         if (param.contains("后")) {
             String time = param.replace("后", "");
             String[] hms = time.split(":");
@@ -56,7 +57,7 @@ public class RemindCommand extends NoAuthCommand {
                 result += Integer.parseInt(hms[i]) * Math.pow(60, (lastIndex - i));
             }
             Date date = DateFormatUtil.dateAdd(new Date(), (long) result, TimeUnit.SECONDS);
-            MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender.getId()).plus(args.get(1)), date);
+            taskKey = MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender.getId()).plus(args.get(1)), date);
         } else {
             String dateStr = param.replace("/", " ");
             Date date = null;
@@ -68,9 +69,9 @@ public class RemindCommand extends NoAuthCommand {
             if (date.before(new Date())) {
                 return new PlainText(getDmail());
             }
-            MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender.getId()).plus(args.get(1)), date);
+            taskKey = MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender.getId()).plus(args.get(1)), date);
         }
-        return new PlainText(getOk());
+        return new PlainText(getOk() + ",备忘id=" + taskKey);
     }
 
     @Override
