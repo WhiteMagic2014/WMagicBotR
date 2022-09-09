@@ -35,7 +35,7 @@ public class MagicTaskObserver {
      * @Author: magic chen
      * @Date: 2020/9/30 17:29
      **/
-    public static void removeTask(String key) {
+    protected static void removeTask(String key) {
         taskMap.remove(key);
     }
 
