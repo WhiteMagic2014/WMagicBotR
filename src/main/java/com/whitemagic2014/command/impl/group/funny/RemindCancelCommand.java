@@ -28,7 +28,7 @@ public class RemindCancelCommand extends NoAuthCommand {
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
         String taskKey = args.get(0);
-        MagicTaskObserver.removeTask(taskKey);
+        MagicTaskObserver.cancelTask(taskKey);
         return new PlainText("已取消备忘提醒");
     }
 }
