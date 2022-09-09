@@ -29,13 +29,24 @@ public class MagicTaskObserver {
 
     /**
      * @Name: removeTask
-     * @Description: observer 移除 task
+     * @Description: observer 移除 task,仅从列表中移除,并未取消任务
      * @Param: key
      * @Return: void
      * @Author: magic chen
      * @Date: 2020/9/30 17:29
      **/
-    public static void removeTask(String key) {
+    protected static void removeTask(String key) {
+        taskMap.remove(key);
+    }
+
+
+    /**
+     * 取消并移除 task
+     *
+     * @param key
+     */
+    public static void cancelTask(String key) {
+        taskMap.get(key).cancel();
         taskMap.remove(key);
     }
 
