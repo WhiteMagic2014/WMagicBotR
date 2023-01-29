@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemagic2014.dao.EngageBattleDao">
+
+    <insert id="insert" parameterType="com.whitemagic2014.pojo.EngageBattle">
+        insert into engage_battle
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="battleKey != null">
+                battleKey,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="battleKey != null">
+                #{battleKey},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateStatusByKey">
+        update engage_battle
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where battleKey = #{key}
+
+    </update>
+
+
+    <select id="selectByKey" resultType="com.whitemagic2014.pojo.EngageBattle">
+        select *
+        from engage_battle
+        where battleKey = #{key}
+    </select>
+
+    <select id="listAllAbleBattle" resultType="com.whitemagic2014.pojo.EngageBattle">
+        select *
+        from engage_battle
+        where status = 1
+    </select>
+
+
+</mapper>

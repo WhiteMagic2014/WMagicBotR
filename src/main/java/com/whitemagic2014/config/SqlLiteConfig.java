@@ -205,8 +205,22 @@ public class SqlLiteConfig {
         v1_2_1.setSqls(sql_1_2_1);
         result.add(v1_2_1);
 
+
+        // 火纹续战
+        DBVersionTable v1_2_2 = new DBVersionTable();
+        v1_2_2.setVer(new Version("1.2.2"));
+        List<String> sql_1_2_2 = new ArrayList<>();
+        sql_1_2_2.add("DROP TABLE IF EXISTS engage_battle");
+        sql_1_2_2.add("CREATE TABLE \"engage_battle\" (\n" +
+                " \"id\" INTEGER PRIMARY KEY autoincrement,\n" +
+                " \"battleKey\" TEXT(16),\n" +
+                " \"status\" INTEGER,\n" +
+                " \"remark\" TEXT(511)\n" +
+                ");");
+        v1_2_2.setSqls(sql_1_2_2);
+        result.add(v1_2_2);
+
         return result;
     }
-
 
 }
