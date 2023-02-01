@@ -18,6 +18,8 @@ public interface EngageBattleDao {
 
     int updateStatusByKey(@Param("key") String key, @Param("status") Integer status);
 
+    int updateStatusAndRemarkByKey(@Param("key") String key, @Param("status") Integer status, @Param("remark") String remark);
+
     EngageBattle selectByKey(@Param("key") String key);
 
     List<EngageBattle> listAllAbleBattle();
