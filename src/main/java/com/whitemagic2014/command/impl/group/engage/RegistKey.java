@@ -1,0 +1,42 @@
+package com.whitemagic2014.command.impl.group.engage;
+
+import com.whitemagic2014.annotate.Command;
+import com.whitemagic2014.pojo.CommandProperties;
+import com.whitemagic2014.pojo.EngageBattle;
+import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.contact.Member;
+import net.mamoe.mirai.message.data.Message;
+import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.PlainText;
+
+import java.util.ArrayList;
+
+/**
+ * @Description: 续战登记
+ * @author: magic chen
+ * @date: 2023/2/1 10:08
+ **/
+@Command
+public class RegistKey extends BattleKeyCommand {
+
+    @Override
+    public CommandProperties properties() {
+        return new CommandProperties("续战登记");
+    }
+
+    @Override
+    protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
+        try {
+            String key = args.get(0).toLowerCase();
+            String remark = args.get(1);
+            EngageBattle battle = new EngageBattle();
+            battle.setBattleKey(key);
+            battle.setRemark(remark);
+            battle.setStatus(1);
+            dao.insert(battle);
+            return new PlainText("登记成功");
+        } catch (Exception e) {
+            return new PlainText(help());
+        }
+    }
+}
