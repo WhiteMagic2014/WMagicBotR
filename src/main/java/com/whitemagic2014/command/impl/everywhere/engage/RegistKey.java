@@ -1,10 +1,10 @@
-package com.whitemagic2014.command.impl.group.engage;
+package com.whitemagic2014.command.impl.everywhere.engage;
 
 import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.pojo.EngageBattle;
-import net.mamoe.mirai.contact.Group;
-import net.mamoe.mirai.contact.Member;
+import net.mamoe.mirai.contact.Contact;
+import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
@@ -25,7 +25,7 @@ public class RegistKey extends BattleKeyCommand {
     }
 
     @Override
-    protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
+    public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception {
         try {
             String key = args.get(0).toLowerCase();
             String remark = args.get(1);
