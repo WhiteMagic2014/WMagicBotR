@@ -1,6 +1,6 @@
-package com.whitemagic2014.command.impl.group.engage;
+package com.whitemagic2014.command.impl.everywhere.engage;
 
-import com.whitemagic2014.command.impl.group.NoAuthCommand;
+import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
 import com.whitemagic2014.dao.EngageBattleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author: magic chen
  * @date: 2023/1/29 14:40
  **/
-public abstract class BattleKeyCommand extends NoAuthCommand {
+public abstract class BattleKeyCommand extends BaseEveryWhereCommand {
 
     @Autowired
     EngageBattleDao dao;
