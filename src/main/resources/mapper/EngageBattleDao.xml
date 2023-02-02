@@ -40,6 +40,23 @@
     </update>
 
 
+
+    <update id="updateStatusAndRemarkByKey">
+        update engage_battle
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+        where battleKey = #{key}
+
+    </update>
+
+
+
     <select id="selectByKey" resultType="com.whitemagic2014.pojo.EngageBattle">
         select *
         from engage_battle

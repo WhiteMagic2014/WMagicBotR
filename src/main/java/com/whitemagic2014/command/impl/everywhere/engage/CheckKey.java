@@ -22,7 +22,7 @@ public class CheckKey extends BattleKeyCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("续战查询");
+        return new CommandProperties("续战查询","查询续战");
     }
 
     @Override

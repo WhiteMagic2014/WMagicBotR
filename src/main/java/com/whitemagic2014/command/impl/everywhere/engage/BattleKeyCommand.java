@@ -16,11 +16,11 @@ public abstract class BattleKeyCommand extends BaseEveryWhereCommand {
 
     protected String help() {
         return "续战查询功能:\n"
-                + "查询可用续战: 续战查询\n"
-                + "共享一个续战: 续战登记 abcd12 困难森林\n"
-                + "关闭一个续战: 续战结束 abcd12\n"
-                + "认领一个续战开始战斗: 续战认领 abcd12\n"
-                + "打完认领的续战交接: 续战交接 abcd12";
+                + "查询可用续战: 续战查询/查询续战\n"
+                + "共享一个续战: 续战登记/登记续战 abcd12 困难森林\n"
+                + "关闭一个续战: 续战结束/结束续战 abcd12\n"
+                + "认领一个续战开始战斗: 续战认领/认领 abcd12\n"
+                + "打完认领的续战交接: 续战交接/交接 abcd12";
     }
 
 }

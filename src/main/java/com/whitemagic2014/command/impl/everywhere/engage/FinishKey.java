@@ -20,7 +20,7 @@ public class FinishKey extends BattleKeyCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("续战结束");
+        return new CommandProperties("续战结束","结束续战");
     }
 
     @Override

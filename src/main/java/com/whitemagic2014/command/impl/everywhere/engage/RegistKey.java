@@ -21,19 +21,27 @@ public class RegistKey extends BattleKeyCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("续战登记");
+        return new CommandProperties("续战登记","登记续战");
     }
 
     @Override
     public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception {
         try {
             String key = args.get(0).toLowerCase();
-            String remark = args.get(1);
-            EngageBattle battle = new EngageBattle();
-            battle.setBattleKey(key);
-            battle.setRemark(remark);
-            battle.setStatus(1);
-            dao.insert(battle);
+            String remark = "";
+            if (args.size() > 1) {
+                remark = args.get(1);
+            }
+            EngageBattle origin = dao.selectByKey(key);
+            if (origin == null) {
+                EngageBattle battle = new EngageBattle();
+                battle.setBattleKey(key);
+                battle.setRemark(remark);
+                battle.setStatus(1);
+                dao.insert(battle);
+            } else {
+                dao.updateStatusAndRemarkByKey(key, 1, remark);
+            }
             return new PlainText("登记成功");
         } catch (Exception e) {
             return new PlainText(help());

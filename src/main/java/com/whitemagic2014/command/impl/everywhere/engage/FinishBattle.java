@@ -20,7 +20,7 @@ public class FinishBattle extends BattleKeyCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("续战交接");
+        return new CommandProperties("续战交接","交接");
     }
 
     @Override

@@ -20,7 +20,7 @@ public class StartBattle extends BattleKeyCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("续战认领");
+        return new CommandProperties("续战认领","认领");
     }
 
     @Override
