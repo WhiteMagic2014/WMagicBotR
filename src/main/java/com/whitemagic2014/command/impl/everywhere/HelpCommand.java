@@ -20,7 +20,9 @@ public class HelpCommand extends BaseEveryWhereCommand {
 
     @Override
     public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception {
-        return new PlainText("https://github.com/WhiteMagic2014/WMagicBotR/blob/master/CommandBook.md");
+        return new PlainText("https://github.com/WhiteMagic2014/WMagicBotR/blob/master/CommandBook.md\n"
+                +"github打不开试试这个:\n" +
+                "https://gitee.com/WhiteMagic2014/WMagicBotR/blob/master/CommandBook.md");
     }
 
     @Override

@@ -21,7 +21,7 @@ public class RegistKey extends BattleKeyCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("续战登记");
+        return new CommandProperties("续战登记","登记续战");
     }
 
     @Override
