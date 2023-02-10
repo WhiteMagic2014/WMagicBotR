@@ -220,6 +220,22 @@ public class SqlLiteConfig {
         v1_2_2.setSqls(sql_1_2_2);
         result.add(v1_2_2);
 
+        // 续战优化
+        DBVersionTable v1_2_3 = new DBVersionTable();
+        v1_2_3.setVer(new Version("1.2.3"));
+        List<String> sql_1_2_3 = new ArrayList<>();
+        sql_1_2_3.add("ALTER TABLE engage_battle ADD COLUMN \"qqNum\" TEXT(32);");
+        sql_1_2_3.add("ALTER TABLE engage_battle ADD COLUMN \"linkNum1\" TEXT(32);");
+        sql_1_2_3.add("ALTER TABLE engage_battle ADD COLUMN \"linkNum2\" TEXT(32);");
+        sql_1_2_3.add("ALTER TABLE engage_battle ADD COLUMN \"linkNum3\" TEXT(32);");
+        sql_1_2_3.add("ALTER TABLE engage_battle ADD COLUMN \"linkNum4\" TEXT(32);");
+        sql_1_2_3.add("ALTER TABLE engage_battle ADD COLUMN \"finNum\" TEXT(32);");
+
+        v1_2_3.setSqls(sql_1_2_3);
+        result.add(v1_2_3);
+
+
+
         return result;
     }
 

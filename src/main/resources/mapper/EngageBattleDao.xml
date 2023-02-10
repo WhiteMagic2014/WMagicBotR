@@ -14,6 +14,24 @@
             <if test="remark != null">
                 remark,
             </if>
+            <if test="qqNum != null">
+                qqNum,
+            </if>
+            <if test="linkNum1 != null">
+                linkNum1,
+            </if>
+            <if test="linkNum2 != null">
+                linkNum2,
+            </if>
+            <if test="linkNum3 != null">
+                linkNum3,
+            </if>
+            <if test="linkNum4 != null">
+                linkNum4,
+            </if>
+            <if test="finNum != null">
+                finNum,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="battleKey != null">
@@ -25,23 +43,29 @@
             <if test="remark != null">
                 #{remark},
             </if>
+            <if test="qqNum != null">
+                #{qqNum},
+            </if>
+            <if test="linkNum1 != null">
+                #{linkNum1},
+            </if>
+            <if test="linkNum2 != null">
+                #{linkNum2},
+            </if>
+            <if test="linkNum3 != null">
+                #{linkNum3},
+            </if>
+            <if test="linkNum4 != null">
+                #{linkNum4},
+            </if>
+            <if test="finNum != null">
+                #{finNum},
+            </if>
         </trim>
     </insert>
 
-    <update id="updateStatusByKey">
-        update engage_battle
-        <set>
-            <if test="status != null">
-                status = #{status},
-            </if>
-        </set>
-        where battleKey = #{key}
 
-    </update>
-
-
-
-    <update id="updateStatusAndRemarkByKey">
+    <update id="updateByKey" parameterType="com.whitemagic2014.pojo.EngageBattle">
         update engage_battle
         <set>
             <if test="status != null">
@@ -50,11 +74,27 @@
             <if test="remark != null">
                 remark = #{remark},
             </if>
+            <if test="qqNum != null">
+                qqNum = #{qqNum},
+            </if>
+            <if test="linkNum1 != null">
+                linkNum1 = #{linkNum1},
+            </if>
+            <if test="linkNum2 != null">
+                linkNum2 = #{linkNum2},
+            </if>
+            <if test="linkNum3 != null">
+                linkNum3 = #{linkNum3},
+            </if>
+            <if test="linkNum4 != null">
+                linkNum4 = #{linkNum4},
+            </if>
+            <if test="finNum != null">
+                finNum = #{finNum},
+            </if>
         </set>
-        where battleKey = #{key}
-
+        where battleKey = #{battleKey}
     </update>
-
 
 
     <select id="selectByKey" resultType="com.whitemagic2014.pojo.EngageBattle">
