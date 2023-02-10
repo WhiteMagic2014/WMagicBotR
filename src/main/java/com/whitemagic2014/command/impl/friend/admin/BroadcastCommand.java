@@ -23,7 +23,7 @@ public class BroadcastCommand extends AdminFriendCommand {
     protected Message executeHandle(Friend sender, ArrayList<String> args, MessageChain messageChain, Friend subject) {
         if (args.size() >= 1) {
             try {
-                Message msg = new PlainText(args.stream().reduce("",String::concat));
+                Message msg = new PlainText(args.stream().reduce("", String::concat));
                 MagicMsgSender.sendBroadcast(msg);
                 return new PlainText("发送成功");
             } catch (Exception e) {

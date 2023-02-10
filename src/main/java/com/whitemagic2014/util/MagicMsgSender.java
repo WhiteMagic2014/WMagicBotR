@@ -3,8 +3,10 @@ package com.whitemagic2014.util;
 import com.whitemagic2014.bot.MagicBotR;
 import com.whitemagic2014.util.time.MagicOnceTask;
 import net.mamoe.mirai.Bot;
+import net.mamoe.mirai.contact.Friend;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.message.data.Message;
+import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
 
 import java.util.Date;
@@ -121,8 +123,12 @@ public class MagicMsgSender {
      * @Date: 2020/9/29 17:02
      **/
     public static void sendBroadcast(Message msg) {
+        MessageChain messageChain = new PlainText("公告通知:\n").plus(msg);
         for (Group g : bot.getGroups()) {
-            g.sendMessage(new PlainText("公告通知:\n").plus(msg));
+            g.sendMessage(messageChain);
+        }
+        for (Friend f : bot.getFriends()) {
+            f.sendMessage(messageChain);
         }
     }
 

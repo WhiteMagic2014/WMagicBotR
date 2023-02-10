@@ -16,9 +16,7 @@ public interface EngageBattleDao {
 
     int insert(EngageBattle record);
 
-    int updateStatusByKey(@Param("key") String key, @Param("status") Integer status);
-
-    int updateStatusAndRemarkByKey(@Param("key") String key, @Param("status") Integer status, @Param("remark") String remark);
+    int updateByKey(EngageBattle record);
 
     EngageBattle selectByKey(@Param("key") String key);
 

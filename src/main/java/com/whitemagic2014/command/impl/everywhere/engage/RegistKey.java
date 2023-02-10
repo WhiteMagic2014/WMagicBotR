@@ -21,7 +21,7 @@ public class RegistKey extends BattleKeyCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("续战登记","登记续战");
+        return new CommandProperties("续战登记", "登记续战");
     }
 
     @Override
@@ -38,9 +38,20 @@ public class RegistKey extends BattleKeyCommand {
                 battle.setBattleKey(key);
                 battle.setRemark(remark);
                 battle.setStatus(1);
+                battle.setQqNum(String.valueOf(sender.getId()));
                 dao.insert(battle);
             } else {
-                dao.updateStatusAndRemarkByKey(key, 1, remark);
+                EngageBattle update = new EngageBattle();
+                update.setBattleKey(key);
+                update.setRemark(remark);
+                update.setStatus(1);
+                update.setQqNum(String.valueOf(sender.getId()));
+                update.setLinkNum1("");
+                update.setLinkNum2("");
+                update.setLinkNum3("");
+                update.setLinkNum4("");
+                update.setFinNum("");
+                dao.updateByKey(update);
             }
             return new PlainText("登记成功");
         } catch (Exception e) {
