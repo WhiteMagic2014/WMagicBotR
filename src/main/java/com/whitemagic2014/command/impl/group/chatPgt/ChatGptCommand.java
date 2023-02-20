@@ -33,7 +33,7 @@ public class ChatGptCommand extends NoAuthCommand {
             return null;
         }
         String prompt = args.stream().map(s -> {
-            return s.concat(",");
+            return s.concat(" ");
         }).reduce("", String::concat);
 
         return new At(sender.getId()).plus(service.chat(prompt));
