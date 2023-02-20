@@ -24,4 +24,8 @@ public interface Dic {
     // pcr jjc图形组件
     String Component_Pcr_JJC_Image = "component.pcr.jjc.image";
 
+    // ChatGPT
+    String Component_ChatGPT = "component.ChatGPT";
+
+
 }
