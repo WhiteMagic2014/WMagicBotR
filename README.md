@@ -189,6 +189,11 @@
 - 优化续战码查询功能，更友好的展示
 - 接入ChatGPT（内测中）
 
+### 2023年03月08日
+- 更新 mirai 版本,使用 mirai-core-all 2.11.1,(在不用对代码大动刀的情况下解决版本号过低的问题)
+- 对于无法登录的情况，目前腾讯经常风控，造成qq号无法登录的情况。下面给出一个可用解决方案:使用[mirai-console](https://github.com/mamoe/mirai/blob/dev/docs/UserManual.md) 
+加载临时修复插件 [fix-protocol-version](https://github.com/cssxsh/fix-protocol-version) 后，使用mirai-console登录账号,将生成的cache 文件夹复制到项目中，更多详见[无法登录的临时处理方案](https://mirai.mamoe.net/topic/223/%E6%97%A0%E6%B3%95%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%B4%E6%97%B6%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88?lang=zh-CN)
+- 登录协议默认使用android_pad(具体请根据使用mirai-console登录时选择的协议,自行变更)
 ###
 - 本项目不稳定更新中(有空的时候会更新)
 
