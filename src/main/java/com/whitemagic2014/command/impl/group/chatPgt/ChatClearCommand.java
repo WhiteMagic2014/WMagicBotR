@@ -15,27 +15,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 
+
 @Command
 @Switch(name = Dic.Component_ChatGPT)
-public class ChatGptCommand extends NoAuthCommand {
+public class ChatClearCommand extends NoAuthCommand {
 
     @Autowired
     ChatPGTService service;
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("gpt", "xml");
+        return new CommandProperties("xmlclear");
     }
 
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
-        // session
         String session = subject.getId() + "-" + sender.getId();
-
-        String prompt = args.stream().map(s -> {
-            return s.concat(" ");
-        }).reduce("", String::concat);
-
-        return new At(sender.getId()).plus("\n").plus(service.chat(session, prompt));
+        return new At(sender.getId()).plus("\n").plus(service.clearLog(session));
     }
 }

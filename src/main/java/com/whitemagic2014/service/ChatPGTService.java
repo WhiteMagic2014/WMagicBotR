@@ -12,7 +12,31 @@ public interface ChatPGTService {
     // 作n副图
     List<String> image(String prompt, int n);
 
-    // 问答
-    String chat(String prompt);
+    /**
+     * 交谈
+     *
+     * @param session 对话session
+     * @param prompt  对话
+     * @return
+     */
+    String chat(String session, String prompt);
+
+    /**
+     * 性格设定
+     *
+     * @param session 对话session
+     * @param setting 性格设定
+     * @return
+     */
+    String setPersonality(String session, String setting);
+
+
+    /**
+     * 清除 session 上下文
+     *
+     * @param session
+     * @return
+     */
+    String clearLog(String session);
 
 }
