@@ -26,6 +26,6 @@ public class HelloCommand extends BaseEveryWhereCommand {
 
     @Override
     public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception {
-        return new PlainText("hello");
+        return new PlainText("hello!");
     }
 }
