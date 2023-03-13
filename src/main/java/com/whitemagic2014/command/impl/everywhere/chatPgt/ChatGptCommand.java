@@ -1,40 +1,38 @@
-package com.whitemagic2014.command.impl.group.chatPgt;
+package com.whitemagic2014.command.impl.everywhere.chatPgt;
 
 import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.annotate.Switch;
-import com.whitemagic2014.command.impl.group.NoAuthCommand;
+import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
 import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.service.ChatPGTService;
-import net.mamoe.mirai.contact.Group;
-import net.mamoe.mirai.contact.Member;
-import net.mamoe.mirai.message.data.At;
+import net.mamoe.mirai.contact.Contact;
+import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 
 @Command
 @Switch(name = Dic.Component_ChatGPT)
-public class ChatGptImageCommand extends NoAuthCommand {
+public class ChatGptCommand extends BaseEveryWhereCommand {
 
     @Autowired
     ChatPGTService service;
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("gpti");
+        return new CommandProperties("gpt", "xml");
     }
 
     @Override
-    protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
-        if (subject.getId() != 362656777L) {
-            return null;
-        }
+    public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception {
+        String session = subject.getId() + "-" + sender.getId();
         String prompt = args.stream().map(s -> {
             return s.concat(" ");
         }).reduce("", String::concat);
-        return new At(sender.getId()).plus(service.image(prompt,1).get(0));
+        return simpleMsg(sender, new PlainText(service.chat(session, prompt)));
     }
 }

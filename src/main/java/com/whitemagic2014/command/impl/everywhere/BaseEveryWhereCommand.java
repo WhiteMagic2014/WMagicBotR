@@ -28,7 +28,7 @@ public abstract class BaseEveryWhereCommand implements EverywhereCommand {
      **/
     protected Message simpleMsg(User sender, Message msg) {
         if (sender instanceof Member) {
-            return new At(sender.getId()).plus(msg);
+            return new At(sender.getId()).plus("\n").plus(msg);
         } else {
             return msg;
         }
