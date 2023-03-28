@@ -71,7 +71,7 @@ public class Simulator implements ApplicationRunner {
 
         // 启动bot
         try {
-            MagicBotR.startBot(account, pwd, "deviceInfo.json", events, lognet);
+            MagicBotR.startBot(account, pwd, "device.json", events, lognet);
         }catch (Exception e){
             e.printStackTrace();
         }
