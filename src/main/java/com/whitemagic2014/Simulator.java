@@ -60,8 +60,6 @@ public class Simulator implements ApplicationRunner {
         dbVersion.checkUpdateDB();
         // 开始读取 component switch 配置
         SwitchProperties.updateSwitchByProperty();
-        // jjc查询 check nickname文件 是否存在
-        pcrjjc.initNameFile();
 
         // 指令事件 实例化后加入事件列表
         CommandEvents commandEvents = new CommandEvents();
@@ -72,8 +70,8 @@ public class Simulator implements ApplicationRunner {
         // 启动bot
         try {
             MagicBotR.startBot(account, pwd, "device.json", events, lognet);
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("启动失败", e);
         }
         logger.info("启动成功！");
     }

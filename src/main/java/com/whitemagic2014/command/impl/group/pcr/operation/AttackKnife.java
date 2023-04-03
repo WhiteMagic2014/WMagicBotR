@@ -9,6 +9,8 @@ import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,8 @@ import java.util.ArrayList;
  **/
 @Command
 public class AttackKnife extends PcrNoAuthCommand {
+
+    private static final Logger logger = LoggerFactory.getLogger(AttackKnife.class);
 
     String txt = "报刀 伤害 [@某人 可选] [昨日 可选]";
 
@@ -60,7 +64,7 @@ public class AttackKnife extends PcrNoAuthCommand {
             }
             return simpleMsg(sender, result);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("指令错误", e);
             return new At(sender.getId()).plus("指令错误." + txt);
         }
 
