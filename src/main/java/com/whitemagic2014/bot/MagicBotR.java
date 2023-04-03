@@ -3,8 +3,6 @@ package com.whitemagic2014.bot;
 import com.whitemagic2014.util.MagicLogger;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
-import net.mamoe.mirai.event.EventChannel;
-import net.mamoe.mirai.event.Events;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.ListenerHost;
 import net.mamoe.mirai.utils.BotConfiguration;
@@ -51,9 +49,7 @@ public class MagicBotR {
         // 注册事件
         for (ListenerHost event : events) {
             GlobalEventChannel.INSTANCE.registerListenerHost(event);
-//            Events.registerEvents(miraiBot, event);
         }
-        // 这个和picbotx 还是不太一样 那个不会占用主线程
         // 这里必须要启新线程去跑bot 不然会占用主线程
         new Thread(() -> miraiBot.join()).start();
     }

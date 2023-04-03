@@ -4,11 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.dic.ReturnCode;
-import com.whitemagic2014.vo.PrivateModel;
 import com.whitemagic2014.pojo.pcrjjc.Answer;
 import com.whitemagic2014.service.Pcrjjc;
 import com.whitemagic2014.util.MagicMaps;
 import com.whitemagic2014.util.Path;
+import com.whitemagic2014.vo.PrivateModel;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +19,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -60,6 +61,7 @@ public class PcrjjcImpl implements Pcrjjc {
 
 
     @Override
+    @PostConstruct
     public void initNameFile() {
         if (pcrdfansOpen) {
             File nameFile = new File(Path.getPath() + "nicknames.txt");
@@ -185,9 +187,9 @@ public class PcrjjcImpl implements Pcrjjc {
         if (checkCode.isSuccess()) {
             JSONObject data = result.getJSONObject("data");
             List<Answer> answers = JSON.parseArray(data.getJSONArray("result").toJSONString(), Answer.class);
-            if (answers.isEmpty()){
+            if (answers.isEmpty()) {
                 return new PrivateModel<>(ReturnCode.FAIL, "ㄟ( ▔_ ▔ )ㄏ 找不到作业");
-            }else {
+            } else {
                 for (Answer answer : answers) {
                     answer.getAtk().forEach(m -> m.setName(id2Name(m.getId())));
                     answer.getDef().forEach(m -> m.setName(id2Name(m.getId())));
@@ -245,7 +247,7 @@ public class PcrjjcImpl implements Pcrjjc {
                 if (line.startsWith("id") || StringUtils.isBlank(line)) {
                     continue;
                 }
-                line = line.replace("\"","");
+                line = line.replace("\"", "");
                 String[] temp = line.split(",");
                 Integer id = Integer.parseInt(temp[0]) * 100 + 1;
                 List<String> names = new ArrayList<>();

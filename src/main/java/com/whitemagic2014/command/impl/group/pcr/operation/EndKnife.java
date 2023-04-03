@@ -10,6 +10,8 @@ import net.mamoe.mirai.contact.Member;
 import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,8 @@ import java.util.Map;
 public class EndKnife extends PcrNoAuthCommand {
 
     String txt = "尾刀 [@某人 可选] [昨日 可选]";
+
+    private static final Logger logger = LoggerFactory.getLogger(EndKnife.class);
 
     @Override
     public CommandProperties properties() {
@@ -82,7 +86,7 @@ public class EndKnife extends PcrNoAuthCommand {
             }
             return null;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("指令错误", e);
             return new At(sender.getId()).plus("指令错误." + txt);
         }
     }

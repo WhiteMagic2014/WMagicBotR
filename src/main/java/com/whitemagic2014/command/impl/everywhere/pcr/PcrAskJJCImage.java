@@ -253,7 +253,7 @@ public class PcrAskJJCImage extends BaseEveryWhereCommand {
                 icon.put("grayStar", MagicImage.resizeBufferedImage(grayStar, 10, 10, true));
                 icon.put("redStar", MagicImage.resizeBufferedImage(redStar, 10, 10, true));
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("error", e);
             }
         }
     }
