@@ -78,15 +78,19 @@ public class ChatPGTServiceImpl implements ChatPGTService {
         try {
             result = request.sendForChoices().get(0).getMessage().getContent();
         } catch (Exception e) {
-            JSONObject js = JSONObject.parseObject(e.getMessage());
-            // 如果是长度超了。 遗忘一段记忆
-            if (js.getJSONObject("error").getString("code").equals("context_length_exceeded")) {
-                if (logs.containsKey(session)) {
-                    Queue<ChatLog> queue = logs.get(session);
-                    queue.poll();
+            try {
+                JSONObject js = JSONObject.parseObject(e.getMessage());
+                // 如果是长度超了。 遗忘一段记忆
+                if (js.getJSONObject("error").getString("code").equals("context_length_exceeded")) {
+                    if (logs.containsKey(session)) {
+                        Queue<ChatLog> queue = logs.get(session);
+                        queue.poll();
+                    }
                 }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            return "很抱歉,出错了";
+            return "很抱歉，出错了";
         }
         // 记忆上下文
         if (logs.containsKey(session)) {
