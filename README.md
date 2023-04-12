@@ -233,15 +233,21 @@
 - ~~查刀页面样式优化 (不太会写页面T.T)~~
 - 有计划把微信的bot一起接进来(大坑)
 
-## 感谢
-- [Mirai](https://github.com/mamoe/mirai) 开发组所有成员
-- [yobot](https://github.com/pcrbot/yobot) 开发组所有成员
-- [pcrdfans.com](https://github.com/peterli110/pcrdfans.com) 的ヒカリ希卡利大佬
-- [pcr-nickname](https://github.com/pcrbot/pcr-nickname) 提供的pcr id-角色对照表
-
 ## 注意
 ### 本项目基于 Mirai
 - 本项目使用与Mirai相同协议 (AGPLv3 with Mamoe Exceptions) 开源
 - 本项目的所有衍生项目 必须使用相同协议 (AGPLv3 with Mamoe Exceptions) 开源
 - 本软件禁止用于一切商业活动
 - 本软件禁止收费传递, 或在传递时不提供源代码
+
+## 感谢
+- [Mirai](https://github.com/mamoe/mirai) 开发组所有成员
+- [yobot](https://github.com/pcrbot/yobot) 开发组所有成员
+- [pcrdfans.com](https://github.com/peterli110/pcrdfans.com) 的ヒカリ希卡利大佬
+- [pcr-nickname](https://github.com/pcrbot/pcr-nickname) 提供的pcr id-角色对照表
+
+## 特别感谢 
+[<img src="./img/jb_beam.png" width="100"/>](https://www.jetbrains.com/?from=WMagicBotR)
+[<img src="./img/IntelliJ_IDEA_icon.png" width="90"/>](https://www.jetbrains.com/idea/?from=WMagicBotR)
+
+感谢[JetBrains](https://www.jetbrains.com/?from=WMagicBotR)为开源项目提供免费的 [IntelliJ IDEA](https://www.jetbrains.com/idea/?from=WMagicBotR) 等 IDE 的授权
