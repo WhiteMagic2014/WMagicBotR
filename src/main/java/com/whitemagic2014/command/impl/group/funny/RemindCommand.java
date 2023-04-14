@@ -3,15 +3,15 @@ package com.whitemagic2014.command.impl.group.funny;
 import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.command.impl.group.NoAuthCommand;
 import com.whitemagic2014.pojo.CommandProperties;
+import com.whitemagic2014.service.RemindService;
 import com.whitemagic2014.util.DateFormatUtil;
 import com.whitemagic2014.util.MagicHelper;
-import com.whitemagic2014.util.MagicMsgSender;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.Member;
-import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -28,6 +28,8 @@ import java.util.concurrent.TimeUnit;
 @Command
 public class RemindCommand extends NoAuthCommand {
 
+    @Autowired
+    RemindService service;
 
     private List<String> okPool = Arrays.asList("好的", "ok", "知道了");
     // 燃烧吧！我的中二之魂
@@ -44,10 +46,11 @@ public class RemindCommand extends NoAuthCommand {
     @Override
     protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
         if (args.size() != 2) {
-            return new PlainText("备忘 yyyy-MM-dd/HH:mm:ss [备忘内容]\n备忘 HH:mm:ss后 [备忘内容]");
+            return new PlainText("格式:\n备忘 yyyy-MM-dd/HH:mm:ss [备忘内容]\n备忘 HH:mm:ss后 [备忘内容]");
         }
         String param = args.get(0);
         String taskKey = "";
+        Date date;
         if (param.contains("后")) {
             String time = param.replace("后", "");
             String[] hms = time.split(":");
@@ -56,11 +59,9 @@ public class RemindCommand extends NoAuthCommand {
             for (int i = lastIndex; i >= 0; i--) {
                 result += Integer.parseInt(hms[i]) * Math.pow(60, (lastIndex - i));
             }
-            Date date = DateFormatUtil.dateAdd(new Date(), (long) result, TimeUnit.SECONDS);
-            taskKey = MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender.getId()).plus(args.get(1)), date);
+            date = DateFormatUtil.dateAdd(new Date(), (long) result, TimeUnit.SECONDS);
         } else {
             String dateStr = param.replace("/", " ");
-            Date date = null;
             try {
                 date = DateFormatUtil.sdf.parse(dateStr);
             } catch (ParseException pe) {
@@ -69,8 +70,8 @@ public class RemindCommand extends NoAuthCommand {
             if (date.before(new Date())) {
                 return new PlainText(getDmail());
             }
-            taskKey = MagicMsgSender.sendGroupMsgTiming(subject.getId(), new At(sender.getId()).plus(args.get(1)), date);
         }
+        taskKey = service.groupRemind(subject.getId(), sender.getId(), args.get(1), date);
         return new PlainText(getOk() + ",备忘id=" + taskKey);
     }
 

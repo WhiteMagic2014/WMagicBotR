@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whitemagic2014.dao.RemindDao">
+
+    <insert id="addRemind" parameterType="com.whitemagic2014.pojo.Remind">
+        insert into `remind`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskKey != null">
+                taskKey,
+            </if>
+            <if test="gid != null">
+                gid,
+            </if>
+            <if test="atId != null">
+                atId,
+            </if>
+            <if test="remind != null">
+                remind,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="dateL != null">
+                dateL,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskKey != null">
+                #{taskKey},
+            </if>
+            <if test="gid != null">
+                #{gid},
+            </if>
+            <if test="atId != null">
+                #{atId},
+            </if>
+            <if test="remind != null">
+                #{remind},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="dateL != null">
+                #{dateL},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="cancelRemind">
+        update `remind`
+        set status = 0
+        where taskKey = #{taskKey}
+    </update>
+
+
+    <select id="loadReminds" resultType="com.whitemagic2014.pojo.Remind">
+        select *
+        from `remind`
+        where dateL &gt; #{nowL}
+          and status = 1
+    </select>
+
+</mapper>

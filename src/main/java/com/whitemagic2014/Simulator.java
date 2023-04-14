@@ -6,7 +6,7 @@ import com.whitemagic2014.config.properties.SwitchProperties;
 import com.whitemagic2014.db.DBInitHelper;
 import com.whitemagic2014.db.DBVersion;
 import com.whitemagic2014.events.CommandEvents;
-import com.whitemagic2014.service.Pcrjjc;
+import com.whitemagic2014.service.RemindService;
 import net.mamoe.mirai.event.ListenerHost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,9 +36,6 @@ public class Simulator implements ApplicationRunner {
     @Autowired
     DBVersion dbVersion;
 
-    @Autowired
-    Pcrjjc pcrjjc;
-
     @Value("${bot.account}")
     Long account;
 
@@ -48,6 +45,8 @@ public class Simulator implements ApplicationRunner {
     @Value("${log.net.path}")
     String lognet;
 
+    @Autowired
+    RemindService remindService;
 
     @Autowired
     AnnotateAnalyzer annotateAnalyzer;
@@ -60,12 +59,13 @@ public class Simulator implements ApplicationRunner {
         dbVersion.checkUpdateDB();
         // 开始读取 component switch 配置
         SwitchProperties.updateSwitchByProperty();
-
         // 指令事件 实例化后加入事件列表
         CommandEvents commandEvents = new CommandEvents();
         commandEvents.registerCommandHeads("#", "$", "!", "！", "");
         commandEvents.registerCommands(annotateAnalyzer.getCommands());
         events.add(commandEvents);
+        // 读取备忘数据
+        remindService.loadTask();
 
         // 启动bot
         try {
