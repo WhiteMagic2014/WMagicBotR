@@ -18,9 +18,6 @@ import java.util.Date;
  **/
 public class MagicMsgSender {
 
-    private static final Bot bot = MagicBotR.getBot();
-
-
     /**
      * @Name: sendGroupMsg
      * @Description: 发送群消息
@@ -31,7 +28,7 @@ public class MagicMsgSender {
      * @Date: 2020/9/29 17:02
      **/
     public static void sendGroupMsg(Long groupId, Message msg) {
-        bot.getGroupOrFail(groupId).sendMessage(msg);
+        MagicBotR.getBot().getGroupOrFail(groupId).sendMessage(msg);
     }
 
     /**
@@ -46,9 +43,25 @@ public class MagicMsgSender {
      **/
     public static String sendGroupMsgDelay(Long groupId, Message msg, Long delay) {
         String key = MagicMd5.getMd5String("g" + groupId + msg.toString() + System.currentTimeMillis());
-        MagicOnceTask.build(key, () -> bot.getGroupOrFail(groupId).sendMessage(msg)).schedule(delay * 1000L);
+        MagicOnceTask.build(key, () -> MagicBotR.getBot().getGroupOrFail(groupId).sendMessage(msg)).schedule(delay * 1000L);
         return key;
     }
+
+
+    /**
+     * 同上
+     *
+     * @param groupId
+     * @param msg
+     * @param delay
+     * @param taskkey 由外部传入
+     * @return
+     */
+    public static String sendGroupMsgDelay(Long groupId, Message msg, Long delay, String taskkey) {
+        MagicOnceTask.build(taskkey, () -> MagicBotR.getBot().getGroupOrFail(groupId).sendMessage(msg)).schedule(delay * 1000L);
+        return taskkey;
+    }
+
 
     /**
      * @Name: sendGroupMsgTiming
@@ -62,9 +75,25 @@ public class MagicMsgSender {
      **/
     public static String sendGroupMsgTiming(Long groupId, Message msg, Date time) {
         String key = MagicMd5.getMd5String("g" + groupId + msg.toString() + System.currentTimeMillis());
-        MagicOnceTask.build(key, () -> bot.getGroupOrFail(groupId).sendMessage(msg)).schedule(time);
+        MagicOnceTask.build(key, () -> MagicBotR.getBot().getGroupOrFail(groupId).sendMessage(msg)).schedule(time);
         return key;
     }
+
+
+    /**
+     * 同上
+     *
+     * @param groupId
+     * @param msg
+     * @param time
+     * @param taskkey 由外部传入
+     * @return
+     */
+    public static String sendGroupMsgTiming(Long groupId, Message msg, Date time, String taskkey) {
+        MagicOnceTask.build(taskkey, () -> MagicBotR.getBot().getGroupOrFail(groupId).sendMessage(msg)).schedule(time);
+        return taskkey;
+    }
+
 
     /**
      * @Name: sendFriendMsg
@@ -76,7 +105,7 @@ public class MagicMsgSender {
      * @Date: 2020/9/29 17:12
      **/
     public static void sendFriendMsg(Long uid, Message msg) {
-        bot.getFriendOrFail(uid).sendMessage(msg);
+        MagicBotR.getBot().getFriendOrFail(uid).sendMessage(msg);
     }
 
 
@@ -92,10 +121,24 @@ public class MagicMsgSender {
      **/
     public static String sendFriendMsgDelay(Long uid, Message msg, Long delay) {
         String key = MagicMd5.getMd5String("u" + uid + msg.toString() + System.currentTimeMillis());
-        MagicOnceTask.build(key, () -> bot.getFriendOrFail(uid).sendMessage(msg)).schedule(delay * 1000L);
+        MagicOnceTask.build(key, () -> MagicBotR.getBot().getFriendOrFail(uid).sendMessage(msg)).schedule(delay * 1000L);
         return key;
     }
 
+
+    /**
+     * 同上
+     *
+     * @param uid
+     * @param msg
+     * @param delay
+     * @param taskkey 由外部传入
+     * @return
+     */
+    public static String sendFriendMsgDelay(Long uid, Message msg, Long delay, String taskkey) {
+        MagicOnceTask.build(taskkey, () -> MagicBotR.getBot().getFriendOrFail(uid).sendMessage(msg)).schedule(delay * 1000L);
+        return taskkey;
+    }
 
     /**
      * @Name: sendFriendMsgTiming
@@ -109,8 +152,22 @@ public class MagicMsgSender {
      **/
     public static String sendFriendMsgTiming(Long uid, Message msg, Date time) {
         String key = MagicMd5.getMd5String("u" + uid + msg.toString() + System.currentTimeMillis());
-        MagicOnceTask.build(key, () -> bot.getFriendOrFail(uid).sendMessage(msg)).schedule(time);
+        MagicOnceTask.build(key, () -> MagicBotR.getBot().getFriendOrFail(uid).sendMessage(msg)).schedule(time);
         return key;
+    }
+
+    /**
+     * 同上
+     *
+     * @param uid
+     * @param msg
+     * @param time
+     * @param taskkey 由外部传入
+     * @return
+     */
+    public static String sendFriendMsgTiming(Long uid, Message msg, Date time, String taskkey) {
+        MagicOnceTask.build(taskkey, () -> MagicBotR.getBot().getFriendOrFail(uid).sendMessage(msg)).schedule(time);
+        return taskkey;
     }
 
 
@@ -123,6 +180,7 @@ public class MagicMsgSender {
      * @Date: 2020/9/29 17:02
      **/
     public static void sendBroadcast(Message msg) {
+        Bot bot = MagicBotR.getBot();
         MessageChain messageChain = new PlainText("公告通知:\n").plus(msg);
         for (Group g : bot.getGroups()) {
             g.sendMessage(messageChain);

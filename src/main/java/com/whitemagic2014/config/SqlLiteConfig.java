@@ -1,10 +1,8 @@
 package com.whitemagic2014.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.sql.DataSource;
-
+import com.whitemagic2014.pojo.DBVersionTable;
+import com.whitemagic2014.pojo.Version;
+import com.whitemagic2014.util.Path;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -15,9 +13,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.sqlite.javax.SQLiteConnectionPoolDataSource;
 
-import com.whitemagic2014.pojo.DBVersionTable;
-import com.whitemagic2014.pojo.Version;
-import com.whitemagic2014.util.Path;
+import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description: sqlite + mybatis 配置 ，版本更新 sqlite DDL
@@ -32,7 +30,7 @@ public class SqlLiteConfig {
     DataSource dataSource;
 
 
-    @Bean(name="sqliteDataSource")
+    @Bean(name = "sqliteDataSource")
     public DataSource sqliteDataSource() {
         SQLiteConnectionPoolDataSource pool = new SQLiteConnectionPoolDataSource();
         pool.setUrl("jdbc:sqlite:" + Path.getPath() + "botData.db");
@@ -50,9 +48,8 @@ public class SqlLiteConfig {
     }
 
 
-
-    @Bean(name="dbversionList")
-    public List<DBVersionTable> getDbVersionTables(){
+    @Bean(name = "dbversionList")
+    public List<DBVersionTable> getDbVersionTables() {
         List<DBVersionTable> result = new ArrayList<>();
 
 
@@ -99,7 +96,7 @@ public class SqlLiteConfig {
                 " \"uname\" TEXT(64),\n" +
                 " \"role\" TEXT(8),\n" +
                 " \"gid\" INTEGER,\n" +
-                " \"sl\" INTEGER\n"+
+                " \"sl\" INTEGER\n" +
                 ");");
         sql_0_0_4.add("DROP TABLE IF EXISTS pcr_boss");
         sql_0_0_4.add("CREATE TABLE \"pcr_boss\" (\n" +
@@ -140,7 +137,6 @@ public class SqlLiteConfig {
         v1_0_0.setVer(new Version("1.0.0"));
         v1_0_0.setSqls(new ArrayList<>());
         result.add(v1_0_0);
-
 
 
         // 货币系统
@@ -234,7 +230,21 @@ public class SqlLiteConfig {
         v1_2_3.setSqls(sql_1_2_3);
         result.add(v1_2_3);
 
-
+        // 备忘入库
+        DBVersionTable v1_4_0 = new DBVersionTable();
+        v1_4_0.setVer(new Version("1.4.0"));
+        List<String> sql_1_4_0 = new ArrayList<>();
+        sql_1_4_0.add("DROP TABLE IF EXISTS remind");
+        sql_1_4_0.add("CREATE TABLE \"remind\" (\n" +
+                " \"taskKey\" TEXT(32) PRIMARY KEY,\n" +
+                " \"gid\" INTEGER,\n" +
+                " \"atId\" INTEGER,\n" +
+                " \"remind\" TEXT(1024),\n" +
+                " \"status\" INTEGER,\n" +
+                " \"dateL\" INTEGER\n" +
+                ");");
+        v1_4_0.setSqls(sql_1_4_0);
+        result.add(v1_4_0);
 
         return result;
     }
