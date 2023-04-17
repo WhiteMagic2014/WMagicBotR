@@ -15,7 +15,7 @@ import java.util.*;
  * @author: magic chen
  * @date: 2023/2/10 15:28
  **/
-@Service
+@Service("ChatPGTServiceImpl")
 public class ChatPGTServiceImpl implements ChatPGTService {
 
 

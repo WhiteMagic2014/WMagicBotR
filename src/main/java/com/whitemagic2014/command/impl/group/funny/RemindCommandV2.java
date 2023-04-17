@@ -16,6 +16,7 @@ import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class RemindCommandV2 extends NoAuthCommand {
     RemindService remindService;
 
     @Autowired
+    @Qualifier("ChatPGTServiceImpl")
     ChatPGTService chatPGTService;
 
     private List<String> okPool = Arrays.asList("好的", "ok", "知道了");
@@ -81,6 +83,6 @@ public class RemindCommandV2 extends NoAuthCommand {
             return new PlainText("解析失败：" + result);
         }
         String taskKey = remindService.groupRemind(subject.getId(), sender.getId(), msg, date);
-        return new PlainText(getOk() + ",已经创建" + result + ",备忘id=" + taskKey);
+        return new PlainText(getOk() + ",已经创建" + result + "\n备忘id=" + taskKey);
     }
 }
