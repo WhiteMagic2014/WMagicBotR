@@ -26,6 +26,10 @@ public class DateFormatUtil {
 
     public static SimpleDateFormat sdfv2 = new SimpleDateFormat("yyyy-MM-dd");
 
+    public static SimpleDateFormat sdfv3 = new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss");
+
+    public static SimpleDateFormat sdfv4 = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+
 
     /*
      * @Name: getDayStart

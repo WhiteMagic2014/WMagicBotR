@@ -1,4 +1,4 @@
-package com.whitemagic2014.command.impl.everywhere.chatPgt;
+package com.whitemagic2014.command.impl.everywhere.chatGpt;
 
 import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.annotate.Switch;
