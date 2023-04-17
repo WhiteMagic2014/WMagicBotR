@@ -1,5 +1,7 @@
 package com.whitemagic2014.service;
 
+import com.whitemagic2014.service.impl.OriginChatVO;
+
 import java.util.List;
 
 /**
@@ -38,5 +40,14 @@ public interface ChatPGTService {
      * @return
      */
     String clearLog(String session);
+
+
+    /**
+     * 调用基础的chat接口
+     *
+     * @param voList
+     * @return
+     */
+    String originChat(List<OriginChatVO> voList);
 
 }

@@ -53,7 +53,6 @@ public class ChatPGTServiceImpl implements ChatPGTService {
         return resultList;
     }
 
-
     @Override
     public String chat(String session, String prompt) {
         String personal = personality.getOrDefault(session, "与用户进行闲聊或娱乐性的对话，以改善用户体验。");
@@ -107,7 +106,6 @@ public class ChatPGTServiceImpl implements ChatPGTService {
         return result;
     }
 
-
     @Override
     public String setPersonality(String session, String setting) {
         personality.put(session, setting);
@@ -119,4 +117,22 @@ public class ChatPGTServiceImpl implements ChatPGTService {
         logs.remove(session);
         return "操作成功";
     }
+
+    @Override
+    public String originChat(List<OriginChatVO> voList) {
+        CreateChatCompletionRequest request = new CreateChatCompletionRequest()
+                .key(key)
+                .maxTokens(500);
+        for (OriginChatVO vo : voList) {
+            request.addMessage(vo.getRole(), vo.getPrompt());
+        }
+        String result = "";
+        try {
+            result = request.sendForChoices().get(0).getMessage().getContent();
+        } catch (Exception e) {
+            return "很抱歉，出错了";
+        }
+        return result;
+    }
+
 }
