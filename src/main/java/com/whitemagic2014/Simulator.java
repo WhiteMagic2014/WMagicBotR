@@ -70,9 +70,10 @@ public class Simulator implements ApplicationRunner {
         // 启动bot
         try {
             MagicBotR.startBot(account, pwd, "device.json", events, lognet);
+            logger.info("启动成功！");
         } catch (Exception e) {
             logger.error("启动失败", e);
         }
-        logger.info("启动成功！");
+
     }
 }
