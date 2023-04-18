@@ -61,9 +61,8 @@ public class RemindCommand extends NoAuthCommand {
             }
             date = DateFormatUtil.dateAdd(new Date(), (long) result, TimeUnit.SECONDS);
         } else {
-            String dateStr = param.replace("/", " ");
             try {
-                date = DateFormatUtil.sdf.parse(dateStr);
+                date = DateFormatUtil.sdfv3.parse(param);
             } catch (ParseException pe) {
                 return new PlainText("时间格式错误 yyyy-MM-dd/HH:mm:ss");
             }
