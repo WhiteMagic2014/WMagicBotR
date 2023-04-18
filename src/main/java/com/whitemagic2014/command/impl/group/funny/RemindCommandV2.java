@@ -58,21 +58,21 @@ public class RemindCommandV2 extends NoAuthCommand {
             return s.concat(" ");
         }).reduce("", String::concat);
         List<OriginChatVO> voList = new ArrayList<>();
-        voList.add(new OriginChatVO("system", "当前时间为2023年04月13日11:26:02,请将给出的内容归纳为以下格式: 备忘 内容 yyyy-MM-dd/HH:mm:ss"));
-        voList.add(new OriginChatVO("user", "3天后早上8点提醒我去机场接我的朋友ammy"));
+        voList.add(new OriginChatVO("system", "请将给出的内容归纳为以下格式: 备忘 yyyy-MM-dd/HH:mm:ss 内容"));
+        voList.add(new OriginChatVO("user", "当前时间为2023年04月13日11:26:02;3天后早上8点提醒我去机场接我的朋友ammy"));
         voList.add(new OriginChatVO("assistant", "备忘 2023-04-16/08:00:00 记得去机场接你的朋友ammy"));
-        voList.add(new OriginChatVO("user", "2023年05月10日是peter的生日，记得提前提醒我为他准备生日礼物"));
+        voList.add(new OriginChatVO("user", "当前时间为2023年04月13日11:26:02;2023年05月10日是peter的生日，记得提前提醒我为他准备生日礼物"));
         voList.add(new OriginChatVO("assistant", "备忘 2023-05-07/00:00:00 距离peter的生日只剩下3天了，记得准备好生日礼物。"));
-        voList.add(new OriginChatVO("user", "现在当前时间变更为" + DateFormatUtil.sdfv4.format(now) + ";" + prompt));
+        voList.add(new OriginChatVO("user", "当前时间为" + DateFormatUtil.sdfv4.format(now) + ";" + prompt));
         String result = chatPGTService.originChat(voList);
         // gpt解析结果不符
         if (!result.startsWith("备忘 ")) {
             return new PlainText("解析失败：" + result);
         }
         // 处理指令
-        String[] split = result.replaceFirst("备忘 ", "").split(" ");
-        String dateStr = split[0];
-        String msg = split[1];
+        result = result.replaceFirst("备忘 ", "");
+        String dateStr = result.substring(0, 19);  // 截取 yyyy-MM-dd/HH:mm:ss
+        String msg = result.substring(20);// 截取后面的msg
         Date date;
         try {
             date = DateFormatUtil.sdfv3.parse(dateStr);
