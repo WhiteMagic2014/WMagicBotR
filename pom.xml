@@ -101,7 +101,7 @@
         <dependency>
             <groupId>net.mamoe</groupId>
             <artifactId>mirai-core-all</artifactId>
-            <version>2.15.0-M1</version>
+            <version>2.14.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -117,6 +117,15 @@
             </exclusions>
         </dependency>
 
+        <!-- 临时修复 https://github.com/cssxsh/fix-protocol-version -->
+        <dependency>
+            <groupId>com.github.cssxsh</groupId>
+            <artifactId>fix-protocol-version</artifactId>
+            <version>1.4.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/fix-protocol-version-1.4.0.mirai2.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
 
@@ -125,6 +134,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
         </plugins>
         <finalName>magicBotR</finalName>
