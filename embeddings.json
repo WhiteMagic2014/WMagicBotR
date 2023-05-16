@@ -2,6 +2,6 @@
 {"context":"数据2","contextEmbedding":[-0.0022823473,-0.0143784555,...]}
 {"context":"数据3","contextEmbedding":[-0.0022823473,-0.0143784555,...]}
 //...
-//一行是一个json，包含context 存储文本，contextEmbedding 存储对应的向量
+//一行是一个json，包含context 存储文本(建议文本长度控制在500字以内,如果字数很长,可以切分为多条数据,将关联性强的放在一条中)，contextEmbedding 存储对应的向量
 // 使用openai 的 CreateEmbeddingsRequest 可以获得文本的embeddings
 // 可以使用这个项目 https://github.com/WhiteMagic2014/gpt-magic ,做了一个api的封装,觉得好用的话请star一下给我一些支持哦
