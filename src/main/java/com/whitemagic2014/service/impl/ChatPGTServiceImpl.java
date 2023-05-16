@@ -1,14 +1,23 @@
 package com.whitemagic2014.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.github.WhiteMagic2014.gptApi.Chat.CreateChatCompletionRequest;
+import com.github.WhiteMagic2014.gptApi.Embeddings.CreateEmbeddingsRequest;
 import com.github.WhiteMagic2014.gptApi.Images.CreateImageRequest;
+import com.github.WhiteMagic2014.util.Distance;
+import com.whitemagic2014.pojo.DataEmbedding;
 import com.whitemagic2014.service.ChatPGTService;
+import com.whitemagic2014.util.Path;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description: ChatPGTService
@@ -28,6 +37,8 @@ public class ChatPGTServiceImpl implements ChatPGTService {
 
     private Map<String, Queue<ChatLog>> logs = new HashMap<>(); // 对话上下文
     private Map<String, String> personality = new HashMap<>(); //性格设定
+
+    private List<DataEmbedding> vectors = new ArrayList<>(); // 预训练的数据集合
 
     private int maxLog = 5; // 最大记忆层数
 
@@ -135,4 +146,61 @@ public class ChatPGTServiceImpl implements ChatPGTService {
         return result;
     }
 
+    @Override
+    public List<List<Double>> input2Vector(List<String> inputs) {
+        CreateEmbeddingsRequest request = new CreateEmbeddingsRequest()
+                .key(key);
+        if (inputs.size() == 1) {
+            request.input(inputs.get(0));
+        } else {
+            String[] ins = new String[inputs.size()];
+            inputs.toArray(ins);
+            request.inputs(ins);
+        }
+        return request.sendForEmbeddings();
+    }
+
+
+    @Override
+    public String answer(String question) {
+        if (vectors.isEmpty()) {
+            return "无预训练数据";
+        }
+        List<Double> questionEmbedding = input2Vector(Collections.singletonList(question)).get(0);
+        List<DataEmbedding> sorted = vectors.parallelStream().peek(de -> {
+                    de.setEmbeddingWithQuery(Distance.cosineDistance(questionEmbedding, de.getContextEmbedding()));
+                }).sorted(Comparator.comparing(DataEmbedding::getEmbeddingWithQuery).reversed())
+                .collect(Collectors.toList());
+        List<OriginChatVO> templates = new ArrayList<>();
+        templates.add(new OriginChatVO("system", "根据下面的参考回答问题，请直接回答问题，如果无法回答问题，回答“我不知道”。"));
+        StringBuilder prompt = new StringBuilder("参考:\n");
+        for (int i = 0; i < Math.min(3, sorted.size()); i++) {
+            prompt.append(sorted.get(i).getContext());
+        }
+        prompt.append("\n问题:\n").append(question);
+        templates.add(new OriginChatVO("user", prompt.toString()));
+        return originChat(templates);
+    }
+
+
+    @Override
+    public String reloadVector() {
+        List<DataEmbedding> tem = new ArrayList<>();
+        File nameFile = new File(Path.getPath() + "embeddings.json");
+        if (nameFile.exists()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(nameFile))) {
+                String line = "";
+                while ((line = br.readLine()) != null) {
+                    tem.add(JSON.parseObject(line, DataEmbedding.class));
+                }
+                vectors = tem;
+                return "成功读取 " + vectors.size() + " 条向量";
+            } catch (Exception e) {
+                return "读取embeddings.json 失败";
+            }
+        } else {
+            return "embeddings.json 不存在";
+        }
+    }
+    
 }

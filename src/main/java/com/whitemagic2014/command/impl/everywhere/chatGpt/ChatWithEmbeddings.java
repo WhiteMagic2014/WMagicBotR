@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.everywhere.chatGpt;
 
+
 import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.annotate.Switch;
 import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 
 @Command
 @Switch(name = Dic.Component_ChatGPT)
-public class ChatGptImageCommand extends BaseEveryWhereCommand {
+public class ChatWithEmbeddings extends BaseEveryWhereCommand {
 
     @Autowired
     @Qualifier("ChatPGTServiceImpl")
@@ -26,7 +27,7 @@ public class ChatGptImageCommand extends BaseEveryWhereCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("gpti","xmli");
+        return new CommandProperties("xmla");
     }
 
     @Override
@@ -34,6 +35,7 @@ public class ChatGptImageCommand extends BaseEveryWhereCommand {
         String prompt = args.stream().map(s -> {
             return s.concat(" ");
         }).reduce("", String::concat);
-        return simpleMsg(sender, new PlainText(service.image(prompt, 1).get(0)));
+        return simpleMsg(sender, new PlainText(service.answer(prompt)));
     }
+
 }

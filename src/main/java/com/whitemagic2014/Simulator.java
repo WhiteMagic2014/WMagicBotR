@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import xyz.cssxsh.mirai.tool.FixProtocolVersion;
 
 import java.util.List;
 
@@ -66,6 +67,9 @@ public class Simulator implements ApplicationRunner {
         events.add(commandEvents);
         // 读取备忘数据
         remindService.loadTask();
+
+        // 临时修复协议
+        FixProtocolVersion.update();
 
         // 启动bot
         try {

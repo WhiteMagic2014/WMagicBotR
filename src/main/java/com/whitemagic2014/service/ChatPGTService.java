@@ -50,4 +50,28 @@ public interface ChatPGTService {
      */
     String originChat(List<OriginChatVO> voList);
 
+
+    /**
+     * 输入转向量
+     *
+     * @param inputs
+     * @return
+     */
+    List<List<Double>> input2Vector(List<String> inputs);
+
+    /**
+     * 根据训练的数据向量 回答问题
+     *
+     * @param question
+     * @return
+     */
+    String answer(String question);
+
+    /**
+     * 重新读取数据向量集合
+     *
+     * @return
+     */
+    String reloadVector();
+
 }
