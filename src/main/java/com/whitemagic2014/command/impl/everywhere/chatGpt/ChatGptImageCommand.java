@@ -26,7 +26,7 @@ public class ChatGptImageCommand extends BaseEveryWhereCommand {
 
     @Override
     public CommandProperties properties() {
-        return new CommandProperties("gpti");
+        return new CommandProperties("gpti","xmli");
     }
 
     @Override
