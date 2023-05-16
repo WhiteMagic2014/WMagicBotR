@@ -102,10 +102,18 @@
 | 自然语言指令                               | 构思中,备忘功能已经做了v2版本，实现自然语言指令         |
 | **pcr公会战适配新版本**                      | 有想法,但是没动力                         |
 | 接入微信bot                              | ~~搁置中~~已放弃,没找到稳定更新的微信bot java开源框架 |
+| 根据提供的训练集问答                           | 已完成 |
 
 ## 更新记录
 
 本项目不稳定更新中(有空的时候会更新)
+
+### v1.5.0
+
+- 现在可以自己提供文本向量集合,让gpt根据提供的向量集合回答问题
+- 数据文件命名 embeddings.json,放置在jar包同目录下,具体的格式可以参考demo
+- embeddings 使用openai的CreateEmbeddingsRequest计算。可以使用我封装的[gpt-magic](https://github.com/WhiteMagic2014/gpt-magic)来方便的调用相关api,觉得好用的话请star一下给我一些支持哦
+- 新增的指令请详见[指令book](CommandBook.md)
 
 ### v1.4.1
 
