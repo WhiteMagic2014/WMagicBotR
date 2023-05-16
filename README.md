@@ -114,6 +114,7 @@
 - 数据文件命名 embeddings.json,放置在jar包同目录下,具体的格式可以参考demo
 - embeddings 使用openai的CreateEmbeddingsRequest计算。可以使用我封装的[gpt-magic](https://github.com/WhiteMagic2014/gpt-magic)来方便的调用相关api,觉得好用的话请star一下给我一些支持哦
 - 新增的指令请详见[指令book](CommandBook.md)
+- 降级mirai版本为2.14.0, 配合对应的[fix-protocol-version](https://github.com/cssxsh/fix-protocol-version) 解决部分登录问题(每个人bot风控情况可能不同,你也可以使用2.15m1的mirai 配合对应的fix-protocol,主要目标是解决问题就行)
 
 ### v1.4.1
 
@@ -136,8 +137,7 @@
 
 ### v1.3.2
 
-- 升级mirai版本为 2.15.0-M1  (
-  原本用较低版本的idea开发。升级到2.13的时候会出现大部分包找不到依赖的问题，升级了idea的版本就没事了...吓的我一直不敢升mirai版本，以为很多方法都废弃了..)
+- 升级mirai版本为 2.15.0-M1  (原本用较低版本的idea开发。升级到2.13的时候会出现大部分包找不到依赖的问题，升级了idea的版本就没事了...吓的我一直不敢升mirai版本，以为很多方法都废弃了..)
 - 默认存储的设备文件名变更 deviceInfo.json —>device.json
 
 ### v1.3.1
