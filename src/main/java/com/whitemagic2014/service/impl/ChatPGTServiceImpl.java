@@ -10,6 +10,7 @@ import com.github.WhiteMagic2014.util.Distance;
 import com.whitemagic2014.pojo.DataEmbedding;
 import com.whitemagic2014.service.ChatPGTService;
 import com.whitemagic2014.util.Path;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -167,9 +168,14 @@ public class ChatPGTServiceImpl implements ChatPGTService {
             return "无预训练数据";
         }
         List<Double> questionEmbedding = input2Vector(Collections.singletonList(question)).get(0);
-        List<DataEmbedding> sorted = vectors.parallelStream().peek(de -> {
-                    de.setEmbeddingWithQuery(Distance.cosineDistance(questionEmbedding, de.getContextEmbedding()));
-                }).sorted(Comparator.comparing(DataEmbedding::getEmbeddingWithQuery).reversed())
+        List<DataEmbedding> sorted = vectors.parallelStream()
+                .map(de -> { // 由于vectors存储在内存中,所以深复制一层,避免并发的时候 question距离冲突，如果存在redis里面临时拿出来就不用深复制一次了
+                    DataEmbedding deepClone = new DataEmbedding();
+                    BeanUtils.copyProperties(de, deepClone);
+                    return deepClone;
+                })
+                .peek(de -> de.setEmbeddingWithQuery(Distance.cosineDistance(questionEmbedding, de.getContextEmbedding())))
+                .sorted(Comparator.comparing(DataEmbedding::getEmbeddingWithQuery).reversed())
                 .collect(Collectors.toList());
         List<OriginChatVO> templates = new ArrayList<>();
         templates.add(new OriginChatVO("system", "根据下面的参考回答问题，请直接回答问题，如果无法回答问题，回答“我不知道”。"));
@@ -202,5 +208,5 @@ public class ChatPGTServiceImpl implements ChatPGTService {
             return "embeddings.json 不存在";
         }
     }
-    
+
 }
