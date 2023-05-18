@@ -1,8 +1,8 @@
-package com.whitemagic2014.command.impl.group.funny;
+package com.whitemagic2014.command.impl.everywhere.remind;
 
 import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.annotate.Switch;
-import com.whitemagic2014.command.impl.group.NoAuthCommand;
+import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
 import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.service.ChatPGTService;
@@ -10,8 +10,9 @@ import com.whitemagic2014.service.RemindService;
 import com.whitemagic2014.service.impl.OriginChatVO;
 import com.whitemagic2014.util.DateFormatUtil;
 import com.whitemagic2014.util.MagicHelper;
+import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
-import net.mamoe.mirai.contact.Member;
+import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
@@ -32,7 +33,7 @@ import java.util.List;
  **/
 @Command
 @Switch(name = Dic.Component_ChatGPT)
-public class RemindCommandV2 extends NoAuthCommand {
+public class RemindCommandV2 extends BaseEveryWhereCommand {
 
     @Autowired
     RemindService remindService;
@@ -52,7 +53,7 @@ public class RemindCommandV2 extends NoAuthCommand {
     }
 
     @Override
-    protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
+    public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception {
         Date now = new Date();
         String prompt = args.stream().map(s -> {
             return s.concat(" ");
@@ -82,7 +83,15 @@ public class RemindCommandV2 extends NoAuthCommand {
         if (date.before(now)) {
             return new PlainText("解析失败：" + result);
         }
-        String taskKey = remindService.groupRemind(subject.getId(), sender.getId(), msg, date);
+
+        String taskKey = "";
+        if (subject instanceof Group) {
+            taskKey = remindService.groupRemind(subject.getId(), sender.getId(), msg, date);
+        } else if (subject instanceof User) {
+            taskKey = remindService.friendRemind(sender.getId(), msg, date);
+        }
         return new PlainText(getOk() + ",已经创建" + result + "\n备忘id=" + taskKey);
     }
+
+
 }
