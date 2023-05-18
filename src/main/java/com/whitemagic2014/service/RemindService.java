@@ -26,6 +26,17 @@ public interface RemindService {
      */
     String groupRemind(Long gid, Long atId, String msgStr, Date date);
 
+
+    /**
+     * 私聊备忘
+     *
+     * @param uid    好友id
+     * @param msgStr 备忘内容
+     * @param date   提醒时间
+     * @return 备忘taskKey
+     */
+    String friendRemind(Long uid, String msgStr, Date date);
+
     /**
      * 取消备忘
      *

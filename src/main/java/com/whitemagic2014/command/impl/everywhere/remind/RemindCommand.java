@@ -1,13 +1,14 @@
-package com.whitemagic2014.command.impl.group.funny;
+package com.whitemagic2014.command.impl.everywhere.remind;
 
 import com.whitemagic2014.annotate.Command;
-import com.whitemagic2014.command.impl.group.NoAuthCommand;
+import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.service.RemindService;
 import com.whitemagic2014.util.DateFormatUtil;
 import com.whitemagic2014.util.MagicHelper;
+import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
-import net.mamoe.mirai.contact.Member;
+import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
@@ -26,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * @date: 2021/1/7 17:15
  **/
 @Command
-public class RemindCommand extends NoAuthCommand {
+public class RemindCommand extends BaseEveryWhereCommand {
 
     @Autowired
     RemindService service;
@@ -43,8 +44,9 @@ public class RemindCommand extends NoAuthCommand {
         return dmailPool.get(MagicHelper.randomInt(dmailPool.size()));
     }
 
+
     @Override
-    protected Message executeHandle(Member sender, ArrayList<String> args, MessageChain messageChain, Group subject) throws Exception {
+    public Message execute(User sender, ArrayList<String> args, MessageChain messageChain, Contact subject) throws Exception {
         if (args.size() != 2) {
             return new PlainText("格式:\n备忘 yyyy-MM-dd/HH:mm:ss [备忘内容]\n备忘 HH:mm:ss后 [备忘内容]");
         }
@@ -70,7 +72,11 @@ public class RemindCommand extends NoAuthCommand {
                 return new PlainText(getDmail());
             }
         }
-        taskKey = service.groupRemind(subject.getId(), sender.getId(), args.get(1), date);
+        if (subject instanceof Group) {
+            taskKey = service.groupRemind(subject.getId(), sender.getId(), args.get(1), date);
+        } else if (subject instanceof User) {
+            taskKey = service.friendRemind(sender.getId(), args.get(1), date);
+        }
         return new PlainText(getOk() + ",备忘id=" + taskKey);
     }
 
