@@ -17,7 +17,6 @@ import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ public class RemindCommandV2 extends BaseEveryWhereCommand {
     RemindService remindService;
 
     @Autowired
-    @Qualifier("ChatPGTServiceImpl")
     ChatPGTService chatPGTService;
 
     private List<String> okPool = Arrays.asList("好的", "ok", "知道了");

@@ -10,6 +10,7 @@ import com.github.WhiteMagic2014.util.Distance;
 import com.whitemagic2014.pojo.DataEmbedding;
 import com.whitemagic2014.service.ChatPGTService;
 import com.whitemagic2014.util.Path;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,9 +26,11 @@ import java.util.stream.Collectors;
  * @author: magic chen
  * @date: 2023/2/10 15:28
  **/
-@Service("ChatPGTServiceImpl")
+@Service()
 public class ChatPGTServiceImpl implements ChatPGTService {
 
+    @Value("${ChatGPT.proxyServer}")
+    private String proxyServer;
 
     @Value("${ChatGPT.key}")
     private String key;
@@ -45,14 +48,19 @@ public class ChatPGTServiceImpl implements ChatPGTService {
 
     @Override
     public List<String> image(String prompt, int n) {
+        CreateImageRequest request = new CreateImageRequest()
+                .key(key)
+                .organization(org)
+                .prompt(prompt)
+                .n(n)
+                .largeSize();
+        // 如果配置了代理服务器，则使用代理服务
+        if (StringUtils.isNotBlank(proxyServer)) {
+            request.server(proxyServer);
+        }
         JSONObject temp = null;
         try {
-            temp = new CreateImageRequest()
-                    .key(key)
-                    .prompt(prompt)
-                    .n(n)
-                    .largeSize()
-                    .send();
+            temp = request.send();
         } catch (Exception e) {
             return Collections.singletonList("出错了");
         }
@@ -71,8 +79,13 @@ public class ChatPGTServiceImpl implements ChatPGTService {
         // 构造初始请求
         CreateChatCompletionRequest request = new CreateChatCompletionRequest()
                 .key(key)
+                .organization(org)
                 .maxTokens(500)
                 .addMessage("system", personal);
+        // 如果配置了代理服务器，则使用代理服务
+        if (StringUtils.isNotBlank(proxyServer)) {
+            request.server(proxyServer);
+        }
         // 拼接历史对话记录
         if (logs.containsKey(session)) {
             Queue<ChatLog> queue = logs.get(session);
@@ -84,6 +97,7 @@ public class ChatPGTServiceImpl implements ChatPGTService {
             });
         }
         request.addMessage("user", prompt);
+
         // 发送请求
         String result = "";
         try {
@@ -134,7 +148,12 @@ public class ChatPGTServiceImpl implements ChatPGTService {
     public String originChat(List<OriginChatVO> voList) {
         CreateChatCompletionRequest request = new CreateChatCompletionRequest()
                 .key(key)
+                .organization(org)
                 .maxTokens(500);
+        // 如果配置了代理服务器，则使用代理服务
+        if (StringUtils.isNotBlank(proxyServer)) {
+            request.server(proxyServer);
+        }
         for (OriginChatVO vo : voList) {
             request.addMessage(vo.getRole(), vo.getPrompt());
         }
@@ -151,6 +170,10 @@ public class ChatPGTServiceImpl implements ChatPGTService {
     public List<List<Double>> input2Vector(List<String> inputs) {
         CreateEmbeddingsRequest request = new CreateEmbeddingsRequest()
                 .key(key);
+        // 如果配置了代理服务器，则使用代理服务
+        if (StringUtils.isNotBlank(proxyServer)) {
+            request.server(proxyServer);
+        }
         if (inputs.size() == 1) {
             request.input(inputs.get(0));
         } else {

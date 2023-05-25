@@ -9,7 +9,6 @@ import net.mamoe.mirai.message.data.Message;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.PlainText;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
 
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 public class ReloadVector extends AdminFriendCommand {
 
     @Autowired
-    @Qualifier("ChatPGTServiceImpl")
     ChatPGTService service;
 
     @Override
