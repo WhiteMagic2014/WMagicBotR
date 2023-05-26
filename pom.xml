@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.whitemagic2014</groupId>
     <artifactId>WMagicBotR</artifactId>
-    <version>1.5.3</version>
+    <version>1.5.4</version>
     <name>WMagicBotR</name>
     <description>magicbot reborn</description>
 
@@ -105,16 +105,11 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--  https://github.com/WhiteMagic2014/gpt-magic-plus  -->
         <dependency>
             <groupId>io.github.whitemagic2014</groupId>
-            <artifactId>gpt-magic</artifactId>
-            <version>1.4.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>fastjson</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>gpt-magic-plus</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <!-- 临时修复 https://github.com/cssxsh/fix-protocol-version -->

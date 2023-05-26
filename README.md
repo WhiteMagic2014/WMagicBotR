@@ -107,6 +107,10 @@
 ## 更新记录
 
 本项目不稳定更新中(有空的时候会更新)
+### v1.5.4
+
+- 封装gpt相关业务代码为[gpt-magic-plus](https://github.com/WhiteMagic2014/gpt-magic-plus)
+- 部分gpt业务代码优化
 
 ### v1.5.3
 
