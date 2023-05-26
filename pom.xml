@@ -105,14 +105,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--  gpt chat相关业务封装，提交公共仓库被拒了，说和之前的gpt-magic类似 让我直接在原来的里面写，可是我又不想把业务和单纯的工具封装在一起... -->
         <!--  https://github.com/WhiteMagic2014/gpt-magic-plus  -->
         <dependency>
             <groupId>io.github.whitemagic2014</groupId>
             <artifactId>gpt-magic-plus</artifactId>
-            <scope>system</scope>
             <version>1.0.0</version>
-            <systemPath>${project.basedir}/lib/gpt-magic-plus-1.0.0.jar</systemPath>
         </dependency>
 
         <!-- 临时修复 https://github.com/cssxsh/fix-protocol-version -->

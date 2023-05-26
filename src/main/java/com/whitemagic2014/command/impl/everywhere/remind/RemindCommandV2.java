@@ -1,5 +1,6 @@
 package com.whitemagic2014.command.impl.everywhere.remind;
 
+import com.github.WhiteMagic2014.beans.GptMessage;
 import com.whitemagic2014.annotate.Command;
 import com.whitemagic2014.annotate.Switch;
 import com.whitemagic2014.command.impl.everywhere.BaseEveryWhereCommand;
@@ -9,7 +10,6 @@ import com.whitemagic2014.service.ChatPGTService;
 import com.whitemagic2014.service.RemindService;
 import com.whitemagic2014.util.DateFormatUtil;
 import com.whitemagic2014.util.MagicHelper;
-import io.github.WhiteMagic2014.beans.GptMessage;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.User;

@@ -1,11 +1,11 @@
 package com.whitemagic2014.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.github.WhiteMagic2014.Gmp;
+import com.github.WhiteMagic2014.beans.DataEmbedding;
+import com.github.WhiteMagic2014.beans.GptMessage;
 import com.whitemagic2014.service.ChatPGTService;
 import com.whitemagic2014.util.Path;
-import io.github.WhiteMagic2014.Gmp;
-import io.github.WhiteMagic2014.beans.DataEmbedding;
-import io.github.WhiteMagic2014.beans.GptMessage;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.whitemagic2014.config;
 
-import io.github.WhiteMagic2014.Gmp;
+import com.github.WhiteMagic2014.Gmp;
 import net.mamoe.mirai.event.ListenerHost;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
