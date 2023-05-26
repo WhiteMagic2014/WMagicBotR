@@ -7,9 +7,9 @@ import com.whitemagic2014.dic.Dic;
 import com.whitemagic2014.pojo.CommandProperties;
 import com.whitemagic2014.service.ChatPGTService;
 import com.whitemagic2014.service.RemindService;
-import com.whitemagic2014.service.impl.OriginChatVO;
 import com.whitemagic2014.util.DateFormatUtil;
 import com.whitemagic2014.util.MagicHelper;
+import io.github.WhiteMagic2014.beans.GptMessage;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.User;
@@ -56,13 +56,13 @@ public class RemindCommandV2 extends BaseEveryWhereCommand {
         String prompt = args.stream().map(s -> {
             return s.concat(" ");
         }).reduce("", String::concat);
-        List<OriginChatVO> voList = new ArrayList<>();
-        voList.add(new OriginChatVO("system", "请将给出的内容归纳为以下格式: 备忘 yyyy-MM-dd/HH:mm:ss 内容"));
-        voList.add(new OriginChatVO("user", "当前时间为2023年04月13日11:26:02;3天后早上8点提醒我去机场接我的朋友ammy"));
-        voList.add(new OriginChatVO("assistant", "备忘 2023-04-16/08:00:00 记得去机场接你的朋友ammy"));
-        voList.add(new OriginChatVO("user", "当前时间为2023年04月13日11:26:02;2023年05月10日是peter的生日，记得提前提醒我为他准备生日礼物"));
-        voList.add(new OriginChatVO("assistant", "备忘 2023-05-07/00:00:00 距离peter的生日只剩下3天了，记得准备好生日礼物。"));
-        voList.add(new OriginChatVO("user", "当前时间为" + DateFormatUtil.sdfv4.format(now) + ";" + prompt));
+        List<GptMessage> voList = new ArrayList<>();
+        voList.add(GptMessage.systemMessage("请将给出的内容归纳为以下格式: 备忘 yyyy-MM-dd/HH:mm:ss 内容"));
+        voList.add(GptMessage.userMessage("当前时间为2023年04月13日11:26:02;3天后早上8点提醒我去机场接我的朋友ammy"));
+        voList.add(GptMessage.assistantMessage("备忘 2023-04-16/08:00:00 记得去机场接你的朋友ammy"));
+        voList.add(GptMessage.userMessage("当前时间为2023年04月13日11:26:02;2023年05月10日是peter的生日，记得提前提醒我为他准备生日礼物"));
+        voList.add(GptMessage.assistantMessage("备忘 2023-05-07/00:00:00 距离peter的生日只剩下3天了，记得准备好生日礼物。"));
+        voList.add(GptMessage.userMessage("当前时间为" + DateFormatUtil.sdfv4.format(now) + ";" + prompt));
         String result = chatPGTService.originChat(voList);
         // gpt解析结果不符
         if (!result.startsWith("备忘 ")) {

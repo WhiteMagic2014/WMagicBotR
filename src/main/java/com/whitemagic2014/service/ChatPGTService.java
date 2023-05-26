@@ -1,6 +1,6 @@
 package com.whitemagic2014.service;
 
-import com.whitemagic2014.service.impl.OriginChatVO;
+import io.github.WhiteMagic2014.beans.GptMessage;
 
 import java.util.List;
 
@@ -45,10 +45,10 @@ public interface ChatPGTService {
     /**
      * 调用基础的chat接口
      *
-     * @param voList
+     * @param messages
      * @return
      */
-    String originChat(List<OriginChatVO> voList);
+    String originChat(List<GptMessage> messages);
 
 
     /**
