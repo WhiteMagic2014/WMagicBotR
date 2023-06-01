@@ -107,6 +107,12 @@
 ## 更新记录
 
 本项目不稳定更新中(有空的时候会更新)
+
+### v1.6.0
+
+- gpt聊天新增stream模式，可以有效减少由于生成返回时间过长导致的超时问题
+- 配置文件中 ChatGPT.chat.stream 默认关闭
+
 ### v1.5.4
 
 - 封装gpt相关业务代码为[gpt-magic-plus](https://github.com/WhiteMagic2014/gpt-magic-plus)
