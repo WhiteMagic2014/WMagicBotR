@@ -1,13 +1,9 @@
 package com.whitemagic2014.config;
 
 import com.github.WhiteMagic2014.Gmp;
-import net.mamoe.mirai.event.ListenerHost;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Description: 无法直接使用 Service Controller Component ，但有需要被spring管理的 实例
