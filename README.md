@@ -108,6 +108,10 @@
 
 本项目不稳定更新中(有空的时候会更新)
 
+### v1.6.1
+
+- 升级了magic-gpt-plus的版本为1.0.5，GptMessage 被移除了，现在统一使用magic-gpt中的 ChatMessage
+
 ### v1.6.0
 
 - gpt聊天新增stream模式，可以有效减少由于生成返回时间过长导致的超时问题

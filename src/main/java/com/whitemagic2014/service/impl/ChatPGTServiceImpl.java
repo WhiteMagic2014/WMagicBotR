@@ -3,7 +3,7 @@ package com.whitemagic2014.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.github.WhiteMagic2014.Gmp;
 import com.github.WhiteMagic2014.beans.DataEmbedding;
-import com.github.WhiteMagic2014.beans.GptMessage;
+import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
 import com.whitemagic2014.service.ChatPGTService;
 import com.whitemagic2014.util.Path;
 import org.springframework.beans.BeanUtils;
@@ -57,7 +57,7 @@ public class ChatPGTServiceImpl implements ChatPGTService {
     }
 
     @Override
-    public String originChat(List<GptMessage> messages) {
+    public String originChat(List<ChatMessage> messages) {
         return gmp.originChat(messages, 500, streamModel);
     }
 
