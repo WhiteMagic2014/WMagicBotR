@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.github.WhiteMagic2014.Gmp;
 import com.github.WhiteMagic2014.beans.DataEmbedding;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
+import com.github.WhiteMagic2014.util.VectorUtil;
 import com.whitemagic2014.service.ChatPGTService;
 import com.whitemagic2014.util.Path;
 import org.springframework.beans.BeanUtils;
@@ -63,7 +64,7 @@ public class ChatPGTServiceImpl implements ChatPGTService {
 
     @Override
     public List<List<Double>> input2Vector(List<String> inputs) {
-        return gmp.input2Vector(inputs);
+        return VectorUtil.input2Vector(inputs);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class ChatPGTServiceImpl implements ChatPGTService {
             BeanUtils.copyProperties(de, deepClone);
             return deepClone;
         }).collect(Collectors.toList());
-        return gmp.answer(question, embeddings);
+        return gmp.answer(question, embeddings,3);
     }
 
     @Override
