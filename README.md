@@ -108,9 +108,13 @@
 
 本项目不稳定更新中(有空的时候会更新)
 
+### v1.6.2
+
+- 功能没什么更新，升级了magic-gpt-plus的版本为1.1.1，一些相关的方法使用变了
+
 ### v1.6.1
 
-- 升级了magic-gpt-plus的版本为1.0.5，GptMessage 被移除了，现在统一使用magic-gpt中的 ChatMessage
+- 功能没什么更新，升级了magic-gpt-plus的版本为1.0.5，GptMessage 被移除了，现在统一使用magic-gpt中的 ChatMessage
 
 ### v1.6.0
 

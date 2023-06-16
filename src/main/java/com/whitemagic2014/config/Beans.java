@@ -25,9 +25,10 @@ public class Beans {
 
     @Bean
     public Gmp initGmp() {
-        Gmp gmp = new Gmp(proxyServer, key);
-        gmp.setOrg(org);
-        return gmp;
+        System.setProperty("OPENAI_API_KEY", key);
+        System.setProperty("OPENAI_API_SERVER", proxyServer);
+        System.setProperty("OPENAI_API_ORG", org);
+        return new Gmp();
     }
 
 
