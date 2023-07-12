@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import xyz.cssxsh.mirai.tool.FixProtocolVersion;
 import xyz.cssxsh.mirai.tool.KFCFactory;
 
 import java.util.List;
@@ -67,7 +68,9 @@ public class Simulator implements ApplicationRunner {
         events.add(commandEvents);
         // 读取备忘数据
         remindService.loadTask();
-        // 链接外部登录服务
+        // 更新协议
+        FixProtocolVersion.update();
+        // 连接外部签名服务
         KFCFactory.install();
         // 启动bot
         try {
