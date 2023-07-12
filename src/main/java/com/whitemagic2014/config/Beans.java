@@ -23,12 +23,17 @@ public class Beans {
     @Value("${ChatGPT.org}")
     private String org;
 
+    @Value("${ChatGPT.chat.stream}")
+    private boolean streamModel;
+
     @Bean
     public Gmp initGmp() {
         System.setProperty("OPENAI_API_KEY", key);
         System.setProperty("OPENAI_API_SERVER", proxyServer);
         System.setProperty("OPENAI_API_ORG", org);
-        return new Gmp();
+        Gmp gmp = new Gmp();
+        gmp.setStream(streamModel);
+        return gmp;
     }
 
 
