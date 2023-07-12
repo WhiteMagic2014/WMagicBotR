@@ -128,6 +128,7 @@ $ docker run -d --restart=always \
   kiliokuara/vivo50
 ```
 - KFCFactory.json 中的配置请按照上面的配置酌情修改
+- 记得删除原来的 device.json 和 cache文件夹
 
 
 ### v1.6.2
