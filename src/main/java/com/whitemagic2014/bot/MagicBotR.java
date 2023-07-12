@@ -43,7 +43,7 @@ public class MagicBotR {
         // 将net层输出写入文件
         config.redirectNetworkLogToDirectory(new File(netlog));
         config.setProtocol(BotConfiguration.MiraiProtocol.ANDROID_PAD);
-        config.setLoginSolver(LoginSolver.Default);
+//        config.setLoginSolver(LoginSolver.Default);
         miraiBot = BotFactory.INSTANCE.newBot(account, pwd, config);
         miraiBot.login();
         // 注册事件

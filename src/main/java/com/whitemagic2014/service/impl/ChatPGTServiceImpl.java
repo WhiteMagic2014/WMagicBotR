@@ -8,7 +8,6 @@ import com.github.WhiteMagic2014.util.VectorUtil;
 import com.whitemagic2014.service.ChatPGTService;
 import com.whitemagic2014.util.Path;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -28,9 +27,6 @@ public class ChatPGTServiceImpl implements ChatPGTService {
     @Autowired
     Gmp gmp;
 
-    @Value("${ChatGPT.chat.stream}")
-    private boolean streamModel;
-
     private List<DataEmbedding> vectors = new ArrayList<>(); // 预训练的数据集合
 
     @Override
@@ -40,7 +36,7 @@ public class ChatPGTServiceImpl implements ChatPGTService {
 
     @Override
     public String chat(String session, String prompt) {
-        return gmp.chat(session, prompt, 500, streamModel);
+        return gmp.chat(session, prompt, 500);
     }
 
     @Override
@@ -57,7 +53,7 @@ public class ChatPGTServiceImpl implements ChatPGTService {
 
     @Override
     public String originChat(List<ChatMessage> messages) {
-        return gmp.originChat(messages, 500, streamModel);
+        return gmp.originChat(messages, 500);
     }
 
     @Override

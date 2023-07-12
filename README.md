@@ -108,11 +108,17 @@
 
 本项目不稳定更新中(有空的时候会更新)
 
+### v1.7.1
+
+- 升级了[magic-gpt-plus](https://github.com/WhiteMagic2014/gpt-magic-plus)的版本为1.1.12
+
 ### v1.7.0
 
-- mirai core 升级为 2.15.0
+- [mirai core](https://github.com/mamoe/mirai) 升级为 2.15.0
 - [fix-protocol-version](https://github.com/cssxsh/fix-protocol-version) 升级为1.9.4
-- 由于现在风控越来越严重，mirai开放了对接第三方签名服务的接口，这里使用了[magic-signer-guide](https://github.com/kiliokuara/magic-signer-guide)
+-
+由于现在风控越来越严重，mirai开放了对接第三方签名服务的接口，这里使用了[magic-signer-guide](https://github.com/kiliokuara/magic-signer-guide)
+
 ```
 务必请自己部署以保障安全性
 $ docker pull kiliokuara/vivo50:latest
@@ -127,17 +133,18 @@ $ docker run -d --restart=always \
   --name vivo50 \
   kiliokuara/vivo50
 ```
+
 - KFCFactory.json 中的配置请按照上面的配置酌情修改
 - 记得删除原来的 device.json 和 cache文件夹
 
-
 ### v1.6.2
 
-- 功能没什么更新，升级了magic-gpt-plus的版本为1.1.1，一些相关的方法使用变了
+- 功能没什么更新，升级了[gpt-magic-plus](https://github.com/WhiteMagic2014/gpt-magic-plus)的版本为1.1.1，一些相关的方法使用变了
 
 ### v1.6.1
 
-- 功能没什么更新，升级了magic-gpt-plus的版本为1.0.5，GptMessage 被移除了，现在统一使用magic-gpt中的 ChatMessage
+- 功能没什么更新，升级了[gpt-magic-plus](https://github.com/WhiteMagic2014/gpt-magic-plus)的版本为1.0.5，GptMessage
+  被移除了，现在统一使用[gpt-magic](https://github.com/WhiteMagic2014/gpt-magic)中的 ChatMessage
 
 ### v1.6.0
 
