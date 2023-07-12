@@ -108,6 +108,29 @@
 
 本项目不稳定更新中(有空的时候会更新)
 
+### v1.7.0
+
+- mirai core 升级为 2.15.0
+- [fix-protocol-version](https://github.com/cssxsh/fix-protocol-version) 升级为1.9.4
+- 由于现在风控越来越严重，mirai开放了对接第三方签名服务的接口，这里使用了[magic-signer-guide](https://github.com/kiliokuara/magic-signer-guide)
+```
+务必请自己部署以保障安全性
+$ docker pull kiliokuara/vivo50:latest
+$ docker run -d --restart=always \
+  -e SERVER_IDENTITY_KEY=vivo50 \
+  -e AUTH_KEY=kfc \
+  -e PORT=8888 \
+  -p 8888:8888 \
+  --log-opt mode=non-blocking --log-opt max-buffer-size=4m \
+  -v /home/vivo50/serverData:/app/serverData \
+  -v /home/vivo50/testbot:/app/testbot \
+  --name vivo50 \
+  kiliokuara/vivo50
+```
+- KFCFactory.json 中的配置请按照上面的配置酌情修改
+- 记得删除原来的 device.json 和 cache文件夹
+
+
 ### v1.6.2
 
 - 功能没什么更新，升级了magic-gpt-plus的版本为1.1.1，一些相关的方法使用变了

@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.whitemagic2014</groupId>
     <artifactId>WMagicBotR</artifactId>
-    <version>1.6.2</version>
+    <version>1.7.0</version>
     <name>WMagicBotR</name>
     <description>magicbot reborn</description>
 
@@ -101,7 +101,7 @@
         <dependency>
             <groupId>net.mamoe</groupId>
             <artifactId>mirai-core-all</artifactId>
-            <version>2.14.0</version>
+            <version>2.15.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -116,13 +116,18 @@
         <dependency>
             <groupId>com.github.cssxsh</groupId>
             <artifactId>fix-protocol-version</artifactId>
-            <version>1.4.0</version>
+            <version>1.9.4</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/fix-protocol-version-1.4.0.mirai2.jar</systemPath>
+            <systemPath>${project.basedir}/lib/fix-protocol-version-1.9.4.mirai2.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>org.asynchttpclient</groupId>
+            <artifactId>async-http-client</artifactId>
+            <version>2.12.3</version>
         </dependency>
 
     </dependencies>
-
 
     <build>
         <plugins>

@@ -7,7 +7,6 @@ import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
 import com.github.WhiteMagic2014.util.VectorUtil;
 import com.whitemagic2014.service.ChatPGTService;
 import com.whitemagic2014.util.Path;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @Description: ChatPGTService
@@ -73,12 +71,7 @@ public class ChatPGTServiceImpl implements ChatPGTService {
             return "无预训练数据";
         }
         // 由于vectors存储在内存中,所以深复制一层,避免并发的时候 question距离冲突，如果存在redis里面临时拿出来就不用深复制一次了
-        List<DataEmbedding> embeddings = vectors.parallelStream().map(de -> {
-            DataEmbedding deepClone = new DataEmbedding();
-            BeanUtils.copyProperties(de, deepClone);
-            return deepClone;
-        }).collect(Collectors.toList());
-        return gmp.answer(question, embeddings,3);
+        return gmp.answer(question, new ArrayList<>(vectors), 3);
     }
 
     @Override
