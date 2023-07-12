@@ -110,7 +110,7 @@
 
 ### v1.7.1
 
-- 升级了[magic-gpt-plus](https://github.com/WhiteMagic2014/gpt-magic-plus)的版本为1.1.12
+- 升级了[magic-gpt-plus](https://github.com/WhiteMagic2014/gpt-magic-plus)的版本为1.1.13
 
 ### v1.7.0
 
