@@ -109,7 +109,7 @@
         <dependency>
             <groupId>io.github.whitemagic2014</groupId>
             <artifactId>gpt-magic-plus</artifactId>
-            <version>1.1.12</version>
+            <version>1.1.13</version>
         </dependency>
 
         <!-- 临时修复 https://github.com/cssxsh/fix-protocol-version -->
