@@ -108,6 +108,10 @@
 
 本项目不稳定更新中(有空的时候会更新)
 
+### v1.7.2
+
+- 启动时优化，显示当前bot版本
+
 ### v1.7.1
 
 - 升级了[magic-gpt-plus](https://github.com/WhiteMagic2014/gpt-magic-plus)的版本为1.1.13
@@ -117,6 +121,7 @@
 - [mirai core](https://github.com/mamoe/mirai) 升级为 2.15.0
 - [fix-protocol-version](https://github.com/cssxsh/fix-protocol-version) 升级为1.9.4
 -
+
 由于现在风控越来越严重，mirai开放了对接第三方签名服务的接口，这里使用了[magic-signer-guide](https://github.com/kiliokuara/magic-signer-guide)
 
 ```

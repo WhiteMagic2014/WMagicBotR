@@ -47,6 +47,9 @@ public class Simulator implements ApplicationRunner {
     @Value("${log.net.path}")
     String lognet;
 
+    @Value("${project.version}")
+    public String version;
+
     @Autowired
     RemindService remindService;
 
@@ -55,6 +58,7 @@ public class Simulator implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        logger.info("bot版本: " + version);
         // 数据库check初始化
         DBInitHelper.getInstance().initDBIfNotExist();
         // 数据库版本检查更新
