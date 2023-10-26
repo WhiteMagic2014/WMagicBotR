@@ -108,6 +108,14 @@
 
 本项目不稳定更新中(有空的时候会更新)
 
+### v1.8.0
+
+- [mirai core](https://github.com/mamoe/mirai) 升级为 2.16.0
+- 不再使用 fix-protocol-version + magic-signer-guide
+  ,改为使用内置的[qsign](https://github.com/MrXiaoM/qsign/tree/1.2.0-final) 且用且珍惜
+- 不再需要额外部署第三方签名服务,也不需要 KFCFactory.json 文件，相应的，需要将本项目中的txlib文件夹完整的放置于jar包同目录下
+- 记得删除原来的 device.json 和 cache文件夹
+
 ### v1.7.2
 
 - 启动时优化，显示当前bot版本

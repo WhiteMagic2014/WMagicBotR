@@ -6,7 +6,6 @@ import net.mamoe.mirai.BotFactory;
 import net.mamoe.mirai.event.GlobalEventChannel;
 import net.mamoe.mirai.event.ListenerHost;
 import net.mamoe.mirai.utils.BotConfiguration;
-import net.mamoe.mirai.utils.LoginSolver;
 
 import java.io.File;
 import java.util.List;
