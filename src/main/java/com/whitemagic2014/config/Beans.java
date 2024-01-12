@@ -23,6 +23,9 @@ public class Beans {
     @Value("${ChatGPT.org}")
     private String org;
 
+    @Value("${ChatGPT.maxTokens}")
+    private Integer maxTokens;
+
     @Value("${ChatGPT.model:gpt-4-1106-preview}")
     private String model;
 
@@ -37,6 +40,7 @@ public class Beans {
         Gmp gmp = new Gmp();
         gmp.setStream(streamModel);
         gmp.setModel(model);
+        gmp.setMaxTokens(maxTokens);
         return gmp;
     }
 

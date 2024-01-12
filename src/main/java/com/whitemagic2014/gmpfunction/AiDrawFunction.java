@@ -25,10 +25,10 @@ public class AiDrawFunction extends GmpFunction {
     private static final Random random = new Random();
 
     private List<String> templatePool = Arrays.asList(
-            "我已经为您完成了作品 [作品链接]({url})",
-            "您好，我已经按照您的要求完成了作品，请点击下方链接查看：[作品链接]({url})",
-            "您的作品已经制作完成了，请点击下方链接查看：[作品链接]({url})",
-            "您好，作品已经制作完成，请点击下方链接查看：[作品链接]({url})"
+            "我已经为您完成了作品 \n{url}",
+            "您好，我已经按照您的要求完成了作品，请点击下方链接查看：\n{url}",
+            "您的作品已经制作完成了，请点击下方链接查看：\n{url}",
+            "您好，作品已经制作完成，请点击下方链接查看：\n{url}"
     );
 
     /**
