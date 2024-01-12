@@ -1,7 +1,9 @@
 package com.whitemagic2014.service;
 
 
+import com.github.WhiteMagic2014.function.GmpFunction;
 import com.github.WhiteMagic2014.gptApi.Chat.pojo.ChatMessage;
+import com.github.WhiteMagic2014.gptApi.Images.pojo.OpenAiImage;
 
 import java.util.List;
 
@@ -12,8 +14,8 @@ import java.util.List;
  **/
 public interface ChatPGTService {
 
-    // 作n副图
-    List<String> image(String prompt, int n);
+    // 作图
+    OpenAiImage image(String prompt);
 
     /**
      * 交谈
@@ -23,6 +25,16 @@ public interface ChatPGTService {
      * @return
      */
     String chat(String session, String prompt);
+
+    /**
+     * 带有function调用的交谈
+     *
+     * @param session
+     * @param prompt
+     * @param functions
+     * @return
+     */
+    String chat(String session, String prompt, List<GmpFunction> functions);
 
     /**
      * 性格设定

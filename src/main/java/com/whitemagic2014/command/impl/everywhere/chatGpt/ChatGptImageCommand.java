@@ -32,6 +32,6 @@ public class ChatGptImageCommand extends BaseEveryWhereCommand {
         String prompt = args.stream().map(s -> {
             return s.concat(" ");
         }).reduce("", String::concat);
-        return simpleMsg(sender, new PlainText(service.image(prompt, 1).get(0)));
+        return simpleMsg(sender, new PlainText(service.image(prompt).getUrl()));
     }
 }

@@ -1,11 +1,10 @@
 {
   "server": {
     "host": "0.0.0.0",
-    "port": 2535
+    "port": 8080
   },
   "share_token": false,
-  "count": 1,
-  "key": "TimeRainStarSky",
+  "key": "Eden",
   "auto_register": true,
   "protocol": {
     "package_name": "com.tencent.mobileqq",
@@ -14,9 +13,9 @@
     "code": "4766"
   },
   "unidbg": {
-    "dynarmic": true,
-    "unicorn": false,
+    "dynarmic": false,
+    "unicorn": true,
     "kvm": false,
-    "debug": false
+    "debug": true
   }
 }
