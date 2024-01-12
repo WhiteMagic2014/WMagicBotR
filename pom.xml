@@ -11,7 +11,6 @@
     </parent>
     <groupId>com.whitemagic2014</groupId>
     <artifactId>WMagicBotR</artifactId>
-    <version>1.8.1</version>
     <version>1.9.0</version>
     <name>WMagicBotR</name>
     <description>magicbot reborn</description>
