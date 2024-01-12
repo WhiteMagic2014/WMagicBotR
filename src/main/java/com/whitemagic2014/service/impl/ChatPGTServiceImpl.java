@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -43,6 +44,14 @@ public class ChatPGTServiceImpl implements ChatPGTService {
     private String storage = "./storage/image";
 
     private List<DataEmbedding> vectors = new ArrayList<>(); // 预训练的数据集合
+
+    @PostConstruct
+    public void init() {
+        File storageFolder = new File(storage);
+        if (!storageFolder.exists()) {
+            storageFolder.mkdirs();
+        }
+    }
 
     @Override
     public OpenAiImage image(String prompt) {
