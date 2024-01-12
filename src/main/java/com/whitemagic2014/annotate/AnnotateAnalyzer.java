@@ -1,9 +1,12 @@
 package com.whitemagic2014.annotate;
 
+import com.github.WhiteMagic2014.function.GmpFunction;
 import com.whitemagic2014.command.Command;
+import com.whitemagic2014.gmpfunction.FunctionPool;
 import com.whitemagic2014.util.MagicSwitch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -24,6 +27,9 @@ public class AnnotateAnalyzer implements ApplicationListener<ContextRefreshedEve
 
     // 指令事件 需要注册的 指令
     List<Command> commands = new ArrayList<>();
+
+    @Autowired
+    FunctionPool functionPool;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -48,6 +54,19 @@ public class AnnotateAnalyzer implements ApplicationListener<ContextRefreshedEve
                 if (bean instanceof Command) {
                     Switch sw = bean.getClass().getAnnotation(Switch.class);
                     MagicSwitch.init(sw.name(), sw.defaultOn());
+                }
+            }
+
+            // @Function 注解扫描注册 Function 进入 ChatGptCommand
+            logger.info("开始注册 Function");
+            Map<String, Object> functionBeans = event.getApplicationContext().getBeansWithAnnotation(Function.class);
+            for (Object bean : functionBeans.values()) {
+                // 只判定 GmpFunction
+                if (bean instanceof com.github.WhiteMagic2014.function.GmpFunction) {
+                    Function fun = bean.getClass().getAnnotation(Function.class);
+                    if (fun.autoLoad()) {
+                        functionPool.addFunction((GmpFunction) bean);
+                    }
                 }
             }
 

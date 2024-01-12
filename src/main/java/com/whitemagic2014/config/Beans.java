@@ -23,6 +23,9 @@ public class Beans {
     @Value("${ChatGPT.org}")
     private String org;
 
+    @Value("${ChatGPT.model:gpt-4-1106-preview}")
+    private String model;
+
     @Value("${ChatGPT.chat.stream}")
     private boolean streamModel;
 
@@ -33,6 +36,7 @@ public class Beans {
         System.setProperty("OPENAI_API_ORG", org);
         Gmp gmp = new Gmp();
         gmp.setStream(streamModel);
+        gmp.setModel(model);
         return gmp;
     }
 
